@@ -63267,125 +63267,116 @@ Private Sub Text1_KeyUp(index As Integer, KeyCode As Integer, Shift As Integer)
                     Exit Sub
                 End If
                 
-                If KeyCode = vbKeyF2 Then                   'Taste F2 EC-Lastschrift
-                    Command1_Click 0
-                    Exit Sub
-                End If
+'                If KeyCode = vbKeyF2 Then                   'Taste F2 EC-Lastschrift
+'                    Command1_Click 0
+'                    Exit Sub
+'                End If
                 
                 
-                If KeyCode = vbKeyF3 Then                   'Taste F3 Kundensuche
-                    Command1_Click 1
-                    Exit Sub
-                End If
+'                If KeyCode = vbKeyF3 Then                   'Taste F3 Kundensuche
+'                    Command1_Click 1
+'                    Exit Sub
+'                End If
                 
-                If KeyCode = vbKeyF4 Then                   'Taste F4 SonPr
-                    Command1_Click 2
-                    Exit Sub
-                End If
+'                If KeyCode = vbKeyF4 Then                   'Taste F4 SonPr
+'                    Command1_Click 2
+'                    Exit Sub
+'                End If
                 
-                If KeyCode = vbKeyF5 Then                   'Taste F5 GesRab
-                    Command1_Click 3
-                    Exit Sub
-                End If
+'                If KeyCode = vbKeyF5 Then                   'Taste F5 GesRab
+'                    Command1_Click 3
+'                    Exit Sub
+'                End If
                 
-                If KeyCode = vbKeyF6 Then                   'Taste F6 ArtRab
-                    Command1_Click 4
-                    Exit Sub
-                End If
+'                If KeyCode = vbKeyF6 Then                   'Taste F6 ArtRab
+'                    Command1_Click 4
+'                    Exit Sub
+'                End If
                 
-                If KeyCode = vbKeyF7 Then                   'Taste F7 Kreditkarte
-                    Command1_Click 17
-                    Exit Sub
-                End If
+'                If KeyCode = vbKeyF7 Then                   'Taste F7 Kreditkarte
+'                    Command1_Click 17
+'                    Exit Sub
+'                End If
                 
-                If KeyCode = vbKeyF8 Then                   'Taste F8 Scheck
-                    Command1_Click 6
-                    Exit Sub
-                End If
+'                If KeyCode = vbKeyF8 Then                   'Taste F8 Scheck
+'                    Command1_Click 6
+'                    Exit Sub
+'                End If
                 
-                If KeyCode = vbKeyF9 Then                   'Taste F9 Zahlung per Gutschein
-                    Command1_Click 15
-                    Exit Sub
-                End If
+'                If KeyCode = vbKeyF9 Then                   'Taste F9 Zahlung per Gutschein
+'                    Command1_Click 15
+'                    Exit Sub
+'                End If
                 
                 
-                If KeyCode = vbKeyF10 Then                  'Taste F10 Barverkauf
-                    Command1_Click 8
-                    '//new
-                    Frame23.Visible = False
-                    Exit Sub
-                End If
+'                If KeyCode = vbKeyF10 Then                  'Taste F10 Barverkauf
+'                    Command1_Click 8
+'                    '//new
+'                    Frame23.Visible = False
+'                    Exit Sub
+'                End If
             
-                If KeyCode = vbKeyDelete Then               'Taste F10 Barverkauf
-                    Label2(5).Caption = "1"
-                    Text1(1).Text = ""
-                    Exit Sub
-                End If
+'                If KeyCode = vbKeyDelete Then               'Taste F10 Barverkauf
+'                    Label2(5).Caption = "1"
+'                    Text1(1).Text = ""
+'                    Exit Sub
+'                End If
                 
-'''''                If KeyCode = vbKeyF11 Then                   'Taste F11 Spezi Bon
-'''''                    spezi_bon_drucken
-'''''                    Exit Sub
-'''''                End If
             
             
             Case Is = 1     'SHIFT ist gedrückt
             
-                If KeyCode = vbKeyF1 Then               'Taste Shift + F1 = Auszahlung
-                    Command1_Click 45
-                    Exit Sub
-                End If
+'                If KeyCode = vbKeyF1 Then               'Taste Shift + F1 = Auszahlung
+'                    Command1_Click 45
+'                    Exit Sub
+'                End If
                 
-                If KeyCode = vbKeyF2 Then               'Taste Shift + F2 Einzahlung
-                    Command1_Click 46
-                    Exit Sub
-                End If
+'                If KeyCode = vbKeyF2 Then               'Taste Shift + F2 Einzahlung
+'                    Command1_Click 46
+'                    Exit Sub
+'                End If
                 
-                If KeyCode = vbKeyF3 Then               'Taste Shift + F3 Ende
-                    Command1_Click 11
-                    Exit Sub
-                End If
+'                If KeyCode = vbKeyF3 Then               'Taste Shift + F3 Ende
+'                    Command1_Click 11
+'                    Exit Sub
+'                End If
                 
-                If KeyCode = vbKeyF5 Then               'Taste Shift + F5 2.Bon
-                    Command1_Click 34
-                    Exit Sub
-                End If
+'                If KeyCode = vbKeyF5 Then               'Taste Shift + F5 2.Bon
+'                    Command1_Click 34
+'                    Exit Sub
+'                End If
                 
-                If KeyCode = vbKeyF7 Then               'Taste Shift + F7 Bon ein/Bon aus
-                    Command1_Click 12
-                    Exit Sub
-                End If
+'                If KeyCode = vbKeyF7 Then               'Taste Shift + F7 Bon ein/Bon aus
+'                    Command1_Click 12
+'                    Exit Sub
+'                End If
                 
-                If KeyCode = vbKeyF8 Then               'Taste Shift + F8 Vk Gutschein
-                    Command1_Click 14
-                    Exit Sub
-                End If
+'                If KeyCode = vbKeyF8 Then               'Taste Shift + F8 Vk Gutschein
+'                    Command1_Click 14
+'                    Exit Sub
+'                End If
                 
-                If KeyCode = vbKeyF9 Then               'Taste Shift + F9 Artikelsuche
-                    Command1_Click 16
-                    Exit Sub
-                End If
+'                If KeyCode = vbKeyF9 Then               'Taste Shift + F9 Artikelsuche
+'                    Command1_Click 16
+'                    Exit Sub
+'                End If
                 
-                If KeyCode = vbKeyF10 Then              'Taste Shift + F10 BAR
-                    Command1_Click 32
-                    Exit Sub
-                End If
+'                If KeyCode = vbKeyF10 Then              'Taste Shift + F10 BAR
+'                    Command1_Click 32
+'                    Exit Sub
+'                End If
                 
-                If KeyCode = vbKeyF11 Then              'Taste Shift + F11 Position
-                    
-'                    If List3.SelectedItem Is Nothing Then
-                        List3.SetFocus
-'                    Else
-                    
-'                    End If
-                    gbAutomaticClick = False
-                    List3_Click
-                    Exit Sub
-                End If
+'                If KeyCode = vbKeyF11 Then              'Taste Shift + F11 Position
+'                    List3.SetFocus
+'                    gbAutomaticClick = False
+'                    List3_Click
+'                    Exit Sub
+'                End If
                 
-                If KeyCode = vbKeyF12 Then              'Taste Shift + F12 unterbrech
-                    Command1_Click 9
-                    Exit Sub
-                End If
+'                If KeyCode = vbKeyF12 Then              'Taste Shift + F12 unterbrech
+'                    Command1_Click 9
+'                    Exit Sub
+'                End If
             
                 
             Case Is = 2     'STRG ist gedrückt
@@ -63401,61 +63392,62 @@ Private Sub Text1_KeyUp(index As Integer, KeyCode As Integer, Shift As Integer)
                 MsgBox "3 = SHIFT + STRG"
                 
             Case Is = 4     'ALT ist gedrückt
-                If KeyCode = vbKeyF1 Then               'Taste Alt + F1 WG1
-                    Command1_Click 18
-                    Exit Sub
-                End If
-                
-                If KeyCode = vbKeyF2 Then               'Taste Alt + F2 WG2
-                    Command1_Click 19
-                    Exit Sub
-                End If
-                
-                If KeyCode = vbKeyF3 Then               'Taste Alt + F3 WG3
-                    Command1_Click 20
-                    Exit Sub
-                End If
-                
-                If KeyCode = vbKeyF4 Then               'Taste Alt + F4 WG4
-                    Command1_Click 21
-                    Exit Sub
-                End If
-                
-                If KeyCode = vbKeyF5 Then               'Taste Alt + F5 WG5
-                    Command1_Click 22
-                    Exit Sub
-                End If
-
-                
-                If KeyCode = vbKeyF7 Then               'Taste Alt + F7 WG7
-                    Command1_Click 24
-                    Exit Sub
-                End If
-                
-                If KeyCode = vbKeyF8 Then               'Taste Alt + F8 WG8
-                    Command1_Click 25
-                    Exit Sub
-                End If
-                
-                If KeyCode = vbKeyF9 Then               'Taste Alt + F9 WG9
-                    Command1_Click 26
-                    Exit Sub
-                End If
-                
-                If KeyCode = vbKeyF10 Then              'Taste Alt + F10 WG10
-                    Command1_Click 27
-                    Exit Sub
-                End If
-                
-                If KeyCode = vbKeyF11 Then               'Taste Alt + F11 WG11
-                    Command1_Click 28
-                    Exit Sub
-                End If
-                
-                If KeyCode = vbKeyF12 Then              'Taste Alt + F12 WG12
-                    Command1_Click 29
-                    Exit Sub
-                End If
+            
+'                If KeyCode = vbKeyF1 Then               'Taste Alt + F1 WG1
+'                    Command1_Click 18
+'                    Exit Sub
+'                End If
+'
+'                If KeyCode = vbKeyF2 Then               'Taste Alt + F2 WG2
+'                    Command1_Click 19
+'                    Exit Sub
+'                End If
+'
+'                If KeyCode = vbKeyF3 Then               'Taste Alt + F3 WG3
+'                    Command1_Click 20
+'                    Exit Sub
+'                End If
+'
+'                If KeyCode = vbKeyF4 Then               'Taste Alt + F4 WG4
+'                    Command1_Click 21
+'                    Exit Sub
+'                End If
+'
+'                If KeyCode = vbKeyF5 Then               'Taste Alt + F5 WG5
+'                    Command1_Click 22
+'                    Exit Sub
+'                End If
+'
+'
+'                If KeyCode = vbKeyF7 Then               'Taste Alt + F7 WG7
+'                    Command1_Click 24
+'                    Exit Sub
+'                End If
+'
+'                If KeyCode = vbKeyF8 Then               'Taste Alt + F8 WG8
+'                    Command1_Click 25
+'                    Exit Sub
+'                End If
+'
+'                If KeyCode = vbKeyF9 Then               'Taste Alt + F9 WG9
+'                    Command1_Click 26
+'                    Exit Sub
+'                End If
+'
+'                If KeyCode = vbKeyF10 Then              'Taste Alt + F10 WG10
+'                    Command1_Click 27
+'                    Exit Sub
+'                End If
+'
+'                If KeyCode = vbKeyF11 Then               'Taste Alt + F11 WG11
+'                    Command1_Click 28
+'                    Exit Sub
+'                End If
+'
+'                If KeyCode = vbKeyF12 Then              'Taste Alt + F12 WG12
+'                    Command1_Click 29
+'                    Exit Sub
+'                End If
                 
                 If KeyCode = 70 Then              'Taste Alt + F Filialtausch
                     Command1_Click 48

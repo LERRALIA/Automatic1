@@ -4,6 +4,7 @@ Option Explicit
  'ist TSE aktiviert
  Global E_TSE_Aktiv As Boolean
  
+ 
  'durch dieses Objekt kommunizieren wir mit dem EPSON USB-Stick
  Global goTSE As Object
   
@@ -61,8 +62,8 @@ Option Explicit
  Global R_QRCodeAlsImgPath As String
  Global R_StartSignatur As String
  Global R_FinishSignatur As String
- Global R_FINISH_SIG_Zaehler As Integer
- Global R_START_SIG_Zaehler As Integer
+ Global R_FINISH_SIG_Zaehler As Double
+ Global R_START_SIG_Zaehler As Double
  
  'wenn TSE vernünftig initialisiert ist, ist TSE_OK = True , TSE_Err = ""
  Global TSE_OK As Boolean
@@ -81,6 +82,12 @@ Option Explicit
  Global TSE_ID As Integer
  
  Global FalschUSB_serialNumber As String
+ 
+  
+ 'True  = (bei Stack_UpdateTime wird die Zeit vom Internet abgefragt)
+ 'False = (bei Stack_UpdateTime wird die Zeit vom Lokal_PC eingelesen)
+ Global TSE_InternetZeitAbfragen As Boolean
+ 
  
  
  
@@ -321,7 +328,7 @@ Sub TSE_Verbinden()
         
         SetupForPrinter
         
-        Else
+    Else
          TSE_OK = False
          TSE_Err = goTSE.cErrorList
          
@@ -335,6 +342,13 @@ Sub TSE_Verbinden()
          
      End If
      
+     'immer prüfen, ob es einen TSE-Fehler gab  <<<<< START
+      If Not Trim(goTSE.cErrorList) = "" Then
+             
+             MsgBox ("TSE Fehler:" & vbNewLine & goTSE.cErrorList)
+             
+      End If
+     'immer prüfen, ob es einen TSE-Fehler gab  <<<<< ENDE
      
      
  Exit Sub
@@ -366,7 +380,7 @@ End Sub
  
      If goTSE.Stack_SetupForPrinter() = 1 Then
           USBSelfTest
-        Else
+     Else
           TSE_OK = False
           TSE_Err = "TSE: " & goTSE.cErrorList
           
@@ -380,6 +394,15 @@ End Sub
           
           
      End If
+     
+     'immer prüfen, ob es einen TSE-Fehler gab  <<<<< START
+      If Not Trim(goTSE.cErrorList) = "" Then
+             
+             MsgBox ("TSE Fehler:" & vbNewLine & goTSE.cErrorList)
+             
+      End If
+     'immer prüfen, ob es einen TSE-Fehler gab  <<<<< ENDE
+     
  Exit Sub
 LOKAL_ERROR:
     Screen.MousePointer = 0
@@ -423,6 +446,15 @@ Sub USBSelfTest()
           
           
      End If
+     
+     'immer prüfen, ob es einen TSE-Fehler gab  <<<<< START
+      If Not Trim(goTSE.cErrorList) = "" Then
+             
+            MsgBox ("TSE Fehler:" & vbNewLine & goTSE.cErrorList)
+             
+      End If
+     'immer prüfen, ob es einen TSE-Fehler gab  <<<<< ENDE
+     
  Exit Sub
 LOKAL_ERROR:
     Screen.MousePointer = 0
@@ -449,8 +481,13 @@ Sub UpdateTime()
    frmWKL00.lbl_TSE.Caption = "TSE: UpdateTime . . ."
    frmWKL00.lbl_TSE.Refresh
    
-    
-          
+     If Not TSE_InternetZeitAbfragen Then
+     
+        'bedeutet keine Zeit vom Internet abfragen
+        goTSE.cTimeServers = ""
+     
+     End If
+       
      If goTSE.Stack_UpdateTime() = 1 Then
      
          TseEinstellungen.lblZeig.Caption = "TSE ist erfolgreich initialisiert"
@@ -472,6 +509,7 @@ Sub UpdateTime()
          
          Screen.MousePointer = 0
          
+         
         Else
         
           TSE_OK = False
@@ -486,6 +524,17 @@ Sub UpdateTime()
           frmWKL00.lbl_TSE.Refresh
           
      End If
+     
+      
+     
+     'immer prüfen, ob es einen TSE-Fehler gab  <<<<< START
+      If Not Trim(goTSE.cErrorList) = "" Then
+             
+            MsgBox ("TSE Fehler:" & vbNewLine & goTSE.cErrorList)
+             
+      End If
+     'immer prüfen, ob es einen TSE-Fehler gab  <<<<< ENDE
+     
  Exit Sub
 LOKAL_ERROR:
     Screen.MousePointer = 0
@@ -575,7 +624,7 @@ Sub NeuTseUsbStickRegestrieren()
         sSQL = "INSERT INTO TSEStorageInfo ( VendorTyp,SoftVersion,CDCID,CDCHash,SerialNum,SignaturAlg,GueltigBis,PublicKey)VALUES(" & "'" & USB_vendorType & "','" & USB_softwareVersion & "','" & USB_cdcId & "','" & USB_cdcHash & "','" & USB_serialNumber & "','" & USB_signatureAlgorithm & "','" & USB_certificateExpirationDate & "','" & USB_tsePublicKey & "')"
         gdBase.Execute sSQL, dbFailOnError
         'jetzt TSEID lesen
-        Set rsrs = gdBase.OpenRecordset("select top 1 TSEID FROM TSEStorageInfo order by TSEID desc")
+        Set rsrs = gdBase.OpenRecordset("select TSEID FROM TSEStorageInfo WHERE SerialNum='" & USB_serialNumber & "'")
         If Not rsrs.EOF Then
            TSE_ID = rsrs!TSEID
         End If
@@ -700,6 +749,14 @@ On Error GoTo LOCAL_ERROR
                 MitQrCode = False
          End If
          
+         
+         If SpalteInTabellegefundenNEW("TSESettings", "ZeitVomInternet", gdApp) = False Then
+                sSQL = "Alter table TSESettings add column ZeitVomInternet bit"
+                gdApp.Execute sSQL, dbFailOnError
+                TSE_InternetZeitAbfragen = False
+         End If
+         
+         
           Dim rsrs As Recordset
          
             Set rsrs = gdApp.OpenRecordset("select * from TSESettings")
@@ -778,7 +835,17 @@ On Error GoTo LOCAL_ERROR
 
                 End If
                 
-                
+               If Not IsNull(rsrs!ZeitVomInternet) Then
+               
+                    If rsrs!ZeitVomInternet = True Then
+                        TseEinstellungen.chkInterntZeit.value = vbChecked
+                        TSE_InternetZeitAbfragen = True
+                    Else
+                        TseEinstellungen.chkInterntZeit.value = vbUnchecked
+                        TSE_InternetZeitAbfragen = False
+                    End If
+                    
+              End If
                 
     
             End If
@@ -1033,7 +1100,10 @@ On Error GoTo LOKAL_ERROR
     R_QRCodeAlsImgPath = ""
     R_FinishSignatur = ""
     R_StartSignatur = ""
-         
+    R_FINISH_SIG_Zaehler = 0
+    R_START_SIG_Zaehler = 0
+    
+    
     'ClientID,TSE_UserID müssen vor dem TransactionsSchreiben gesetzt
  
     goTSE.TSE_ClientID = E_ClientID
@@ -1057,13 +1127,14 @@ On Error GoTo LOKAL_ERROR
          
     Else
     
-         TSE_OK = False
+         'TSE_OK = False
          TSE_Err = goTSE.cErrorList
        
     End If
     
 Exit Sub
 LOKAL_ERROR:
+ 
  
  
     Fehler.gsDescr = err.Description
@@ -1074,6 +1145,9 @@ LOKAL_ERROR:
     
     Fehlermeldung1
     
+ 
+  
+  
 End Sub
 
 Sub TSE_Einstellungen_Aktualisieren(neuIP As String, neuPort As String, neuAdminPin As String, neuTimeAdminPin As String, neuClientID As String, neuDeviceID As String, neuSN As String)
@@ -1193,7 +1267,10 @@ Sub HideShowAlleControls(X As Boolean)
  TseEinstellungen.btnSpeicher.Visible = True
  TseEinstellungen.btnDatenExport.Visible = True
  TseEinstellungen.lblZeig.Visible = True
+ 
  TseEinstellungen.chkQrCode.Visible = True
+ TseEinstellungen.chkInterntZeit.Visible = True
+ 
  
  Else
  
@@ -1220,7 +1297,9 @@ Sub HideShowAlleControls(X As Boolean)
  TseEinstellungen.btnSpeicher.Visible = False
  TseEinstellungen.btnDatenExport.Visible = False
  TseEinstellungen.lblZeig.Visible = False
+ 
  TseEinstellungen.chkQrCode.Visible = False
+ TseEinstellungen.chkInterntZeit.Visible = False
  
  frmWKL00.lbl_TSE.Visible = False
  

@@ -1,12 +1,14 @@
 Attribute VB_Name = "Global"
 Option Explicit
 
-Global Const glpVers                As Long = 3126
+Global Const glpVers                As Long = 3138
 Global gbSQLSERVER                  As Boolean
 
 Global gbDsFinvkPfad As String
 Global gbQRFlag As Boolean
 Global gbBudniNeuesFtpVerfahren As Boolean
+
+Global geretteteF_DateiErfolgreichAbgeschickt As Boolean
 
 Global Const gbDEMO As Boolean = False
 Global Const gbKostenlos As Boolean = False

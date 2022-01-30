@@ -318,7 +318,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Private Sub Command5_Click(Index As Integer)
+Private Sub Command5_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
     Dim cPfad As String
@@ -331,15 +331,9 @@ On Error GoTo LOKAL_ERROR
     End If
     
     
-    
-    
-    
-    
-    
-    
 
     
-    Select Case Index
+    Select Case index
         Case 0
         
             Select Case giUmleitgrund
@@ -426,7 +420,7 @@ LOKAL_ERROR:
     Fehler.gsNumber = err.Number
     Fehler.gsFormular = Me.name
     Fehler.gsFunktion = "Command5_Click"
-    Fehler.gsFehlertext = "Im Programmteil Datenbankfehler ist ein Fehler aufgetreten." & Index & " " & giUmleitgrund
+    Fehler.gsFehlertext = "Im Programmteil Datenbankfehler ist ein Fehler aufgetreten." & index & " " & giUmleitgrund
     
     Fehlermeldung1
     

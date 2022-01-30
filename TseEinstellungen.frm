@@ -13,6 +13,24 @@ Begin VB.Form TseEinstellungen
    ScaleHeight     =   7620
    ScaleWidth      =   8775
    StartUpPosition =   3  'Windows-Standard
+   Begin VB.CheckBox chkInterntZeit 
+      BackColor       =   &H00C0C000&
+      Caption         =   "Zeit vom Internet abfragen"
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   255
+      Left            =   3960
+      TabIndex        =   25
+      Top             =   5520
+      Width           =   3375
+   End
    Begin VB.CommandButton Command1 
       Caption         =   "?"
       BeginProperty Font 
@@ -397,10 +415,8 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-
- 
-
 Private Sub btnDatenExport_Click()
+    On Error GoTo LOKAL_ERROR
     
   If TSE_OK Then
     
@@ -412,11 +428,20 @@ Private Sub btnDatenExport_Click()
     MsgBox (TSE_Err)
   End If
 
-
+ Exit Sub
+LOKAL_ERROR:
+    Screen.MousePointer = 0
+    Fehler.gsDescr = err.Description
+    Fehler.gsNumber = err.Number
+    Fehler.gsFormular = "TseEinstellungen"
+    Fehler.gsFunktion = "btnDatenExport_Click"
+    Fehler.gsFehlertext = "Im Programmteil TseEinstellungen ist ein Fehler aufgetreten."
+    
+    Fehlermeldung1
 End Sub
 
 Private Sub btnNeueClient_Click()
-
+On Error GoTo LOKAL_ERROR
   Screen.MousePointer = 11
   
     Dim ans As String
@@ -430,9 +455,20 @@ Private Sub btnNeueClient_Click()
     End If
   Screen.MousePointer = 0
   
+   Exit Sub
+LOKAL_ERROR:
+    Screen.MousePointer = 0
+    Fehler.gsDescr = err.Description
+    Fehler.gsNumber = err.Number
+    Fehler.gsFormular = "TseEinstellungen"
+    Fehler.gsFunktion = "btnNeueClient_Click"
+    Fehler.gsFehlertext = "Im Programmteil TseEinstellungen ist ein Fehler aufgetreten."
+    
+    Fehlermeldung1
 End Sub
 
 Private Sub btnSpeicher_Click()
+    On Error GoTo LOKAL_ERROR
     
     lblZeig.ForeColor = vbBlack
     lblZeig.Caption = ""
@@ -481,6 +517,16 @@ Private Sub btnSpeicher_Click()
     
   TSE_Einstellungen_Aktualisieren txtTSE_IP, txtTSE_Port, txtTSE_Adminpin, txtTSE_TimeAdminpin, comClients.Text, txtTSE_DeviceID.Text, txtTSE_SN.Text
  
+ Exit Sub
+LOKAL_ERROR:
+    Screen.MousePointer = 0
+    Fehler.gsDescr = err.Description
+    Fehler.gsNumber = err.Number
+    Fehler.gsFormular = "TseEinstellungen"
+    Fehler.gsFunktion = "btnSpeicher_Click"
+    Fehler.gsFehlertext = "Im Programmteil TseEinstellungen ist ein Fehler aufgetreten."
+    
+    Fehlermeldung1
     
 End Sub
 
@@ -491,18 +537,12 @@ Private Sub btnTSEInfo_Click()
    Else
     MsgBox (TSE_Err)
  End If
- 
- 
- 
+   
 End Sub
  
- 
-
- 
-
- 
-
+  
 Private Sub chkAltDru_Click()
+ On Error GoTo LOKAL_ERROR
  
  If chkAltDru.value = vbChecked Then
         
@@ -518,9 +558,49 @@ Private Sub chkAltDru_Click()
          
  End If
  
+Exit Sub
+LOKAL_ERROR:
+    Screen.MousePointer = 0
+    Fehler.gsDescr = err.Description
+    Fehler.gsNumber = err.Number
+    Fehler.gsFormular = "TseEinstellungen"
+    Fehler.gsFunktion = "chkAltDru_Click"
+    Fehler.gsFehlertext = "Im Programmteil TseEinstellungen ist ein Fehler aufgetreten."
+    
+    Fehlermeldung1
+End Sub
+
+Private Sub chkInterntZeit_Click()
+On Error GoTo LOKAL_ERROR
+
+    If chkInterntZeit.value = vbChecked Then
+        TSE_InternetZeitAbfragen = True
+        SqlCmd = "UPDATE TSESettings SET ZeitVomInternet='1'"
+        gdApp.Execute SqlCmd, dbFailOnError
+        
+    Else
+    
+        TSE_InternetZeitAbfragen = False
+        SqlCmd = "UPDATE TSESettings SET ZeitVomInternet='0'"
+        gdApp.Execute SqlCmd, dbFailOnError
+         
+    End If
+ 
+Exit Sub
+LOKAL_ERROR:
+    Screen.MousePointer = 0
+    Fehler.gsDescr = err.Description
+    Fehler.gsNumber = err.Number
+    Fehler.gsFormular = "TseEinstellungen"
+    Fehler.gsFunktion = "chkInterntZeit_Click"
+    Fehler.gsFehlertext = "Im Programmteil TseEinstellungen ist ein Fehler aufgetreten."
+    
+    Fehlermeldung1
+    
 End Sub
 
 Private Sub chkQrCode_Click()
+On Error GoTo LOKAL_ERROR
 
  If chkQrCode.value = vbChecked Then
         MitQrCode = True
@@ -535,10 +615,21 @@ Private Sub chkQrCode_Click()
          
  End If
 
+Exit Sub
+LOKAL_ERROR:
+    Screen.MousePointer = 0
+    Fehler.gsDescr = err.Description
+    Fehler.gsNumber = err.Number
+    Fehler.gsFormular = "TseEinstellungen"
+    Fehler.gsFunktion = "chkQrCode_Click"
+    Fehler.gsFehlertext = "Im Programmteil TseEinstellungen ist ein Fehler aufgetreten."
+    
+    Fehlermeldung1
 End Sub
 
 Private Sub chkTSE_Status_Click()
-    
+On Error GoTo LOKAL_ERROR
+
     Dim SqlCmd As String
     
     If chkTSE_Status.value = vbChecked Then
@@ -566,10 +657,23 @@ Private Sub chkTSE_Status_Click()
         R_QRCodeAlsImgPath = ""
         R_FinishSignatur = ""
         R_StartSignatur = ""
+        R_FINISH_SIG_Zaehler = 0
+        R_START_SIG_Zaehler = 0
+    
         TSE_Err = "TSE ist deaktiviert"
        
     End If
      
+Exit Sub
+LOKAL_ERROR:
+    Screen.MousePointer = 0
+    Fehler.gsDescr = err.Description
+    Fehler.gsNumber = err.Number
+    Fehler.gsFormular = "TseEinstellungen"
+    Fehler.gsFunktion = "chkTSE_Status_Click"
+    Fehler.gsFehlertext = "Im Programmteil TseEinstellungen ist ein Fehler aufgetreten."
+    
+    Fehlermeldung1
 End Sub
 
 Private Sub Command1_Click()

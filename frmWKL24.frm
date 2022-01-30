@@ -1,7 +1,7 @@
 VERSION 5.00
 Object = "{7D622DE6-0ABC-471E-9234-97DEC5E0A708}#3.8#0"; "sevCmd3.ocx"
 Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "msflxgrd.ocx"
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
 Begin VB.Form frmWKL24 
    BackColor       =   &H00C0C000&
    Caption         =   "Kreditverwaltung"
@@ -4894,7 +4894,7 @@ Private Sub SchreibeAltRechnungWKL24(bReFuss As Boolean)
                             'ARTRAB , KVKPR1 formatieren
                             cSQL = "UPDATE DRU_REPO SET ARTRAB=FORMAT(ARTRAB,'0.00') where ARTRAB is not null"
                             gdBase.Execute cSQL, dbFailOnError
-                            cSQL = "UPDATE DRU_REPO SET KVKPR1=FORMAT(KVKPR1,'0.00')"
+                            cSQL = "UPDATE DRU_REPO SET KVKPR1=FORMAT(KVKPR1,'0.00') where KVKPR1 is not null"
                             gdBase.Execute cSQL, dbFailOnError
                             
                         'End If
@@ -4964,7 +4964,7 @@ Private Sub SchreibeAltRechnungWKL24(bReFuss As Boolean)
                             'ARTRAB , KVKPR1 formatieren
                             cSQL = "UPDATE DRU_REPO SET ARTRAB=FORMAT(ARTRAB,'0.00') where ARTRAB is not null"
                             gdBase.Execute cSQL, dbFailOnError
-                            cSQL = "UPDATE DRU_REPO SET KVKPR1=FORMAT(KVKPR1,'0.00')"
+                            cSQL = "UPDATE DRU_REPO SET KVKPR1=FORMAT(KVKPR1,'0.00') where KVKPR1 is not null"
                             gdBase.Execute cSQL, dbFailOnError
                             
                           '''''''''''''''''''''''''''''''''''neu Odayy '''''''''''''''''''''''''''''''''''''''''
@@ -5854,7 +5854,9 @@ Private Sub SchreibeDatenInRechnungWKL24(bReFuss As Boolean)
                     gdBase.Execute cSQL, dbFailOnError
                     
                     'ARTRAB , KVKPR1 formatieren
-                    cSQL = "UPDATE DRU_REPO SET ARTRAB=FORMAT(ARTRAB,'0.00') , KVKPR1=FORMAT(KVKPR1,'0.00')"
+                    cSQL = "UPDATE DRU_REPO SET ARTRAB=FORMAT(ARTRAB,'0.00') where ARTRAB is not null"
+                    gdBase.Execute cSQL, dbFailOnError
+                    cSQL = "UPDATE DRU_REPO SET KVKPR1=FORMAT(KVKPR1,'0.00') where KVKPR1 is not null"
                     gdBase.Execute cSQL, dbFailOnError
            
            

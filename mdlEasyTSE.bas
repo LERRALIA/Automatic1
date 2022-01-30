@@ -1310,7 +1310,7 @@ Sub HideShowAlleControls(X As Boolean)
 End Sub
 
 
-'QRadapter.exe ist eine VB.Net Programm, das die von USB-Stick lieferte QR-Code druckt
+'QRadapter.exe ist eine VB.Net Programm, das die von TSE-Stick lieferte QR-Code druckt
 Public Sub QRcodeDrucken()
 On Error GoTo LOKAL_ERROR
 
@@ -1431,6 +1431,12 @@ On Error GoTo LOKAL_ERROR
 
 
     SplitStringNachCharZahl = ""
+    
+    'odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START
+        If (Trim(Gstr) = "") Then
+         Exit Function
+        End If
+    'odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ENDE
 
     Dim Tmp As String
     Dim i As Integer

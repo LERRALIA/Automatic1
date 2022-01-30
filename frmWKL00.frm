@@ -28,6 +28,7 @@ Begin VB.Form frmWKL00
       Height          =   375
       Left            =   10200
       TabIndex        =   218
+      Tag             =   "oday"
       Top             =   1560
       Visible         =   0   'False
       Width           =   1095
@@ -14621,7 +14622,7 @@ End Sub
 
   
 Private Sub Command15_Click()
-
+On Error GoTo LOKAL_ERROR
 ' TestZwecks.Show 1
 
 'an EDEKA FTP-Server eine Test-Bestellung schicken  <<<<<<<<<<<<<<<<<<< START
@@ -14635,8 +14636,30 @@ Private Sub Command15_Click()
 ' MsgBox (DatePart("ww", DateValue(Now), vbMonday, vbFirstFourDays)) '---> hat damals 44 geliefert
 ' MsgBox (DatePart("ww", DateValue(Now))) '--->  hat damals 45 geliefert
   
-MsgBox (Weekday(DateValue(Now), vbMonday))
-
+' MsgBox ("von :" & gZeiten(7).Von & "bis :" & gZeiten(7).Bis)
+  
+  Dim tmpS As String
+  tmpS = ""
+  
+  Dim lcount As Integer
+  
+  For lcount = 1 To 9
+   
+     If lcount = 9 Then
+        tmpS = tmpS & vbCrLf
+      Else
+        tmpS = tmpS & " * " & vbCrLf
+     End If
+               
+  Next lcount
+    
+  MsgBox (tmpS)
+    
+    
+Exit Sub
+    
+LOKAL_ERROR:
+ MsgBox (err.Number & vbNewLine & vbNewLine & err.Description)
 End Sub
 
 Private Sub Command7_KeyUp(index As Integer, KeyCode As Integer, Shift As Integer)
@@ -20374,6 +20397,11 @@ On Error GoTo LOKAL_ERROR
     itsVMPtime = False
     
     If NewTableSuchenDBKombi("TAGVMP", gdApp) Then
+    
+        If Trim(gcTag) = "" Then
+         Exit Function
+        End If
+    
         sSQL = "select * from TAGVMP where Tag =  '" & WeekdayName(gcTag) & "'"
         Set rsrs = gdApp.OpenRecordset(sSQL)
         If Not rsrs.EOF Then

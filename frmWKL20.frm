@@ -35667,16 +35667,16 @@ NACH_TSE:
         Else
          
         
-        For lcount = 1 To 9
-            If lcount = 9 Then
-               cEscapeSequenz = vbCrLf
-            Else
-               cEscapeSequenz = " " & vbCrLf
-            End If
-            lAnzZeile = lAnzZeile + 1
-            ReDim Preserve cDruckZeile(1 To lAnzZeile) As String
-            cDruckZeile(lAnzZeile) = cEscapeSequenz
-        Next lcount
+            For lcount = 1 To 9
+                If lcount = 9 Then
+                   cEscapeSequenz = vbCrLf
+                Else
+                   cEscapeSequenz = " " & vbCrLf
+                End If
+                lAnzZeile = lAnzZeile + 1
+                ReDim Preserve cDruckZeile(1 To lAnzZeile) As String
+                cDruckZeile(lAnzZeile) = cEscapeSequenz
+            Next lcount
         
         End If
         
@@ -61805,18 +61805,23 @@ On Error GoTo LOKAL_ERROR
     Dim searchstr As String
 
     If index = 3 Then
-        If Len(Text3(3).Text) >= 8 Then
-            If IsNumeric(Text3(3).Text) = False Then
-                SucheKundenKasseWKL20Alphas Text3(3).Text
-            End If
-        End If
-        
-        If Label1(27).Caption = "Karte/KdNr/Name" Then
-            If Len(Text3(3).Text) >= 5 Then
-                fillecbo Text3(3).Text, Combo1
-            End If
-        End If
-        
+    
+    'Oday <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START
+    
+'        If Len(Text3(3).Text) >= 8 Then
+'            If IsNumeric(Text3(3).Text) = False Then
+'                SucheKundenKasseWKL20Alphas Text3(3).Text
+'            End If
+'        End If
+'
+'        If Label1(27).Caption = "Karte/KdNr/Name" Then
+'            If Len(Text3(3).Text) >= 5 Then
+'                fillecbo Text3(3).Text, Combo1
+'            End If
+'        End If
+
+    'Oday <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ENDE
+    
     End If
     
     If index = 5 Then

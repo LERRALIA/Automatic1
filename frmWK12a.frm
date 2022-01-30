@@ -427,6 +427,22 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Private Sub Form_Activate()
+On Error GoTo LOKAL_ERROR
+
+Text1.SetFocus
+
+Exit Sub
+LOKAL_ERROR:
+    Fehler.gsDescr = err.Description
+    Fehler.gsNumber = err.Number
+    Fehler.gsFormular = Me.name
+    Fehler.gsFunktion = "Form_Activate"
+    Fehler.gsFehlertext = "Es ist ein Fehler aufgetreten."
+    
+    Fehlermeldung1
+End Sub
+
 Private Sub Form_Unload(Cancel As Integer)
     On Error GoTo LOKAL_ERROR
     
@@ -444,14 +460,14 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Command1_Click(Index As Integer)
+Private Sub Command1_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Screen.MousePointer = 11
     
     Dim cBedcode As String
     
-    Select Case Index
+    Select Case index
         Case Is = 0 'Ok gedrückt
             'hier unterscheiden ob an oder abmelden
            
@@ -666,16 +682,16 @@ Private Sub Command1_Click(Index As Integer)
             If Label1.Caption = "Nein" Then
                 Label1.Caption = "Ja"
                 
-                Label4.Visible = True
+                label4.Visible = True
                 Text1.Visible = True
                 Text1.SetFocus
             ElseIf Label1.Caption = "Ja" Then
                 Label1.Caption = "Nein"
                 If gsMeldestatus = "Abmeldung" Then
-                    Label4.Visible = False
+                    label4.Visible = False
                     Text1.Visible = False
                 ElseIf gsMeldestatus = "Anmeldung" Then
-                    Label4.Visible = True
+                    label4.Visible = True
                     Text1.Visible = True
                     Text1.SetFocus
                 End If
@@ -729,7 +745,7 @@ LOKAL_ERROR:
     Fehler.gsNumber = err.Number
     Fehler.gsFormular = Me.name
     Fehler.gsFunktion = "Command1_Click"
-    Fehler.gsFehlertext = "Bei der Anmeldung ist ein Fehler aufgetreten. " & Index
+    Fehler.gsFehlertext = "Bei der Anmeldung ist ein Fehler aufgetreten. " & index
     
     Fehlermeldung1
     
@@ -826,8 +842,8 @@ End Function
 Private Sub Form_Load()
 On Error GoTo LOKAL_ERROR
     
-    lblUeberschrift.Caption = gsMeldestatus
-    lblUeberschrift.Refresh
+    lblueberschrift.Caption = gsMeldestatus
+    lblueberschrift.Refresh
     
     If (GetKeyState(vbKeyCapital) = 1) Then
     
@@ -846,25 +862,25 @@ On Error GoTo LOKAL_ERROR
 '    Modul6.Skalieren Me, True, True
     
     Modul6.Schrift Me: Modul6.Log Me
-    Modul6.alternativFarbform Me, lblUeberschrift
+    Modul6.alternativFarbform Me, lblueberschrift
     
     frmWK12a.Left = Screen.Width / 2 - frmWK12a.Width / 2
     
     If gsMeldestatus = "Anmeldung" Then
         Command1(2).Visible = True
         Command1(2).Caption = "Arbeitsbeginn"
-        Label4.Visible = True
+        label4.Visible = True
         Text1.Visible = True
         Label1.Visible = True
     ElseIf gsMeldestatus = "Abmeldung" Then
         Command1(2).Visible = True
         Command1(2).Caption = "Arbeitsende"
-        Label4.Visible = False
+        label4.Visible = False
         Text1.Visible = False
         Label1.Visible = True
     ElseIf gsMeldestatus = "Identifikation" Then
         Command1(2).Visible = False
-        Label4.Visible = False
+        label4.Visible = False
         Label1.Visible = False
         Text1.Visible = True
         gbStornoErlaubt = False
@@ -1034,7 +1050,7 @@ Private Sub unsichtbarer()
     On Error GoTo LOKAL_ERROR
     
     Text1.Visible = False
-    Label4.Visible = False
+    label4.Visible = False
     Label1.Visible = False
     Command1(0).Visible = False
     Command1(1).Visible = False
@@ -1065,7 +1081,7 @@ Private Sub speicherArbeitszeit(lbednu As Long, cbedname As String, cDatum As St
     schreibeProtokollDabaAblauf cSQL: gdBase.Execute cSQL, dbFailOnError
     
     'Drucke den Beleg
-    If Check1.Value = vbChecked Then
+    If Check1.value = vbChecked Then
         cZeilen(0) = "ARBEITSZEIT-BELEG"
         cZeilen(1) = "-----------------"
         cZeilen(2) = "BedNr: " & Trim$(Str$(lbednu))

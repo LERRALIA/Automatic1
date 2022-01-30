@@ -3345,14 +3345,14 @@ ElseIf UCase$(sArt) = "BON" Then
             sSatz = sSatz & Space(12)
         End If
         
-        If Not IsNull(rsrs!MENGE) Then
-            sSatz = sSatz & rsrs!MENGE & Space(4 - Len(rsrs!MENGE))
+        If Not IsNull(rsrs!Menge) Then
+            sSatz = sSatz & rsrs!Menge & Space(4 - Len(rsrs!Menge))
         Else
             sSatz = sSatz & "0" & Space(3)
         End If
         
-        If Not IsNull(rsrs!PREIS) Then
-            sSatz = sSatz & Format$(rsrs!PREIS, "####0.00") & Space(9 - Len(Format$(rsrs!PREIS, "####0.00")))
+        If Not IsNull(rsrs!Preis) Then
+            sSatz = sSatz & Format$(rsrs!Preis, "####0.00") & Space(9 - Len(Format$(rsrs!Preis, "####0.00")))
         Else
             sSatz = sSatz & Space(9)
         End If
@@ -3819,8 +3819,8 @@ ElseIf UCase$(sArt) = "VERKAUF" Then
             sSatz = sSatz & Space(12)
         End If
         
-        If Not IsNull(rsrs!MENGE) Then
-            sSatz = sSatz & rsrs!MENGE & Space(4 - Len(rsrs!MENGE))
+        If Not IsNull(rsrs!Menge) Then
+            sSatz = sSatz & rsrs!Menge & Space(4 - Len(rsrs!Menge))
         Else
             sSatz = sSatz & "0" & Space(3)
         End If
@@ -3831,8 +3831,8 @@ ElseIf UCase$(sArt) = "VERKAUF" Then
             sSatz = sSatz & Space(3)
         End If
         
-        If Not IsNull(rsrs!PREIS) Then
-            sSatz = sSatz & Format$(rsrs!PREIS, "####0.00") & Space(9 - Len(Format$(rsrs!PREIS, "####0.00")))
+        If Not IsNull(rsrs!Preis) Then
+            sSatz = sSatz & Format$(rsrs!Preis, "####0.00") & Space(9 - Len(Format$(rsrs!Preis, "####0.00")))
         Else
             sSatz = sSatz & Space(9)
         End If
@@ -3889,8 +3889,8 @@ ElseIf UCase$(sArt) = "VERKAUFKU" Then
             sSatz = Format(rsrs!ADATE, "DD.MM.YY") & Space(10 - Len(Format(rsrs!ADATE, "DD.MM.YY")))
         End If
         
-        If Not IsNull(rsrs!MENGE) Then
-            sSatz = sSatz & rsrs!MENGE & Space(7 - Len(rsrs!MENGE))
+        If Not IsNull(rsrs!Menge) Then
+            sSatz = sSatz & rsrs!Menge & Space(7 - Len(rsrs!Menge))
         Else
             sSatz = sSatz & "0" & Space(6)
         End If
@@ -3919,8 +3919,8 @@ ElseIf UCase$(sArt) = "VERKAUFKU" Then
             sSatz = sSatz & Space(4)
         End If
         
-        If Not IsNull(rsrs!PREIS) Then
-            sSatz = sSatz & Format$(rsrs!PREIS, "####0.00") & Space(9 - Len(Format$(rsrs!PREIS, "####0.00")))
+        If Not IsNull(rsrs!Preis) Then
+            sSatz = sSatz & Format$(rsrs!Preis, "####0.00") & Space(9 - Len(Format$(rsrs!Preis, "####0.00")))
         Else
             sSatz = sSatz & Space(9)
         End If
@@ -6148,7 +6148,7 @@ On Error GoTo LOKAL_ERROR
             lposSemiEnde = InStr(lposSemi, cEinzelsatz, vbTab): cWert = Mid(cEinzelsatz, lposSemi, lposSemiEnde - lposSemi): lposSemi = lposSemi + lposSemiEnde - lposSemi + 1
             rsrs!LIBESNR = CStr(Val(cWert))
             lposSemiEnde = InStr(lposSemi, cEinzelsatz, vbCrLf): cWert = Mid(cEinzelsatz, lposSemi, lposSemiEnde - lposSemi): lposSemi = lposSemi + lposSemiEnde - lposSemi + 1
-            rsrs!MENGE = Val(cWert)
+            rsrs!Menge = Val(cWert)
             
             rsrs!linr = sLinr
             rsrs!AUFTRAGSNR = sAuftragsnummer

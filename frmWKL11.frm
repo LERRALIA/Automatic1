@@ -7840,6 +7840,21 @@ LOKAL_ERROR:
 
     Fehlermeldung1
 End Sub
+
+
+Private Sub Form_Activate()
+
+'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START
+   If Command1(4).Enabled Then
+       Command1(4).Enabled = False
+       Pause (1)
+       Command1_Click 4
+   End If
+'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ENDE
+
+
+End Sub
+
 Private Sub Form_Unload(Cancel As Integer)
 On Error GoTo LOKAL_ERROR
 

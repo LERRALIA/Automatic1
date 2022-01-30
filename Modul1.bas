@@ -4836,7 +4836,9 @@ Public Sub SichernBonDaten(cDruckZeile() As String, lAnzZeile As Long, kk_art As
         rsrs!FILIALE = Val(gcFilNr)
         rsrs!kk_art = kk_art
         rsrs!Kundnr = Val(cKund)
-        
+            
+           
+           
         If E_TSE_Aktiv And TSE_OK And gdSumme > 0 Then
         
             'TSE INFO SICHERN

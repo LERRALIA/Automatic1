@@ -1,14 +1,18 @@
 VERSION 5.00
 Begin VB.Form ChooseFile 
    BackColor       =   &H8000000A&
+   BorderStyle     =   3  'Fester Dialog
    Caption         =   "Form1"
    ClientHeight    =   3945
-   ClientLeft      =   120
-   ClientTop       =   465
+   ClientLeft      =   45
+   ClientTop       =   390
    ClientWidth     =   5085
    LinkTopic       =   "Form1"
+   MaxButton       =   0   'False
+   MinButton       =   0   'False
    ScaleHeight     =   3945
    ScaleWidth      =   5085
+   ShowInTaskbar   =   0   'False
    StartUpPosition =   3  'Windows-Standard
    Begin VB.DriveListBox Drive1 
       Height          =   315
@@ -88,6 +92,7 @@ Private Sub Command2_Click()
      
       gbDsFinvkPfad = gewaehltePfad.Text
       gbTSEExportPfad = gewaehltePfad.Text
+      
       Unload Me
       
      

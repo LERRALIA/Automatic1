@@ -9,8 +9,16 @@ Begin VB.Form TestZwecks
    ScaleHeight     =   3015
    ScaleWidth      =   4560
    StartUpPosition =   3  'Windows-Standard
+   Begin VB.TextBox Text1 
+      Height          =   1695
+      Left            =   240
+      TabIndex        =   1
+      Text            =   "Text1"
+      Top             =   840
+      Width           =   3495
+   End
    Begin VB.CommandButton Command1 
-      Caption         =   "SFTP Connect"
+      Caption         =   "Test"
       Height          =   375
       Left            =   240
       TabIndex        =   0
@@ -35,7 +43,25 @@ Attribute rfConnection.VB_VarHelpID = -1
  
 Private Sub Command1_Click()
 On Error GoTo LOKAL_ERROR:
- 
+
+
+                Dim tmpDB_Pfad As String
+                Dim tmpDB_Pass As String
+                Dim autoOeffnen As String
+                Dim rufString As String
+                
+                tmpDB_Pfad = "C:\Datenbanken\Gradmann\Kissdata.MDB"
+                tmpDB_Pass = "Kiss2005"
+                autoOeffnen = "ja"
+                  
+                rufString = App.Path & "\" & "CSVhelper.exe " & tmpDB_Pfad & "?" & tmpDB_Pass & "?" & "C:\Oday\Export DsFinvK\" & "?" & autoOeffnen
+                Text1.Text = rufString
+                Shell rufString, vbNormalFocus
+                
+
+
+
+
 Exit Sub
 LOKAL_ERROR:
     

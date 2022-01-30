@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{7D622DE6-0ABC-471E-9234-97DEC5E0A708}#3.8#0"; "sevCmd3.ocx"
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Begin VB.Form frmWKL38 
    BorderStyle     =   1  'Fest Einfach
    Caption         =   "KISSNET..."
@@ -5283,7 +5283,7 @@ Private Sub UebertrageAllVonFTP_Budni(sKUNDNR As String) 'nur für
     
         
         Select Case Left(sfilename, 28)
-        
+                        
             Case Is = "BUDNIDESADV_Kunde " & sKUNDNR
                 lvRemote.ListItems.Item(i).Selected = True
                 
@@ -8852,8 +8852,13 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 Private Sub BudniBestellungen()
-    Dim sBestPfad As String
-    
+
+ Dim sBestPfad As String
+
+ If gbBudniNeuesFtpVerfahren Then
+
+ 'das neue FTP-Verfahren für Budni <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START
+ 
     sBestPfad = App.Path               'Bestellpfad
     If Right$(sBestPfad, 1) <> "\" Then
         sBestPfad = sBestPfad & "\"
@@ -8863,10 +8868,14 @@ Private Sub BudniBestellungen()
     Label16.Caption = "Übertragung wird vorbereitet..."
     Label16.Refresh
  
-    sHosti = "ftp.budni.de"
-    sUseri = "Dronova_Ernst"
-    sPassi = "Budn!3rnst"
+    'Zum Testen
+    'sHosti = "astra.kisswws.de"
+    'sUseri = "dronova"
+    'sPassi = "Tn7wp9G6"
     
+    sHosti = "astra.kisswws.de"
+    sUseri = "EdekaSftp"
+    sPassi = "B68MWk-yYhz%"
     
     cmdConnect_Click 'Ftp connect
     
@@ -8878,7 +8887,7 @@ Private Sub BudniBestellungen()
     WechsleInsUnterverzLOKAL sBestPfad
     
     Pause (3)
-    WechsleInsUnterverzFTP "PXI_BESTELL" 'scharf ist immer PXI 'Test ist EXI
+    WechsleInsUnterverzFTP "ZWWS_ORDERS"
     Pause (3)
     UebertrageAllesEinzelnvonLokal_forBudni sBestPfad
 
@@ -8904,7 +8913,68 @@ Private Sub BudniBestellungen()
         Command8.Visible = True
         Command8.Caption = "Beenden"
     End If
+
+   'das neue FTP-Verfahren für Budni <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ENDE
+   
+ Else
     
+
+    sBestPfad = App.Path               'Bestellpfad
+    If Right$(sBestPfad, 1) <> "\" Then
+        sBestPfad = sBestPfad & "\"
+    End If
+    sBestPfad = sBestPfad & "EDI\"
+
+    Label16.Caption = "Übertragung wird vorbereitet..."
+    Label16.Refresh
+
+    sHosti = "ftp.budni.de"
+    sUseri = "Dronova_Ernst"
+    sPassi = "Budn!3rnst"
+
+
+    cmdConnect_Click 'Ftp connect
+
+    Label16.Caption = "FTP - Server wird verbunden..."
+    Label16.Refresh
+
+    Pause (1)
+
+    WechsleInsUnterverzLOKAL sBestPfad
+
+    Pause (3)
+    WechsleInsUnterverzFTP "PXI_BESTELL" 'scharf ist immer PXI 'Test ist EXI
+    Pause (3)
+    UebertrageAllesEinzelnvonLokal_forBudni sBestPfad
+
+
+    Pause (1)
+
+    gbErfolg = True
+    Label16.Caption = "FTP - Server wird getrennt..."
+    Label16.Refresh
+
+    cmdConnect_Click 'Ftp disconnect
+
+    Verbindungtrennen
+
+    If gbFTPautomatic = False Then
+
+        Pause (1)
+
+        Label16.Caption = "Die Übertragung war fehlerfrei." & vbCrLf & vbCrLf
+        Label16.Caption = Label16.Caption & "Drücken Sie 'Beenden'!"
+        Label16.Refresh
+
+        Command8.Visible = True
+        Command8.Caption = "Beenden"
+    End If
+
+
+ 
+ End If
+ 
+ 
 Exit Sub
 LOKAL_ERROR:
     Fehler.gsDescr = err.Description
@@ -8918,6 +8988,8 @@ End Sub
 Private Sub BudniLieferavis()
     On Error GoTo LOKAL_ERROR
 
+   
+    
     Dim sSQL            As String
     Dim sBudniKundnr    As String
     Dim rsLi            As DAO.Recordset
@@ -8927,7 +8999,12 @@ Private Sub BudniLieferavis()
     
     sBudniKundnr = ""
     
-    sSQL = "select KUNDNR from LISRT where FORMAT = 'EDIBUDNI'"
+    If gbBudniNeuesFtpVerfahren Then
+     sSQL = "select KUNDNR from LISRT where FORMAT = 'EDIBHSG'"
+    Else
+     sSQL = "select KUNDNR from LISRT where FORMAT = 'EDIBUDNI'"
+    End If
+    
     Set rsLi = gdBase.OpenRecordset(sSQL)
     If Not rsLi.EOF Then
         sBudniKundnr = Trim(rsLi!Kundnr)
@@ -8937,14 +9014,25 @@ Private Sub BudniLieferavis()
     If Val(sBudniKundnr) = 0 Then
         Exit Sub
     End If
-
-'    sHosti = "ftp.budni.de"
-'    sUseri = "Dronova_Ernst"
-'    sPassi = "Budn!3rnst"
     
-    sHosti = "ftp.budni.de"
-    sUseri = "Dronova_Brnas"
-    sPassi = "Budn!jger16"
+    If gbBudniNeuesFtpVerfahren Then
+    
+        'zum Testen
+        'sHosti = "astra.kisswws.de"
+        'sUseri = "dronova"
+        'sPassi = "Tn7wp9G6"
+        
+        sHosti = "astra.kisswws.de"
+        sUseri = "EdekaSftp"
+        sPassi = "B68MWk-yYhz%"
+        
+    Else
+        
+        sHosti = "ftp.budni.de"
+        sUseri = "Dronova_Brnas"
+        sPassi = "Budn!jger16"
+        
+    End If
     
     cmdConnect_Click 'Ftp connect
     
@@ -8961,7 +9049,16 @@ Private Sub BudniLieferavis()
     Label16.Caption = "nach Lieferscheinen suchen..."
     Label16.Refresh
     
-    WechsleInsUnterverzFTP "PXI_LIEFERAVIS"
+    If gbBudniNeuesFtpVerfahren Then
+    
+     WechsleInsUnterverzFTP "ZWWS_DESADV"
+     
+    Else
+    
+     WechsleInsUnterverzFTP "PXI_LIEFERAVIS"
+    
+    End If
+    
     Pause (3)
     UebertrageAllVonFTP_Budni sBudniKundnr
     
@@ -8998,6 +9095,9 @@ Private Sub BudniLieferavis()
         Command8.Visible = True
         Command8.Caption = "Beenden"
     End If
+    
+      
+    
     
 Exit Sub
 LOKAL_ERROR:
@@ -9511,9 +9611,14 @@ Private Sub LOREALZuUns()
     Label16.Caption = "Übertragung wird vorbereitet..."
     Label16.Refresh
     
-    sHosti = "80.86.85.121"
-    sUseri = "kiss"
-    sPassi = "34df8k"
+'    sHosti = "80.86.85.121"
+'    sUseri = "kiss"
+'    sPassi = "34df8k"
+    
+    sHosti = "astra.kisswws.de"
+    sUseri = "LorealSftp"
+    sPassi = "B66Hjskk-yYhz%"
+
     cmdConnect_Click 'Ftp connect
     
     Label16.Caption = "FTP - Server wird verbunden..."

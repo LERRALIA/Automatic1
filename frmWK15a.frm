@@ -2,7 +2,7 @@ VERSION 5.00
 Object = "{7D622DE6-0ABC-471E-9234-97DEC5E0A708}#3.8#0"; "sevCmd3.ocx"
 Object = "{00025600-0000-0000-C000-000000000046}#5.2#0"; "CRYSTL32.OCX"
 Object = "{0ECD9B60-23AA-11D0-B351-00A0C9055D8E}#6.0#0"; "mshflxgd.ocx"
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
 Begin VB.Form frmWK15a 
    BackColor       =   &H00C0C000&
    Caption         =   "WE aus Bestellung"
@@ -4002,13 +4002,13 @@ Private Sub HoleBestellDateiWK15a(cdatei As String)
     If Datendrin(sZufall, gdBase) Then
         FormatiereGridWK15a
         
-        If Option1(0).Value = True Then
+        If Option1(0).value = True Then
             cSort = " order by MOPREIS, BEZEICH"
-        ElseIf Option1(1).Value = True Then
+        ElseIf Option1(1).value = True Then
             cSort = " order by MOPREIS, val(LIBESNR) asc "
-        ElseIf Option1(2).Value = True Then
+        ElseIf Option1(2).value = True Then
             cSort = " order by MOPREIS, ARTNR"
-        ElseIf Option1(3).Value = True Then
+        ElseIf Option1(3).value = True Then
             cSort = " order by MOPREIS, LPZ"
         Else
             cSort = " order by MOPREIS, LPZ"
@@ -4060,7 +4060,12 @@ Private Sub check_Budni_Lieferavis(cdatei As String)
     
     sBudniKundnr = ""
     
-    sSQL = "select KUNDNR from LISRT where FORMAT = 'EDIBUDNI' and Linr = " & sCheckLinr
+    If gbBudniNeuesFtpVerfahren Then
+     sSQL = "select KUNDNR from LISRT where FORMAT = 'EDIBHSG' and Linr = " & sCheckLinr
+    Else
+     sSQL = "select KUNDNR from LISRT where FORMAT = 'EDIBUDNI' and Linr = " & sCheckLinr
+    End If
+    
     Set rsLi = gdBase.OpenRecordset(sSQL)
     If Not rsLi.EOF Then
         sBudniKundnr = Trim(rsLi!Kundnr)
@@ -4181,13 +4186,13 @@ Private Sub Create_Bestell_Datei(lLinr As Long)
     If Datendrin(sZufall, gdBase) Then
         FormatiereGridWK15a
         
-        If Option1(0).Value = True Then
+        If Option1(0).value = True Then
             cSort = " order by MOPREIS, BEZEICH"
-        ElseIf Option1(1).Value = True Then
+        ElseIf Option1(1).value = True Then
             cSort = " order by MOPREIS, val(LIBESNR) asc "
-        ElseIf Option1(2).Value = True Then
+        ElseIf Option1(2).value = True Then
             cSort = " order by MOPREIS, ARTNR"
-        ElseIf Option1(3).Value = True Then
+        ElseIf Option1(3).value = True Then
             cSort = " order by MOPREIS, LPZ"
         Else
             cSort = " order by MOPREIS, LPZ"
@@ -4411,13 +4416,13 @@ Private Sub LeseInhaltWK15a()
     List2.Clear
     List1.AddItem "Dateiname               Bestellinformationen                Auftragswert AuftragNr"
     
-    If Option2(0).Value = True Then
+    If Option2(0).value = True Then
         ListeFuellAnfangsbuchdataT "Q", List2, "tabname", Label3(3)
-    ElseIf Option2(1).Value = True Then
+    ElseIf Option2(1).value = True Then
         ListeFuellAnfangsbuchdataT "Q", List2, "tabdate", Label3(3)
-    ElseIf Option2(2).Value = True Then
+    ElseIf Option2(2).value = True Then
         ListeFuellAnfangsbuchdataT "Q", List2, "Liefbez", Label3(3)
-    ElseIf Option2(3).Value = True Then
+    ElseIf Option2(3).value = True Then
         ListeFuellAnfangsbuchdataT "Q", List2, "AUFTRAGSNR", Label3(3)
     End If
      
@@ -4793,7 +4798,7 @@ Private Sub speicherLNull()
 
     Dim sSQL As String
 
-    If Check17.Value = vbChecked Then
+    If Check17.value = vbChecked Then
         sSQL = "Update DBEINSTE Set DELBDAT = true "
         gdBase.Execute sSQL, dbFailOnError
 
@@ -4820,7 +4825,7 @@ Private Sub speicherDiffProt()
 
     Dim sSQL As String
 
-    If Check3.Value = vbChecked Then
+    If Check3.value = vbChecked Then
         sSQL = "Update DBEINSTE Set DIFFPROT = true "
         gdBase.Execute sSQL, dbFailOnError
 
@@ -4847,7 +4852,7 @@ Private Sub speicherUEBERPROT()
 
     Dim sSQL As String
 
-    If Check5.Value = vbChecked Then
+    If Check5.value = vbChecked Then
         sSQL = "Update DBEINSTE Set UEBERPROT = true "
         gdBase.Execute sSQL, dbFailOnError
 
@@ -4903,7 +4908,7 @@ End Sub
 Private Sub Check6_Click()
 On Error GoTo LOKAL_ERROR
     
-    If Check6.Value = vbChecked Then
+    If Check6.value = vbChecked Then
         Check2.Visible = False
     Else
         Check2.Visible = True
@@ -4922,7 +4927,7 @@ End Sub
 Private Sub Check2_Click()
 On Error GoTo LOKAL_ERROR
     
-    If Check2.Value = vbChecked Then
+    If Check2.value = vbChecked Then
         Check6.Visible = False
     Else
         Check6.Visible = True
@@ -4940,11 +4945,11 @@ LOKAL_ERROR:
 End Sub
 
 
-Private Sub cmdAnfuegen_Click(Index As Integer)
+Private Sub cmdAnfuegen_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     Screen.MousePointer = 11
     
-    Select Case Index
+    Select Case index
         Case Is = 0
             bAnfuegen = False
             artikel_suchen
@@ -5129,7 +5134,7 @@ LOKAL_ERROR:
     Fehlermeldung1
     
 End Sub
-Private Sub Command0_Click(Index As Integer)
+Private Sub Command0_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim iWert As Integer
@@ -5143,7 +5148,7 @@ Private Sub Command0_Click(Index As Integer)
     And Val(Label0(1).Caption) <> 11 _
     And Val(Label0(1).Caption) <> 12 Then
     
-        Select Case Index
+        Select Case index
             
             Case 0 To 9     'Ziffern 0 bis 9
                 iStufe = 1
@@ -5159,12 +5164,12 @@ Private Sub Command0_Click(Index As Integer)
                             iStufe = 6
                             ctmp = MSFlexGrid1.Text
                             iStufe = 7
-                            ctmp = ctmp & Command0(Index).Caption
+                            ctmp = ctmp & Command0(index).Caption
                             iStufe = 8
                             MSFlexGrid1.TextMatrix(lrow, lcol) = ctmp
                             iStufe = 9
                         Else
-                            MSFlexGrid1.TextMatrix(lrow, lcol) = Command0(Index).Caption
+                            MSFlexGrid1.TextMatrix(lrow, lcol) = Command0(index).Caption
                             iStufe = 10
                         End If
                         giErsetzen = 2
@@ -5174,7 +5179,7 @@ Private Sub Command0_Click(Index As Integer)
                     End If
                 Else
                     iStufe = 12
-                    Text1.Text = Text1.Text & Command0(Index).Caption
+                    Text1.Text = Text1.Text & Command0(index).Caption
                 End If
                 
             Case Is = 10    'Komma
@@ -5186,10 +5191,10 @@ Private Sub Command0_Click(Index As Integer)
                         If InStr(ctmp, ",") = 0 Then
                             If giErsetzen > 0 Then
                                 ctmp = MSFlexGrid1.Text
-                                ctmp = ctmp & Command0(Index).Caption
+                                ctmp = ctmp & Command0(index).Caption
                                 MSFlexGrid1.TextMatrix(lrow, lcol) = ctmp
                             Else
-                                MSFlexGrid1.TextMatrix(lrow, lcol) = Command0(Index).Caption
+                                MSFlexGrid1.TextMatrix(lrow, lcol) = Command0(index).Caption
                             End If
                             giErsetzen = 2
                             gbAender = True
@@ -5199,7 +5204,7 @@ Private Sub Command0_Click(Index As Integer)
                     End If
                 Else
                     If InStr(Text1.Text, ",") = 0 Then
-                        Text1.Text = Text1.Text & Command0(Index).Caption
+                        Text1.Text = Text1.Text & Command0(index).Caption
                     End If
                 End If
             Case Is = 11    'Clear
@@ -5279,7 +5284,7 @@ Private Sub Command0_Click(Index As Integer)
                 End If
         End Select
     Else
-        Select Case Index
+        Select Case index
             
             Case Is = 12    'Links
                 iWert = Val(Label0(1).Caption)
@@ -5329,7 +5334,7 @@ LOKAL_ERROR:
     Fehler.gsNumber = err.Number
     Fehler.gsFormular = Me.name
     Fehler.gsFunktion = "Command0_Click"
-    Fehler.gsFehlertext = "Im Programmteil Wareneingang aus Bestellung ist ein Fehler aufgetreten." & Index & " " & iStufe
+    Fehler.gsFehlertext = "Im Programmteil Wareneingang aus Bestellung ist ein Fehler aufgetreten." & index & " " & iStufe
     
     Fehlermeldung1
     
@@ -5373,7 +5378,7 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Command1_Click(Index As Integer)
+Private Sub Command1_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim cdatei      As String
@@ -5402,7 +5407,7 @@ Private Sub Command1_Click(Index As Integer)
         cPfad = cPfad & "\"
     End If
     
-    Select Case Index
+    Select Case index
         Case Is = 0
             voreinstellungspeichern
             
@@ -5498,7 +5503,7 @@ Private Sub Command1_Click(Index As Integer)
                 
                 Check4.Visible = True
                 
-                If Check4.Value = vbChecked Then
+                If Check4.value = vbChecked Then
                     cboStrichEndlos.Visible = True
                 Else
                     cboStrichEndlos.Visible = False
@@ -6237,7 +6242,7 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Function
 
-Private Sub Command2_Click(Index As Integer)
+Private Sub Command2_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim cdatei  As String
@@ -6249,7 +6254,7 @@ Private Sub Command2_Click(Index As Integer)
         cPfad = cPfad & "\"
     End If
     
-    Select Case Index
+    Select Case index
         Case Is = 0
         
             If IsAktionZulaessig("Lieferung übernehmen") = False Then
@@ -7210,7 +7215,7 @@ LOKAL_ERROR:
     Fehlermeldung1
    
 End Sub
-Private Sub Command5_Click(Index As Integer)
+Private Sub Command5_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim cSQL As String
@@ -7219,7 +7224,7 @@ Private Sub Command5_Click(Index As Integer)
     
     iRet = MsgBox("Wirklich?", vbYesNo + vbDefaultButton2 + vbQuestion, "Winkiss Frage:")
     If iRet = vbYes Then
-        Select Case Index
+        Select Case index
             Case Is = 0
                 cSQL = "Update " & sZufall & " Set GELIEFERT = 0, BERECHNET = 0 "
             Case Is = 1
@@ -7340,7 +7345,7 @@ Private Sub Command6_Click()
         Text5.Text = ""
         Text5.SetFocus
         
-        If Check1.Value = vbUnchecked Then
+        If Check1.value = vbUnchecked Then
             Text10.Text = 1
         End If
     Else
@@ -7358,7 +7363,7 @@ Private Sub Command6_Click()
                 MSFlexGrid1.Col = 5
                 MSFlexGrid1.Row = i
                 
-                If Check2.Value = vbChecked Then
+                If Check2.value = vbChecked Then
                     MSFlexGrid1.Text = Val(MSFlexGrid1.Text) + Val(Text10.Text)
                     
                     MSFlexGrid1.Col = 6
@@ -7366,7 +7371,7 @@ Private Sub Command6_Click()
 
                     MSFlexGrid1.Text = Val(MSFlexGrid1.Text) + Val(Text10.Text)
                     
-                    If isEtidruFree And Check4.Value = vbChecked Then
+                    If isEtidruFree And Check4.value = vbChecked Then
                         isEtidruFree = False
                         
                         acArtNr(0) = sArtnr
@@ -7509,7 +7514,7 @@ Private Sub Command6_Click()
                 End If
                 
                 'Geliefert = Bestellt
-                If Check6.Value = vbChecked Then
+                If Check6.value = vbChecked Then
                     iBestellt = 0
                     MSFlexGrid1.Col = 4
                     MSFlexGrid1.Row = i
@@ -7525,7 +7530,7 @@ Private Sub Command6_Click()
 
                     MSFlexGrid1.Text = iBestellt
                     
-                    If isEtidruFree And Check4.Value = vbChecked Then
+                    If isEtidruFree And Check4.value = vbChecked Then
                         isEtidruFree = False
                         
                         acArtNr(0) = sArtnr
@@ -7557,13 +7562,13 @@ Private Sub Command6_Click()
                 Text5.Text = ""
                 Text7.Text = ""
                 
-                If Check2.Value = vbUnchecked Then
+                If Check2.value = vbUnchecked Then
                     MSFlexGrid1.SetFocus
                 Else
                     Text5.SetFocus
                 End If
                 
-                If Check6.Value = vbChecked Then
+                If Check6.value = vbChecked Then
                     Text5.SetFocus
                 End If
                 
@@ -7611,7 +7616,7 @@ Private Sub Command6_Click()
                 rsArt!lekpr = ermLEKPR(sArtnr, CLng(cAnfuLinr))
                 rsArt!BESTELLT = 0
                 
-                If Check2.Value = vbChecked Then
+                If Check2.value = vbChecked Then
                     rsArt!GELIEFERT = 1
                     rsArt!BERECHNET = 1
                 Else
@@ -7650,7 +7655,7 @@ Private Sub Command6_Click()
         Label3(11).Caption = "(" & ermBESTAND(sArtnr) & ")"
     End If
     
-    If Check1.Value = vbUnchecked Then
+    If Check1.value = vbUnchecked Then
         Text10.Text = 1
     End If
     
@@ -7669,10 +7674,10 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Command7_Click(Index As Integer)
+Private Sub Command7_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
-    Select Case Index
+    Select Case index
     
         Case 0
             del_DESADV
@@ -7944,21 +7949,21 @@ Private Sub Form_Load()
     gbUpdate = False
     
     If gbDELBDAT Then
-        Check17.Value = vbChecked
+        Check17.value = vbChecked
     Else
-        Check17.Value = vbUnchecked
+        Check17.value = vbUnchecked
     End If
     
     If gbDIFFPROT Then
-        Check3.Value = vbChecked
+        Check3.value = vbChecked
     Else
-        Check3.Value = vbUnchecked
+        Check3.value = vbUnchecked
     End If
     
     If gbUEBERPROT Then
-        Check5.Value = vbChecked
+        Check5.value = vbChecked
     Else
-        Check5.Value = vbUnchecked
+        Check5.value = vbUnchecked
     End If
     
     fülleCboEtiketten cboStrichEndlos
@@ -7985,13 +7990,13 @@ Private Sub Form_Load()
     
     isEtidruFree = True
     
-    If Option1(0).Value = True Then
+    If Option1(0).value = True Then
         cSort = " order by MOPREIS, BEZEICH"
-    ElseIf Option1(1).Value = True Then
+    ElseIf Option1(1).value = True Then
         cSort = " order by MOPREIS, val(LIBESNR) asc "
-    ElseIf Option1(2).Value = True Then
+    ElseIf Option1(2).value = True Then
         cSort = " order by MOPREIS, ARTNR"
-    ElseIf Option1(3).Value = True Then
+    ElseIf Option1(3).value = True Then
         cSort = " order by MOPREIS, LPZ"
     Else
         cSort = " order by MOPREIS, LPZ"
@@ -8030,14 +8035,14 @@ On Error GoTo LOKAL_ERROR
     
     If Not rsrs.EOF Then
         
-        Option1(0).Value = rsrs!bo1
-        Option1(1).Value = rsrs!bo2
-        Option1(2).Value = rsrs!bo3
-        Option1(3).Value = rsrs!bo4
+        Option1(0).value = rsrs!bo1
+        Option1(1).value = rsrs!bo2
+        Option1(2).value = rsrs!bo3
+        Option1(3).value = rsrs!bo4
         
-        Option2(0).Value = rsrs!bo5
-        Option2(1).Value = rsrs!bo6
-        Option2(2).Value = rsrs!bo7
+        Option2(0).value = rsrs!bo5
+        Option2(1).value = rsrs!bo6
+        Option2(2).value = rsrs!bo7
         
         sEti = "bitte auswählen"
         If Not IsNull(rsrs!Eti) Then
@@ -8049,9 +8054,9 @@ On Error GoTo LOKAL_ERROR
         
     
         If rsrs!bo8 = True Then
-            Check2.Value = vbUnchecked
+            Check2.value = vbUnchecked
         Else
-            Check2.Value = vbChecked
+            Check2.value = vbChecked
         End If
     End If
     
@@ -8084,15 +8089,15 @@ On Error GoTo LOKAL_ERROR
     loeschNEW "E15A", gdApp
     CreateTable "E15A", gdApp
     
-    bo1 = Option1(0).Value
-    bo2 = Option1(1).Value
-    bo3 = Option1(2).Value
-    bo4 = Option1(3).Value
-    bo5 = Option2(0).Value
-    bo6 = Option2(1).Value
-    bo7 = Option2(2).Value
+    bo1 = Option1(0).value
+    bo2 = Option1(1).value
+    bo3 = Option1(2).value
+    bo4 = Option1(3).value
+    bo5 = Option2(0).value
+    bo6 = Option2(1).value
+    bo7 = Option2(2).value
     
-    If Check2.Value = vbChecked Then
+    If Check2.value = vbChecked Then
         bo8 = 0
     Else
         bo8 = -1
@@ -8364,14 +8369,14 @@ LOKAL_ERROR:
 
     Fehlermeldung1
 End Sub
-Private Sub Label1_Click(Index As Integer)
+Private Sub Label1_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
     Dim lMDHDAT         As Long
     Dim lKJADate        As Long
     Dim cKJAZeit        As String
     
-    If Index = 2 Then
+    If index = 2 Then
         Frame4.Visible = True
         fuelle_Frame4_mit_DESADV
         
@@ -8380,7 +8385,7 @@ On Error GoTo LOKAL_ERROR
     
     
 
-    If Index = 1 Then
+    If index = 1 Then
     
         lKJADate = Fix(Now)
         cKJAZeit = Format$(Now, "HH:MM:SS")
@@ -8421,10 +8426,10 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Label2_dblClick(Index As Integer)
+Private Sub Label2_dblClick(index As Integer)
 On Error GoTo LOKAL_ERROR
 
-    If Index = 19 Then
+    If index = 19 Then
         frmWKL192.Show 1
     End If
     
@@ -8439,10 +8444,10 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Label3_Click(Index As Integer)
+Private Sub Label3_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
-    Select Case Index
+    Select Case index
         Case 6
             gsLinr = Label3(6).Caption
             frmWKL17.Show 1
@@ -8460,10 +8465,10 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Label3_MouseMove(Index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub Label3_MouseMove(index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
     On Error GoTo LOKAL_ERROR
     
-    Select Case Index
+    Select Case index
     
     Case 6
         Label3(6).ForeColor = glLink
@@ -8981,10 +8986,10 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Option2_Click(Index As Integer)
+Private Sub Option2_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
-    Select Case Index
+    Select Case index
         Case 0
             ListeFuellAnfangsbuchdataT "Q", List2, "tabname", Label3(3)
         Case 1
@@ -9855,7 +9860,7 @@ Private Sub EingangDerArtikel()
                 rsRest!artnr = cArtNr
                 rsRest!lekpr = rsrs!lekpr
                 rsRest!BESTVOR = (lBestellt - lBestandZugang)
-                rsRest!Dateiname = cdatei & ".DBF"
+                rsRest!DateiName = cdatei & ".DBF"
                 rsRest!BEST_DATUM = lHeute
                 rsRest!UPD_DATUM = lHeute
                 rsRest.Update
@@ -9946,7 +9951,7 @@ Private Sub EingangDerArtikel()
     
 
     
-    If Check7.Value = vbChecked Then
+    If Check7.value = vbChecked Then
         cSQL = "Update " & cdatei & " inner join  TempZufall" & sZufall
         cSQL = cSQL & " on " & cdatei & ".artnr = TempZufall" & sZufall & ".artnr "
     
@@ -10360,7 +10365,7 @@ End Function
 Private Sub Check4_Click()
     On Error GoTo LOKAL_ERROR
     
-    If Check4.Value = vbChecked Then
+    If Check4.value = vbChecked Then
         cboStrichEndlos.Visible = True
         cboStrichEndlos.Refresh
         setzedrucker gcEtikettenDrucker

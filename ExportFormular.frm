@@ -23,7 +23,7 @@ Begin VB.Form ExportFormular
       _ExtentX        =   2778
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   103743489
+      Format          =   114032641
       CurrentDate     =   44400
    End
    Begin MSComCtl2.DTPicker DTPicker1 
@@ -35,7 +35,7 @@ Begin VB.Form ExportFormular
       _ExtentX        =   2566
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   103743489
+      Format          =   114032641
       CurrentDate     =   44400
    End
    Begin VB.CommandButton Command1 
@@ -621,7 +621,7 @@ On Error GoTo LOKAL_ERROR
              
               
              
-            'CSVhelper.exe aufrufen  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START
+             'CSVhelper.exe aufrufen  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START
             
                 Dim tmpDB_Pfad As String
                 Dim tmpDB_Pass As String
@@ -636,7 +636,7 @@ On Error GoTo LOKAL_ERROR
                    autoOeffnen = "nein"
                  End If
                 
-                Shell App.Path & "\" & "CSVhelper.exe " & tmpDB_Pfad & "?" & tmpDB_Pass & "?" & gbDsFinvkPfad & "?" & autoOeffnen, vbNormalFocus
+                Shell App.Path & "\" & "CSVhelper.exe " & tmpDB_Pfad & " " & tmpDB_Pass & " " & gbDsFinvkPfad & " " & autoOeffnen, vbNormalFocus
                 
              'CSVhelper.exe aufrufen  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ENDE
              

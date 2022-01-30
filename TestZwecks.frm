@@ -9,13 +9,21 @@ Begin VB.Form TestZwecks
    ScaleHeight     =   3015
    ScaleWidth      =   4560
    StartUpPosition =   3  'Windows-Standard
+   Begin VB.CommandButton Command2 
+      Caption         =   "Command2"
+      Height          =   375
+      Left            =   2400
+      TabIndex        =   2
+      Top             =   240
+      Width           =   1935
+   End
    Begin VB.TextBox Text1 
-      Height          =   1695
+      Height          =   375
       Left            =   240
       TabIndex        =   1
       Text            =   "Text1"
       Top             =   840
-      Width           =   3495
+      Width           =   2175
    End
    Begin VB.CommandButton Command1 
       Caption         =   "Test"
@@ -45,20 +53,23 @@ Private Sub Command1_Click()
 On Error GoTo LOKAL_ERROR:
 
 
-                Dim tmpDB_Pfad As String
-                Dim tmpDB_Pass As String
-                Dim autoOeffnen As String
-                Dim rufString As String
-                
-                tmpDB_Pfad = "C:\Datenbanken\Gradmann\Kissdata.MDB"
-                tmpDB_Pass = "Kiss2005"
-                autoOeffnen = "ja"
-                  
-                rufString = App.Path & "\" & "CSVhelper.exe " & tmpDB_Pfad & "?" & tmpDB_Pass & "?" & "C:\Oday\Export DsFinvK\" & "?" & autoOeffnen
-                Text1.Text = rufString
-                Shell rufString, vbNormalFocus
-                
+'                Dim tmpDB_Pfad As String
+'                Dim tmpDB_Pass As String
+'                Dim autoOeffnen As String
+'                Dim rufString As String
+'
+'                tmpDB_Pfad = "C:\Datenbanken\Gradmann\Kissdata.MDB"
+'                tmpDB_Pass = "Kiss2005"
+'                autoOeffnen = "ja"
+'
+'                rufString = App.Path & "\" & "CSVhelper.exe " & tmpDB_Pfad & "?" & tmpDB_Pass & "?" & "C:\Oday\Export DsFinvK\" & "?" & autoOeffnen
+'                Text1.Text = rufString
+'                Shell rufString, vbNormalFocus
+'
 
+    
+   
+    
 
 
 
@@ -70,6 +81,29 @@ LOKAL_ERROR:
     Fehler.gsFormular = Me.name
     Fehler.gsFunktion = "Command1_Click"
     Fehler.gsFehlertext = ""
+    
+    Fehlermeldung1
+End Sub
+
+Private Sub Command2_Click()
+On Error GoTo LOKAL_ERROR
+
+ Dim iMixMWSt As Integer
+ iMixMWSt = 0
+ 
+ If Not iMixMWSt And 4 Then
+  iMixMWSt = iMixMWSt + 4
+ End If
+                    
+                    
+ Exit Sub
+LOKAL_ERROR:
+    
+    Fehler.gsDescr = err.Description
+    Fehler.gsNumber = err.Number
+    Fehler.gsFormular = Me.name
+    Fehler.gsFunktion = "Command2_Click"
+    Fehler.gsFehlertext = "Im Programmteil Unternehmensdaten ist ein Fehler aufgetreten."
     
     Fehlermeldung1
 End Sub

@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{7D622DE6-0ABC-471E-9234-97DEC5E0A708}#3.8#0"; "sevCmd3.ocx"
-Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "MSFlxGrd.ocx"
+Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "msflxgrd.ocx"
 Object = "{0BA686C6-F7D3-101A-993E-0000C0EF6F5E}#1.0#0"; "threed32.ocx"
 Begin VB.Form frmWKL43 
    BackColor       =   &H00C0C000&
@@ -22359,8 +22359,9 @@ sMess As String, sKund As String, gcStsatz As String, sadress As String)
         
         Kill cZiel & "\EDI\*.*"
         
-        cZiel = cZiel & "\EDI\" & sKund & sAuftragsnummer & ".txt"
-        
+        'cZiel = cZiel & "\EDI\" & sKund & sAuftragsnummer & ".txt"
+         cZiel = cZiel & "\EDI\" & sKund & "_KISS_LOREAL_" & sAuftragsnummer & "_" & Format(DateValue(Now), "yyyyMMDD") & Format(TimeValue(Now), "hhmmss") & "_in_a.txt.in"
+         
         lRet = CopyFile(cQuelle, cZiel, lfail)
 
         If lRet <> 0 Then
@@ -22690,9 +22691,9 @@ sMess As String, sKund As String, gcStsatz As String, sadress As String)
                 Dim cAbsenderEmail As String
                 cAbsenderEmail = ermFirmenMail
                 If cAbsenderEmail = "" Then cAbsenderEmail = "hotline@kisswws.de"
-                
-     
-                
+
+
+
                 schickeMailimHintergrundSSL sFirmaBez, cAbsenderEmail, cAbsenderEmail, "info@dronova.de" _
                 , "bestsend@kisswws.de", gcSMTP_SERVER, gcSMTP_PORT, gcSMTP_USER, gcSMTP_PW, cBetreff, cMessagetext, sAttachment
 
@@ -22712,6 +22713,108 @@ sMess As String, sKund As String, gcStsatz As String, sadress As String)
         Else
             MsgBox "Die Bestelldatei konnte nicht kopiert werden.", vbCritical, "Winkiss Hinweis:"
         End If
+        
+    ElseIf sEDIFormat = "EDIBHSG" Then
+                
+         'kopiere erst aus dem BESTSIC ins EDI Verzeichnis
+        Dim sMailKundnr2 As String
+        sMailKundnr2 = sKund
+        
+        cQuelle = gcDBPfad
+        If Right$(cQuelle, 1) <> "\" Then
+            cQuelle = cQuelle & "\"
+        End If
+        cQuelle = cQuelle & "BESTSIC\" & cLinr & "\" & cverz & "\EDI.TXT"
+        cQuelle = ShortPath(cQuelle)
+        
+        cZiel = App.Path
+        cZiel = ShortPath(cZiel)
+        
+        Kill cZiel & "\EDI\*.*"
+    
+        sKund = String$(6 - Len(sKund), "0") & sKund
+    
+        cDatname = "BUDNIORDR+1+"
+        cDatname = cDatname & sKund & "+"
+        cDatname = cDatname & Format(DateValue(Now), "YYYYMMDD") & "+"
+        cDatname = cDatname & Format(TimeValue(Now), "HHMMSS") & ".txt"
+        
+        cZiel = cZiel & "\EDI\" & cDatname
+        
+        lRet = CopyFile(cQuelle, cZiel, lfail)
+
+        If lRet <> 0 Then
+            Dim j As Integer
+            
+            gbBudni_Bestellung_erfolgreich = False
+            
+            Dim bmerke2 As Boolean
+            bmerke2 = gbFTPautomatic
+            gbFTPautomatic = True
+
+            giKissFtpMode = 35
+            frmWKL38.Show 1
+
+            gbFTPautomatic = bmerke2
+
+            If gbBudni_Bestellung_erfolgreich = True Then
+
+                ctmp = "Ihre Bestellung wurde an " & lbl2(3).Caption & " übertragen" & vbCrLf & vbCrLf
+                ctmp = ctmp & "Bestellwert EK Netto: " & lbl2(1).Caption & vbCrLf
+                ctmp = ctmp & "Artikelanzahl: " & lbl2(0).Caption & vbCrLf & vbCrLf
+                ctmp = ctmp & "Drucken Sie sich bitte im Anschluss Ihre Bestellung aus! "
+                ctmp = ctmp & "Die Bestellbestätigung sollten Sie innerhalb der nächsten 10 Minuten per Email erhalten." & vbCrLf & vbCrLf
+                ctmp = ctmp & "Sollte dies nicht der Fall sein, rufen Sie bitte bei der Firma K.I.S.S. (0511/955910) an!"
+
+                MsgBox ctmp, vbInformation + vbOKOnly, "Winkiss Hinweis:"
+
+                Dim sFirmaBez2 As String
+                sFirmaBez2 = ermFirmenBez
+                Dim cBetreff2 As String
+                Dim cMessagetext2 As String
+                Dim sAttachment2 As String
+                sAttachment2 = ""
+
+
+                cBetreff2 = "Budni-Bestellung hochgeladen, KundNr: " & sMailKundnr2
+
+
+                cMessagetext2 = "Diese Bestellung wurde von der Firma: " & sFirmaBez2 & "(" & sMailKundnr2 & ")" & vbCrLf & vbCrLf
+                cMessagetext2 = cMessagetext2 & "am: " & Format(DateValue(Now), "DD.MM.YYYY") & vbCrLf & vbCrLf
+                cMessagetext2 = cMessagetext2 & "um: " & Format(TimeValue(Now), "HH:MM:SS") & vbCrLf & vbCrLf
+                cMessagetext2 = cMessagetext2 & "auf den Budni-FTP-Server hochgeladen." & vbCrLf
+                cMessagetext2 = cMessagetext2 & "Bestellwert EK Netto: " & lbl2(1).Caption & vbCrLf
+                cMessagetext2 = cMessagetext2 & "Artikelanzahl: " & lbl2(0).Caption & vbCrLf
+
+                cMessagetext2 = cMessagetext2 & "Die Bestellbestätigung von Budni sollten Sie innerhalb der nächsten 10 Minuten per Email erhalten." & vbCrLf & vbCrLf
+                cMessagetext2 = cMessagetext2 & "Sollte dies nicht der Fall sein, rufen Sie bitte bei der Firma K.I.S.S. (0511/955910) an!"
+
+                Dim cAbsenderEmail2 As String
+                cAbsenderEmail2 = ermFirmenMail
+                If cAbsenderEmail2 = "" Then cAbsenderEmail2 = "hotline@kisswws.de"
+
+
+
+                schickeMailimHintergrundSSL sFirmaBez2, cAbsenderEmail2, cAbsenderEmail2, "info@dronova.de" _
+                , "bestsend@kisswws.de", gcSMTP_SERVER, gcSMTP_PORT, gcSMTP_USER, gcSMTP_PW, cBetreff2, cMessagetext2, sAttachment2
+
+            Else
+
+                frmWKL209.Show 1
+                SSCommand2(2).Enabled = False
+            End If
+
+            'alte Vorschläge löschen
+            For j = 0 To 9
+                If sVorschlaege(j) <> "" Then
+                    loeschNEW sVorschlaege(j), gdApp
+                End If
+            Next j
+
+        Else
+            MsgBox "Die Bestelldatei konnte nicht kopiert werden.", vbCritical, "Winkiss Hinweis:"
+        End If
+        
     Else
         StandardMail cverz
     End If
@@ -23299,6 +23402,8 @@ Private Function BestDateiinOrdner(cLinr As String, sILN1 As String, sILN2 As St
             BestDateiinOrdner = EDIFormatBIOGARTEN(cLinr, Text12.Text, lbl2(1).Caption, sILN1, sILN2, sGLNEmpfänger)
         Case "EDIBUDNI"
             BestDateiinOrdner = EDIFormatBUDNI(cLinr, Text12.Text, lbl2(1).Caption, sILN1, sILN2, sGLNEmpfänger, Text13.Text)
+         Case "EDIBHSG"
+            BestDateiinOrdner = EDIFormatBHSG(cLinr, Text12.Text, lbl2(1).Caption, sILN1, sILN2, sGLNEmpfänger, Text13.Text)
         Case "EDILORE"
             BestDateiinOrdner = EDIFormatLore(cLinr, Text12.Text, lbl2(1).Caption, sILN1, sILN2, sGLNEmpfänger, Text13.Text)
         Case "EDIBBI"
@@ -23807,9 +23912,9 @@ Private Function EDIFormatLore(cLinr As String, sBelegnr As String, sRechbetrag 
     'KISS HANNOVER GLN: 4399 9020 8098 9
 
     cSatz = ""
-'    cSatz = cSatz & "UNA:+.? '" & vbCrLf: lanzseg = lanzseg + 1 'Fertig
+    cSatz = cSatz & "UNA:+.? '" & vbCrLf: lanzseg = lanzseg + 1 'Fertig
 
-    cSatz = cSatz & "UNB+UNOC:3+4399902080989:14+" & sGLNEmpfänger & ":14+" & Format(DateValue(Now), "YYMMDD") & ":" & Format(TimeValue(Now), "HHMM") & "+" & sBelegnr & "'" & vbCrLf 'Fertig
+    cSatz = cSatz & "UNB+UNOC:3+4399902080989:14+" & sGLNEmpfänger & ":14+" & Format(DateValue(Now), "YYMMDD") & ":" & Format(TimeValue(Now), "HHMM") & "+" & sBelegnr & "'" & vbCrLf: lanzseg = lanzseg + 1 'Fertig
     cSatz = cSatz & "UNH+123+ORDERS:D:01B:UN:EAN010'" & vbCrLf: lanzseg = lanzseg + 1
     cSatz = cSatz & "BGM+220+" & sBelegnr & "+9'" & vbCrLf: lanzseg = lanzseg + 1
     cSatz = cSatz & "DTM+137:" & Format(DateValue(Now), "YYYYMMDD") & Format(TimeValue(Now), "HHMMSS") & ":204'" & vbCrLf: lanzseg = lanzseg + 1 'Fertig
@@ -23870,8 +23975,8 @@ Private Function EDIFormatLore(cLinr As String, sBelegnr As String, sRechbetrag 
     Next lrow
     
     cSatz = ""
-    cSatz = cSatz & "UNS+S'" & vbCrLf: lanzseg = lanzseg + 1 'Fertig
-    cSatz = cSatz & "UNT+" & lanzseg + 1 & "+123'" & vbCrLf  'Fertig
+    cSatz = cSatz & "UNS+S'" & vbCrLf
+    cSatz = cSatz & "UNT+" & lanzseg & "+123'" & vbCrLf  'Fertig
     cSatz = cSatz & "UNZ+1+" & sBelegnr & "'" & vbCrLf  'Fertig
 
     lPos = LOF(iFileNr)
@@ -25178,6 +25283,182 @@ LOKAL_ERROR:
         Fehlermeldung1
     End If
 End Function
+
+Private Function EDIFormatBHSG(cLinr As String, sBelegnr As String, sRechbetrag As String, sILN1 As String, _
+sILN2 As String, sGLNEmpfänger As String, Optional sPromotionDealNumber As String) As String
+    On Error GoTo LOKAL_ERROR
+
+    Dim lrow            As Long
+    Dim lPos            As Long
+    Dim lWert           As Long
+    Dim cSatz           As String
+    Dim cSQL            As String
+    Dim cBestMenge      As String
+    Dim cEAN            As String
+    Dim cLiBesNr        As String
+    Dim cPfad           As String
+    Dim iFileNr         As Integer
+    Dim rsrs            As Recordset
+    Dim sTime           As String
+    Dim ctmp            As String
+    Dim cArtNr          As String
+    Dim cMinMen         As String
+    Dim sLiefArtnr      As String
+    Dim lLFNR           As Long
+    
+    EDIFormatBHSG = ""
+    
+    lLFNR = 0
+
+    sTime = TimeValue(Now)
+    sTime = Right(sTime, 8)
+    sTime = Left(sTime, 5)
+
+    lWert = DateValue(Now)
+    ctmp = Format$(lWert, "DD.MM")
+
+    ctmp = ctmp & sTime
+    ctmp = SwapStr(ctmp, ".", "")
+    ctmp = SwapStr(ctmp, ":", "")
+
+    cPfad = gcDBPfad    'Datenbankpfad
+    If Right$(cPfad, 1) <> "\" Then
+        cPfad = cPfad & "\"
+    End If
+
+    VerzVorhanden ctmp, cPfad & "BESTSIC\" & cLinr & "\"
+
+    cPfad = cPfad & "BESTSIC\" & cLinr & "\" & ctmp & "\"
+
+    EDIFormatBHSG = ctmp
+    
+    Kill cPfad & "EDI.txt"
+
+    iFileNr = FreeFile
+    Open cPfad & "EDI.txt" For Binary As #iFileNr
+    
+    sGLNEmpfänger = String$(6 - Len(sGLNEmpfänger), "0") & sGLNEmpfänger
+    sBelegnr = String$(6 - Len(sBelegnr), "0") & sBelegnr
+    
+   
+
+'    lPos = LOF(iFileNr)
+'    lPos = lPos + 1
+'    Put #iFileNr, lPos, cSatz
+    
+    For lrow = 1 To MSFlexGrid2.Rows - 1
+    
+        MSFlexGrid2.Row = lrow
+        
+        cBestMenge = ""
+        MSFlexGrid2.Col = SpaltennummerBESTVOR
+        cBestMenge = Trim(MSFlexGrid2.Text)
+        
+        cArtNr = ""
+        MSFlexGrid2.Col = SpaltennummerArtnr
+        cArtNr = Trim(MSFlexGrid2.Text)
+        
+        If Val(cBestMenge) > 0 Then
+        
+            cLiBesNr = ""
+    
+            cSQL = "Select * from ARTLIEF where ARTNR = " & cArtNr & " and LINR = " & cLinr & " "
+            Set rsrs = gdBase.OpenRecordset(cSQL)
+            If Not rsrs.EOF Then
+                rsrs.MoveFirst
+
+                If Not IsNull(rsrs!LIBESNR) Then
+                    cLiBesNr = Trim(rsrs!LIBESNR)
+                End If
+                
+            End If
+            rsrs.Close
+                
+            cSQL = "Select EAN,ean2,ean3 from ARTIKEL where ARTNR = " & cArtNr
+            Set rsrs = gdBase.OpenRecordset(cSQL)
+            If Not rsrs.EOF Then
+                rsrs.MoveFirst
+                cEAN = ""
+                If Not IsNull(rsrs!EAN) Then
+                    cEAN = Trim(rsrs!EAN)
+                End If
+                
+                If cEAN = "" Then
+                    If Not IsNull(rsrs!EAN2) Then
+                        cEAN = Trim(rsrs!EAN2)
+                    End If
+                End If
+                
+                If cEAN = "" Then
+                    If Not IsNull(rsrs!EAN3) Then
+                        cEAN = Trim(rsrs!EAN3)
+                    End If
+                End If
+                
+            End If
+            rsrs.Close
+            
+            If cLiBesNr <> "" Then
+            
+                lLFNR = lLFNR + 1
+                
+                cSatz = lLFNR & vbTab
+                cSatz = cSatz & cLiBesNr & vbTab
+                cSatz = cSatz & cBestMenge & vbTab
+                cSatz = cSatz & cEAN & vbTab
+                cSatz = cSatz & cArtNr & vbTab
+                
+                cSatz = cSatz & sBelegnr & vbTab
+                cSatz = cSatz & Format(DateValue(Now), "YYYYMMDD") & vbTab
+                cSatz = cSatz & sGLNEmpfänger & vbTab
+                cSatz = cSatz & vbCrLf
+                
+                lPos = LOF(iFileNr)
+                lPos = lPos + 1
+                Put #iFileNr, lPos, cSatz
+            
+            End If
+            
+            
+            
+        End If
+    Next lrow
+    
+    cSatz = "1" & vbTab & vbTab & "00" & vbTab & "1111111111111" & vbTab & "111111" & vbTab & "111111" & vbTab & "11111111" & vbTab & "111111" & vbCrLf
+            
+    lPos = LOF(iFileNr)
+    lPos = lPos + 1
+    Put #iFileNr, lPos, cSatz
+    
+    cSatz = "1" & vbTab & vbTab & "00" & vbTab & "1111111111111" & vbTab & "111111" & vbTab & "111111" & vbTab & "11111111" & vbTab & "111111" & vbCrLf
+    
+    lPos = LOF(iFileNr)
+    lPos = lPos + 1
+    Put #iFileNr, lPos, cSatz
+    
+    cSatz = "1" & vbTab & vbTab & "00" & vbTab & "1111111111111" & vbTab & "111111" & vbTab & "111111" & vbTab & "11111111" & vbTab & "111111" & vbCrLf
+    
+    lPos = LOF(iFileNr)
+    lPos = lPos + 1
+    Put #iFileNr, lPos, cSatz
+
+    Close iFileNr
+
+Exit Function
+LOKAL_ERROR:
+    If err.Number = 53 Then
+        Resume Next
+    Else
+        Fehler.gsDescr = err.Description
+        Fehler.gsNumber = err.Number
+        Fehler.gsFormular = Me.name
+        Fehler.gsFunktion = "EDIFormatBHSG"
+        Fehler.gsFehlertext = "Im Programmteil Bestellungen ist ein Fehler aufgetreten."
+    
+        Fehlermeldung1
+    End If
+End Function
+
 Private Function EDIFormatBIEDRO(cLinr As String, sBelegnr As String, sRechbetrag As String, sILN1 As String, sILN2 As String, sGLNEmpfänger As String) As String
     On Error GoTo LOKAL_ERROR
 
@@ -26270,6 +26551,35 @@ Private Sub SchreibeSpeziFormat(cLief As String)
             
             UebertragungPerEmail sLieferant, BestDateiinOrdner(sLieferant, gFirma.ILN_1, gFirma.ILN_2, sGLNEmpfänger), Text12.Text, _
             lbl2(0).Caption, txt2.Text, sKund, gcStsatz, sadress
+            
+         ElseIf sEDIFormat = "EDIBHSG" Then
+        
+            iBestellungAls = 1 'EDI
+            Do Until sKund <> "" And sGLNEmpfänger <> ""
+                Verbindungseinstellunglesen sLieferant
+                     
+                If sKund = "" Or sGLNEmpfänger = "" Then
+                
+                    ctmp = "Es konnte keine Bestellung im Spezialformat geschrieben werden." & vbCrLf & vbCrLf
+                    ctmp = ctmp & "Bitte vervollständigen Sie Ihre Daten in der nachfolgenden Eingabemaske!" & vbCrLf
+                    ctmp = ctmp & "Benötigt werden Einträge unter:" & vbCrLf
+                    
+                    
+                    ctmp = ctmp & "Kund.-Nr: " & sKund & vbCrLf
+                    ctmp = ctmp & "GLN-Nr: " & sGLNEmpfänger & vbCrLf
+                    
+                    
+                    MsgBox ctmp, vbInformation, "Winkiss Hinweis:"
+                    gsLinr = sLieferant
+                    frmWKL17.Show 1
+                    
+                End If
+            Loop
+            gsLinr = ""
+            
+            UebertragungPerEmail sLieferant, BestDateiinOrdner(sLieferant, gFirma.ILN_1, gFirma.ILN_2, sGLNEmpfänger), Text12.Text, _
+            lbl2(0).Caption, txt2.Text, sKund, gcStsatz, sadress
+            
         ElseIf sEDIFormat = "EDIBBI" Then
         
             iBestellungAls = 1 'EDI

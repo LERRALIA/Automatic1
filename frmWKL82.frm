@@ -1,7 +1,7 @@
 VERSION 5.00
 Object = "{7D622DE6-0ABC-471E-9234-97DEC5E0A708}#3.8#0"; "sevCmd3.ocx"
-Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "MSFlxGrd.ocx"
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
+Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "msflxgrd.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "Mscomctl.ocx"
 Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form frmWKL82 
    BackColor       =   &H0080C0FF&
@@ -585,7 +585,7 @@ Begin VB.Form frmWKL82
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   131923969
+         Format          =   112852993
          CurrentDate     =   38457.8333333333
       End
       Begin MSComCtl2.DTPicker DTPickerBis 
@@ -608,7 +608,7 @@ Begin VB.Form frmWKL82
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   131923969
+         Format          =   112852993
          CurrentDate     =   38457.8333333333
       End
       Begin MSComctlLib.TreeView Tree11 
@@ -12758,7 +12758,7 @@ Private Function SchreibeTerminBuchungWKL82() As Boolean
             
                 'im Prinzip kann hier alles gespeichert werden
                 'aber
-                If chk14t.Value = vbChecked Then
+                If chk14t.value = vbChecked Then
                 
                     If b14t = True Then
                         b14t = False
@@ -13336,7 +13336,7 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Check2_Click(Index As Integer)
+Private Sub Check2_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
     zeige_Freie_Termine ermSelBed, Label2(21).Caption, Check2(0), Check2(1), Check2(2), Check2(3), Check2(4), Check2(5), Check2(6)
@@ -13655,47 +13655,47 @@ Select Case UCase(Combo14.Text)
         iDiff = 7 - iHeute
         
         
-        DTPickerVon.Value = DateValue(Now) + iDiff + 1
-        DTPickerBis.Value = DateValue(Now) + iDiff + 7
+        DTPickerVon.value = DateValue(Now) + iDiff + 1
+        DTPickerBis.value = DateValue(Now) + iDiff + 7
         
         DTPickerVon.Refresh
         DTPickerBis.Refresh
         
-        zeigefreie_Terminbloecke_ProBediener Text1(5).Text, DTPickerVon.Value, DTPickerBis.Value
+        zeigefreie_Terminbloecke_ProBediener Text1(5).Text, DTPickerVon.value, DTPickerBis.value
     
     Case "14 TAGE"
-        DTPickerVon.Value = DateValue(Now) + 1
-        DTPickerBis.Value = DateValue(Now) + 14
+        DTPickerVon.value = DateValue(Now) + 1
+        DTPickerBis.value = DateValue(Now) + 14
         
         DTPickerVon.Refresh
         DTPickerBis.Refresh
         
-        zeigefreie_Terminbloecke_ProBediener Text1(5).Text, DTPickerVon.Value, DTPickerBis.Value
+        zeigefreie_Terminbloecke_ProBediener Text1(5).Text, DTPickerVon.value, DTPickerBis.value
 
     Case "HEUTE"
-        DTPickerVon.Value = DateValue(Now)
-        DTPickerBis.Value = DateValue(Now)
+        DTPickerVon.value = DateValue(Now)
+        DTPickerBis.value = DateValue(Now)
         
         DTPickerVon.Refresh
         DTPickerBis.Refresh
         
-        zeigefreie_Terminbloecke_ProBediener Text1(5).Text, DTPickerVon.Value, DTPickerBis.Value
+        zeigefreie_Terminbloecke_ProBediener Text1(5).Text, DTPickerVon.value, DTPickerBis.value
     Case "MORGEN"
-        DTPickerVon.Value = DateValue(Now) + 1
-        DTPickerBis.Value = DateValue(Now) + 1
+        DTPickerVon.value = DateValue(Now) + 1
+        DTPickerBis.value = DateValue(Now) + 1
         
         DTPickerVon.Refresh
         DTPickerBis.Refresh
         
-        zeigefreie_Terminbloecke_ProBediener Text1(5).Text, DTPickerVon.Value, DTPickerBis.Value
+        zeigefreie_Terminbloecke_ProBediener Text1(5).Text, DTPickerVon.value, DTPickerBis.value
     Case "ÜBERMORGEN"
-        DTPickerVon.Value = DateValue(Now) + 2
-        DTPickerBis.Value = DateValue(Now) + 2
+        DTPickerVon.value = DateValue(Now) + 2
+        DTPickerBis.value = DateValue(Now) + 2
         
         DTPickerVon.Refresh
         DTPickerBis.Refresh
         
-        zeigefreie_Terminbloecke_ProBediener Text1(5).Text, DTPickerVon.Value, DTPickerBis.Value
+        zeigefreie_Terminbloecke_ProBediener Text1(5).Text, DTPickerVon.value, DTPickerBis.value
         
     Case Else
     
@@ -13738,33 +13738,33 @@ Select Case UCase(Combo14.Text)
         End Select
         
         If iMonat = Month(DateValue(Now)) Then
-            DTPickerVon.Value = DateValue(Now)
+            DTPickerVon.value = DateValue(Now)
         Else
-            DTPickerVon.Value = "01." & iMonat & "." & sJahr
+            DTPickerVon.value = "01." & iMonat & "." & sJahr
         End If
         
         
         
         Select Case iMonat
             Case 4, 6, 9, 11
-                DTPickerBis.Value = "30." & iMonat & "." & sJahr
+                DTPickerBis.value = "30." & iMonat & "." & sJahr
             
             Case 2
                 If sJahr = "2020" Or sJahr = "2024" Or sJahr = "2028" Then
-                    DTPickerBis.Value = "29." & iMonat & "." & sJahr
+                    DTPickerBis.value = "29." & iMonat & "." & sJahr
                 Else
-                    DTPickerBis.Value = "28." & iMonat & "." & sJahr
+                    DTPickerBis.value = "28." & iMonat & "." & sJahr
                 End If
             
             Case 1, 3, 5, 7, 8, 10, 12
-                DTPickerBis.Value = "31." & iMonat & "." & sJahr
+                DTPickerBis.value = "31." & iMonat & "." & sJahr
         End Select
         
         DTPickerVon.Refresh
         DTPickerBis.Refresh
         
     
-        zeigefreie_Terminbloecke_ProBediener Text1(5).Text, DTPickerVon.Value, DTPickerBis.Value
+        zeigefreie_Terminbloecke_ProBediener Text1(5).Text, DTPickerVon.value, DTPickerBis.value
            
         
         
@@ -13937,31 +13937,31 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Command0_Click(Index As Integer)
+Private Sub Command0_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
-    If Index <> 40 And Index <> 42 Then
+    If index <> 40 And index <> 42 Then
         If Label0.Caption >= 0 And Label0.Caption < 999 Then
             If Label0.Caption = 1 Then
-                If Index = 41 Then
+                If index = 41 Then
                     Text1(Label0.Caption).Text = Text1(Label0.Caption).Text & ":"
                 Else
-                    Text1(Label0.Caption).Text = Text1(Label0.Caption).Text & Command0(Index).Caption
+                    Text1(Label0.Caption).Text = Text1(Label0.Caption).Text & Command0(index).Caption
                 End If
                 
                 Text1(Label0.Caption).SetFocus
                 Text1(Label0.Caption).SelStart = Len(Text1(Label0.Caption).Text)
             ElseIf Label0.Caption = "800" Then
-                Combo3.Text = Combo3.Text & Command0(Index).Caption
+                Combo3.Text = Combo3.Text & Command0(index).Caption
                 Combo3.SetFocus
             Else
-                Text1(Label0.Caption).Text = Text1(Label0.Caption).Text & Command0(Index).Caption
+                Text1(Label0.Caption).Text = Text1(Label0.Caption).Text & Command0(index).Caption
                 Text1(Label0.Caption).SetFocus
                 Text1(Label0.Caption).SelStart = Len(Text1(Label0.Caption).Text)
             End If
             
         End If
-    ElseIf Index = 40 Then          'Löschen
+    ElseIf index = 40 Then          'Löschen
         If Label0.Caption >= 0 And Label0.Caption < 999 Then
         
             If Label0.Caption = "800" Then
@@ -13989,12 +13989,12 @@ LOKAL_ERROR:
     Fehlermeldung1
     Resume Next
 End Sub
-Private Sub Command1_Click(Index As Integer)
+Private Sub Command1_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
     Dim cDateum As String
     
-    Select Case Index
+    Select Case index
         Case 0
             gsDatum = Right(Combo2.Text, 8)
             cDateum = Format(Datumschreiben11a(3000, 4000), "DD.MM.YY")
@@ -14047,7 +14047,7 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Command2_Click(Index As Integer)
+Private Sub Command2_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     If Frame0.Visible Then
@@ -14066,7 +14066,7 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Command3_Click(Index As Integer)
+Private Sub Command3_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim cBediener       As String
@@ -14076,7 +14076,7 @@ Private Sub Command3_Click(Index As Integer)
     Dim cKW             As String
     Dim DateHeut        As Date
     
-    Select Case Index
+    Select Case index
         Case Is = 0     'Schließen
             Unload frmWKL82
         Case Is = 1     'runter
@@ -14906,7 +14906,7 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Command4_Click(Index As Integer)
+Private Sub Command4_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim i               As Integer
@@ -14921,7 +14921,7 @@ Private Sub Command4_Click(Index As Integer)
     Dim dateWochedat    As Date
     Dim sDelBed         As String
     
-    Select Case Index
+    Select Case index
         Case Is = 0     'Speichern
             If speicher_Termin Then
             
@@ -15660,7 +15660,7 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Command6_Click(Index As Integer)
+Private Sub Command6_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim cLBSatz         As String
@@ -15672,7 +15672,7 @@ Private Sub Command6_Click(Index As Integer)
     Dim cTagTeil        As String
     Dim cJahrTeil       As String
     
-    Select Case Index
+    Select Case index
         Case Is = 0
             If List7.ListIndex < 0 Then
                 MsgBox "Bitte einen Eintrag in der Liste auswählen!", vbInformation, "Winkiss Hinweis:"
@@ -16229,13 +16229,13 @@ End Sub
 Private Sub Frame8_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     Label1(19).ForeColor = glS1
 End Sub
-Private Sub Label1_Click(Index As Integer)
+Private Sub Label1_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
     
-    If Index = 19 Then
+    If index = 19 Then
         frmWKL193.Show 1
         
-    ElseIf Index = 0 Then
+    ElseIf index = 0 Then
         gckundnr = Val(Left(Label2(2).Caption, InStr(1, Label2(2).Caption, " ")))
         
         
@@ -16267,14 +16267,14 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Label1_MouseMove(Index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub Label1_MouseMove(index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
 On Error GoTo LOKAL_ERROR
 
-    If Index = 19 Then
+    If index = 19 Then
         Label1(19).ForeColor = glLink
     End If
     
-    If Index = 0 Then
+    If index = 0 Then
         Label1(0).ForeColor = glLink
     End If
     
@@ -16320,7 +16320,7 @@ LOKAL_ERROR:
 End Function
     
 
-Private Sub Label2_Click(Index As Integer)
+Private Sub Label2_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim cKürzel As String
@@ -16328,7 +16328,7 @@ Private Sub Label2_Click(Index As Integer)
     Dim cVorname As String
     Dim SFarbe As String
     
-    If Index = 21 Then
+    If index = 21 Then
     
     
         
@@ -16349,11 +16349,11 @@ Private Sub Label2_Click(Index As Integer)
         
     End If
     
-    If Index = 6 Then
+    If index = 6 Then
         Frame9.Visible = True
     End If
     
-    If Index = 19 Then
+    If index = 19 Then
         Text1(5).Text = ""
         List10.Clear
         
@@ -16378,7 +16378,7 @@ Private Sub Label2_Click(Index As Integer)
         List11.Visible = False
     End If
     
-    If Index = 10 Then
+    If index = 10 Then
     
         If Label2(10).Caption = "alle anzeigen" Then
             Label2(10).Caption = "einschränken"
@@ -16390,7 +16390,7 @@ Private Sub Label2_Click(Index As Integer)
     End If
     
     
-    If Index = 14 Then
+    If index = 14 Then
         Screen.MousePointer = 11
         
         'gsLastKunde
@@ -16459,7 +16459,7 @@ Private Sub Label2_Click(Index As Integer)
         
     End If
         
-    If Index = 16 Then
+    If index = 16 Then
         Screen.MousePointer = 11
     
         'gsLastKunde
@@ -16521,7 +16521,7 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Label3_Click(Index As Integer)
+Private Sub Label3_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     If Gibt_es_Termine_in_Zunkunft(Left(Label3(4).Caption, InStr(1, Label3(4).Caption, " "))) > 0 Then
@@ -16928,13 +16928,13 @@ If cBezeich <> "" Then
     Check2(5).Visible = True
     Check2(6).Visible = True
     
-    Check2(0).Value = vbChecked
-    Check2(1).Value = vbChecked
-    Check2(2).Value = vbChecked
-    Check2(3).Value = vbChecked
-    Check2(4).Value = vbChecked
-    Check2(5).Value = vbChecked
-    Check2(6).Value = vbChecked
+    Check2(0).value = vbChecked
+    Check2(1).value = vbChecked
+    Check2(2).value = vbChecked
+    Check2(3).value = vbChecked
+    Check2(4).value = vbChecked
+    Check2(5).value = vbChecked
+    Check2(6).value = vbChecked
     
     
     
@@ -16946,12 +16946,12 @@ If cBezeich <> "" Then
     DTPickerVon.Visible = True
     DTPickerBis.Visible = True
     
-    DTPickerVon.Value = DateValue(Now)
-    DTPickerBis.Value = DateValue(Now)
+    DTPickerVon.value = DateValue(Now)
+    DTPickerBis.value = DateValue(Now)
     
     fuellecombo_Zeitraeume Combo14
     
-    zeigefreie_Terminbloecke_ProBediener Text1(5).Text, DTPickerVon.Value, DTPickerBis.Value
+    zeigefreie_Terminbloecke_ProBediener Text1(5).Text, DTPickerVon.value, DTPickerBis.value
     
 End If
 
@@ -17470,12 +17470,12 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Text1_GotFocus(Index As Integer)
+Private Sub Text1_GotFocus(index As Integer)
 On Error GoTo LOKAL_ERROR
 
-    Text1(Index).BackColor = glSelBack1
-    Label0.Caption = Index
-    If Index = 1 Or Index = 4 Then
+    Text1(index).BackColor = glSelBack1
+    Label0.Caption = index
+    If index = 1 Or index = 4 Then
         Command0(41).Caption = ":"
     Else
         Command0(41).Caption = "."
@@ -17491,7 +17491,7 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Text1_KeyPress(Index As Integer, KeyAscii As Integer)
+Private Sub Text1_KeyPress(index As Integer, KeyAscii As Integer)
 On Error GoTo LOKAL_ERROR
     
     Dim cZeichen As String
@@ -17499,7 +17499,7 @@ On Error GoTo LOKAL_ERROR
     
     cZeichen = Chr$(KeyAscii)
     
-    Select Case Index
+    Select Case index
     
         Case Is = 5
             cValid = gcUPPER & gcLower & gcNUM & Chr$(8) & Chr$(32) & Chr(42) 'Leer *
@@ -17521,7 +17521,7 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Text1_KeyUp(Index As Integer, KeyCode As Integer, Shift As Integer)
+Private Sub Text1_KeyUp(index As Integer, KeyCode As Integer, Shift As Integer)
 On Error GoTo LOKAL_ERROR
 
     If KeyCode = vbKeyReturn Then
@@ -17538,10 +17538,10 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Text1_LostFocus(Index As Integer)
+Private Sub Text1_LostFocus(index As Integer)
 On Error GoTo LOKAL_ERROR
 
-    Text1(Index).BackColor = vbWhite
+    Text1(index).BackColor = vbWhite
     
 Exit Sub
 LOKAL_ERROR:
@@ -18263,31 +18263,31 @@ chkMi As CheckBox, chkDo As CheckBox, chkFr As CheckBox, chkSa As CheckBox, chkS
         
     End Select
     
-    If chkMo.Value = vbUnchecked Then
+    If chkMo.value = vbUnchecked Then
         cSQL = cSQL & " and WOCHENTAG <> 'Montag' "
     End If
     
-    If chkDi.Value = vbUnchecked Then
+    If chkDi.value = vbUnchecked Then
         cSQL = cSQL & " and WOCHENTAG <> 'Dienstag' "
     End If
     
-    If chkMi.Value = vbUnchecked Then
+    If chkMi.value = vbUnchecked Then
         cSQL = cSQL & " and WOCHENTAG <> 'Mittwoch' "
     End If
     
-    If chkDo.Value = vbUnchecked Then
+    If chkDo.value = vbUnchecked Then
         cSQL = cSQL & " and WOCHENTAG <> 'Donnerstag' "
     End If
     
-    If chkFr.Value = vbUnchecked Then
+    If chkFr.value = vbUnchecked Then
         cSQL = cSQL & " and WOCHENTAG <> 'Freitag' "
     End If
     
-    If chkSa.Value = vbUnchecked Then
+    If chkSa.value = vbUnchecked Then
         cSQL = cSQL & " and WOCHENTAG <> 'Samstag' "
     End If
     
-    If chkSo.Value = vbUnchecked Then
+    If chkSo.value = vbUnchecked Then
         cSQL = cSQL & " and WOCHENTAG <> 'Sonntag' "
     End If
     

@@ -412,20 +412,20 @@ Begin VB.Form frmWKL74
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Height          =   3840
+         Height          =   3165
          Left            =   120
          TabIndex        =   10
-         Top             =   360
+         Top             =   960
          Width           =   7455
       End
       Begin VB.Frame Frame6 
          BorderStyle     =   0  'Kein
          Caption         =   "Frame3"
-         Height          =   1815
-         Left            =   7680
+         Height          =   495
+         Left            =   120
          TabIndex        =   3
-         Top             =   4800
-         Width           =   1815
+         Top             =   240
+         Width           =   7455
          Begin VB.OptionButton Option4 
             Caption         =   "Bezeichnung"
             BeginProperty Font 
@@ -437,13 +437,13 @@ Begin VB.Form frmWKL74
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Height          =   255
+            Height          =   240
             Index           =   0
-            Left            =   120
+            Left            =   960
             TabIndex        =   45
             Tag             =   "bezeich asc"
-            Top             =   1440
-            Width           =   2175
+            Top             =   240
+            Width           =   1575
          End
          Begin VB.OptionButton Option4 
             Caption         =   "Fil Datum"
@@ -458,11 +458,11 @@ Begin VB.Form frmWKL74
             EndProperty
             Height          =   255
             Index           =   8
-            Left            =   120
+            Left            =   3480
             TabIndex        =   8
-            Tag             =   "Filiale , adate desc"
-            Top             =   1200
-            Width           =   2175
+            Tag             =   "Filiale , adate asc"
+            Top             =   240
+            Width           =   1335
          End
          Begin VB.OptionButton Option4 
             Caption         =   "Menge"
@@ -477,11 +477,11 @@ Begin VB.Form frmWKL74
             EndProperty
             Height          =   255
             Index           =   7
-            Left            =   120
+            Left            =   4920
             TabIndex        =   7
-            Tag             =   "menge desc"
-            Top             =   960
-            Width           =   1455
+            Tag             =   "menge asc"
+            Top             =   240
+            Width           =   975
          End
          Begin VB.OptionButton Option4 
             Caption         =   "Filiale"
@@ -496,11 +496,11 @@ Begin VB.Form frmWKL74
             EndProperty
             Height          =   255
             Index           =   5
-            Left            =   120
+            Left            =   2520
             TabIndex        =   6
-            Tag             =   "Filiale"
-            Top             =   720
-            Width           =   1455
+            Tag             =   "Filiale asc"
+            Top             =   240
+            Width           =   975
          End
          Begin VB.OptionButton Option4 
             Caption         =   "Bediener"
@@ -515,11 +515,11 @@ Begin VB.Form frmWKL74
             EndProperty
             Height          =   255
             Index           =   4
-            Left            =   120
+            Left            =   6000
             TabIndex        =   5
-            Tag             =   "Bednr"
-            Top             =   480
-            Width           =   1695
+            Tag             =   "Bednr asc"
+            Top             =   240
+            Width           =   1095
          End
          Begin VB.OptionButton Option4 
             Caption         =   "Datum"
@@ -534,12 +534,12 @@ Begin VB.Form frmWKL74
             EndProperty
             Height          =   255
             Index           =   3
-            Left            =   120
+            Left            =   0
             TabIndex        =   4
-            Tag             =   "adate desc"
+            Tag             =   "adate asc"
             Top             =   240
             Value           =   -1  'True
-            Width           =   1575
+            Width           =   975
          End
          Begin VB.Label Label1 
             Caption         =   "Sortierung nach"
@@ -554,7 +554,7 @@ Begin VB.Form frmWKL74
             EndProperty
             Height          =   375
             Index           =   7
-            Left            =   120
+            Left            =   0
             TabIndex        =   9
             Top             =   0
             Width           =   1815
@@ -628,7 +628,7 @@ Begin VB.Form frmWKL74
          Height          =   465
          Left            =   120
          TabIndex        =   11
-         Top             =   120
+         Top             =   720
          Width           =   7455
       End
       Begin sevCommand3.Command Command3 
@@ -1107,14 +1107,14 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Command3_Click(Index As Integer)
+Private Sub Command3_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim cLBSatz As String
     Dim cDatum As String
     Dim lLFNR As Long
     
-    Select Case Index
+    Select Case index
     
     Case 0
         Unload frmWKL74
@@ -1526,7 +1526,7 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Function
-Private Sub Command3_KeyUp(Index As Integer, KeyCode As Integer, Shift As Integer)
+Private Sub Command3_KeyUp(index As Integer, KeyCode As Integer, Shift As Integer)
 On Error GoTo LOKAL_ERROR
     
     If KeyCode = vbKeyEscape Then
@@ -1556,7 +1556,7 @@ Private Sub Form_Load()
     List1.Clear
     List1.AddItem "Datum     Menge   Artnr  Artikelbezeichnung                  Fil Preis    Bed"
     
-    sOrder = "adate desc"
+    sOrder = "adate"
     ZeigArtHistInList "VerkaufKU", List3, gckundnr, sOrder
     
     ZeigeSummen gckundnr
@@ -1648,10 +1648,10 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Label1_Click(Index As Integer)
+Private Sub Label1_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
-    If Index = 13 Then
+    If index = 13 Then
     
         Select Case Label1(13).Caption
         
@@ -1669,17 +1669,17 @@ On Error GoTo LOKAL_ERROR
 '                sOrder = "adate desc"
                 
                 
-                If Option4(0).Value = True Then
+                If Option4(0).value = True Then
                     sOrder = Option4(0).Tag
-                ElseIf Option4(3).Value = True Then
+                ElseIf Option4(3).value = True Then
                     sOrder = Option4(3).Tag
-                ElseIf Option4(4).Value = True Then
+                ElseIf Option4(4).value = True Then
                     sOrder = Option4(4).Tag
-                ElseIf Option4(5).Value = True Then
+                ElseIf Option4(5).value = True Then
                     sOrder = Option4(5).Tag
-                ElseIf Option4(7).Value = True Then
+                ElseIf Option4(7).value = True Then
                     sOrder = Option4(7).Tag
-                ElseIf Option4(8).Value = True Then
+                ElseIf Option4(8).value = True Then
                     sOrder = Option4(8).Tag
                 End If
                 
@@ -1720,17 +1720,17 @@ On Error GoTo LOKAL_ERROR
 '                sOrder = "adate desc"
                 
                 
-                If Option4(0).Value = True Then
+                If Option4(0).value = True Then
                     sOrder = Option4(0).Tag
-                ElseIf Option4(3).Value = True Then
+                ElseIf Option4(3).value = True Then
                     sOrder = Option4(3).Tag
-                ElseIf Option4(4).Value = True Then
+                ElseIf Option4(4).value = True Then
                     sOrder = Option4(4).Tag
-                ElseIf Option4(5).Value = True Then
+                ElseIf Option4(5).value = True Then
                     sOrder = Option4(5).Tag
-                ElseIf Option4(7).Value = True Then
+                ElseIf Option4(7).value = True Then
                     sOrder = Option4(7).Tag
-                ElseIf Option4(8).Value = True Then
+                ElseIf Option4(8).value = True Then
                     sOrder = Option4(8).Tag
                 End If
                 
@@ -1866,10 +1866,10 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Label1_MouseMove(Index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub Label1_MouseMove(index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
 On Error GoTo LOKAL_ERROR
 
-    If Index = 13 Then
+    If index = 13 Then
         Label1(13).ForeColor = glLink
     End If
     
@@ -1922,11 +1922,9 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Option4_Click(Index As Integer)
+Private Sub Option4_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
 
-    sOrder = Option4(Index).Tag
-    ZeigArtHistInList "VerkaufKU", List3, gckundnr, sOrder
 
 Exit Sub
 LOKAL_ERROR:
@@ -1938,7 +1936,58 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Picture1_Click(Index As Integer)
+
+Private Sub Option4_MouseUp(index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
+ On Error GoTo LOKAL_ERROR
+ 
+    sOrder = Option4(index).Tag
+
+     ' Odayy  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START
+  
+        If sOrder = "adate asc" Then
+            Option4(index).Tag = "adate desc"
+        ElseIf sOrder = "Bednr asc" Then
+            Option4(index).Tag = "Bednr desc"
+        ElseIf sOrder = "Filiale asc" Then
+            Option4(index).Tag = "Filiale desc"
+        ElseIf sOrder = "menge asc" Then
+            Option4(index).Tag = "menge desc"
+        ElseIf sOrder = "Filiale , adate asc" Then
+            Option4(index).Tag = "Filiale , adate desc"
+        ElseIf sOrder = "bezeich asc" Then
+            Option4(index).Tag = "bezeich desc"
+       
+        ElseIf sOrder = "adate desc" Then
+            Option4(index).Tag = "adate asc"
+        ElseIf sOrder = "Bednr desc" Then
+            Option4(index).Tag = "Bednr asc"
+        ElseIf sOrder = "Filiale desc" Then
+            Option4(index).Tag = "Filiale asc"
+        ElseIf sOrder = "menge desc" Then
+            Option4(index).Tag = "menge asc"
+        ElseIf sOrder = "Filiale , adate desc" Then
+            Option4(index).Tag = "Filiale , adate asc"
+        ElseIf sOrder = "bezeich desc" Then
+            Option4(index).Tag = "bezeich asc"
+        End If
+        
+    ' Odayy  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ENDE
+ 
+    ZeigArtHistInList "VerkaufKU", List3, gckundnr, sOrder
+
+Exit Sub
+LOKAL_ERROR:
+    Fehler.gsDescr = err.Description
+    Fehler.gsNumber = err.Number
+    Fehler.gsFormular = Me.name
+    Fehler.gsFunktion = "Option4_MouseUp"
+    Fehler.gsFehlertext = "Im Programmteil Kunden Verkauf ist ein Fehler aufgetreten."
+    
+    Fehlermeldung1
+    
+End Sub
+
+Private Sub Picture1_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
     If IsNumeric(gckundnr) Then

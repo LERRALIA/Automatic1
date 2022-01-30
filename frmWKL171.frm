@@ -2595,9 +2595,9 @@ Begin VB.Form frmWKL171
       BackColor       =   &H80000002&
       BorderStyle     =   0  'Kein
       Height          =   14295
-      Left            =   0
+      Left            =   120
       TabIndex        =   0
-      Top             =   240
+      Top             =   360
       Width           =   25815
       Begin VB.Frame Frame7 
          Caption         =   "Einstellungen"
@@ -4870,12 +4870,12 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-Private Sub Command0_Click(Index As Integer)
+Private Sub Command0_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim lDat As Long
 
-    Select Case Index
+    Select Case index
         Case Is = 1        ' Kalender
             Text1(9).Text = Format(Datumschreiben11a(3000, 4000), "DD.MM.YYYY")
         Case Is = 0        ' Kalender
@@ -4980,7 +4980,7 @@ LOKAL_ERROR:
 
     Fehlermeldung1
 End Sub
-Private Sub Command5_Click(Index As Integer)
+Private Sub Command5_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
     Dim lBis            As Long
@@ -4989,7 +4989,7 @@ On Error GoTo LOKAL_ERROR
     Dim lDay            As Long
     Dim iRet            As Integer
 
-    Select Case Index
+    Select Case index
         Case 0
             Frame1.Visible = False
             Frame5.Visible = True
@@ -5011,7 +5011,7 @@ On Error GoTo LOKAL_ERROR
             
             Screen.MousePointer = 0
             
-            If Check1.Value = vbChecked Then
+            If Check1.value = vbChecked Then
                 ExportCSV_Bauch sdat
             Else
                 ExportCSV sdat
@@ -5567,12 +5567,12 @@ Private Sub Zeigeauswahlframe()
     
     Frame5.Visible = False
     
-    If Option2(0).Value = True Then         'GDPdU
+    If Option2(0).value = True Then         'GDPdU
         Frame6.Visible = True
         Aufbereitung_derZahlen
-    ElseIf Option2(2).Value = True Then     'DATEV
+    ElseIf Option2(2).value = True Then     'DATEV
         Frame1.Visible = True
-    ElseIf Option2(1).Value = True Then
+    ElseIf Option2(1).value = True Then
         Frame8.Visible = True 'GDPdU Komplettausgabe
         
         Text1(8).Text = Format("01.01." & Year(DateValue(Now)), "DD.MM.YYYY")
@@ -5601,7 +5601,7 @@ Private Sub Aufbereitung_derZahlen()
     Dim dateStand   As Date
     Dim lZbonNr     As Long
     Dim lAnz        As Long
-    Dim Ldiff       As Long
+    Dim lDiff       As Long
     
     Screen.MousePointer = 11
     
@@ -5732,7 +5732,7 @@ Private Sub Aufbereitung_derZahlen()
         anzeige "normal", "Nr. " & CStr(lZbonNr), Label1(29)
         Text1(6).Text = lZbonNr
         
-        Ldiff = lZbonNr
+        lDiff = lZbonNr
     
     
         'min Zbon Nr
@@ -5745,7 +5745,7 @@ Private Sub Aufbereitung_derZahlen()
         rsrs.Close: Set rsrs = Nothing
         anzeige "normal", "Nr. " & CStr(lZbonNr), Label1(30)
         
-        Ldiff = Ldiff - lZbonNr + 1
+        lDiff = lDiff - lZbonNr + 1
         
         
         
@@ -5760,7 +5760,7 @@ Private Sub Aufbereitung_derZahlen()
         End If
         rsrs.Close: Set rsrs = Nothing
         
-        anzeige "normal", "alle Kassenabrechnungen (" & lAnz & "/" & Ldiff & ")", Label1(20)
+        anzeige "normal", "alle Kassenabrechnungen (" & lAnz & "/" & lDiff & ")", Label1(20)
         
         Command5(23).Enabled = True
     Else
@@ -6297,7 +6297,7 @@ Private Sub GDPdU_ExportCSV_Kassjour(sVondat As String, sBisdat As String)
     Dim cBez            As String
     Dim cMenge          As String
     Dim cPreis          As String
-    Dim cMwst           As String
+    Dim cMWST           As String
     Dim cUms_ok         As String
     Dim cBELEGNR        As String
     Dim cKundnr         As String
@@ -6359,7 +6359,7 @@ Private Sub GDPdU_ExportCSV_Kassjour(sVondat As String, sBisdat As String)
             cBez = ""
             cMenge = ""
             cPreis = ""
-            cMwst = ""
+            cMWST = ""
             cUms_ok = ""
             cBELEGNR = ""
             cKundnr = ""
@@ -6397,7 +6397,7 @@ Private Sub GDPdU_ExportCSV_Kassjour(sVondat As String, sBisdat As String)
             End If
             
             If Not IsNull(rsrs!MWST) Then
-                cMwst = rsrs!MWST
+                cMWST = rsrs!MWST
             End If
             
             If Not IsNull(rsrs!UMS_OK) Then
@@ -6411,7 +6411,7 @@ Private Sub GDPdU_ExportCSV_Kassjour(sVondat As String, sBisdat As String)
             cSatz = ""
             
             cSatz = cDatum & ";" & czeit & ";" & cKasnum & ";" & cArtNr & ";" & cBez & ";" & cMenge & ";" & cPreis & ";" & cKundnr & ";"
-            cSatz = cSatz & cMwst & ";" & cUms_ok & ";" & cBELEGNR
+            cSatz = cSatz & cMWST & ";" & cUms_ok & ";" & cBELEGNR
             cSatz = cSatz & Chr$(13) & Chr$(10)
             
             lPos = LOF(iFileNr)
@@ -6483,7 +6483,7 @@ Private Sub Datev_ExportCSV_Kassjour(sVondat As String, sBisdat As String, sKtnr
     Dim cBez            As String
     Dim cMenge          As String
     Dim cPreis          As String
-    Dim cMwst           As String
+    Dim cMWST           As String
     Dim cUms_ok         As String
     Dim cBELEGNR        As String
     Dim cKundnr         As String
@@ -6545,7 +6545,7 @@ Private Sub Datev_ExportCSV_Kassjour(sVondat As String, sBisdat As String, sKtnr
             cBez = ""
             cMenge = ""
             cPreis = ""
-            cMwst = ""
+            cMWST = ""
             cUms_ok = ""
             cBELEGNR = ""
             cKundnr = ""
@@ -6583,7 +6583,7 @@ Private Sub Datev_ExportCSV_Kassjour(sVondat As String, sBisdat As String, sKtnr
             End If
             
             If Not IsNull(rsrs!MWST) Then
-                cMwst = rsrs!MWST
+                cMWST = rsrs!MWST
             End If
             
             If Not IsNull(rsrs!UMS_OK) Then
@@ -6597,7 +6597,7 @@ Private Sub Datev_ExportCSV_Kassjour(sVondat As String, sBisdat As String, sKtnr
             cSatz = ""
             
             cSatz = cDatum & ";" & czeit & ";" & cKasnum & ";" & cArtNr & ";" & cBez & ";" & cMenge & ";" & cPreis & ";" & cKundnr & ";"
-            cSatz = cSatz & cMwst & ";" & cUms_ok & ";" & cBELEGNR & ";" & sKtnr
+            cSatz = cSatz & cMWST & ";" & cUms_ok & ";" & cBELEGNR & ";" & sKtnr
             cSatz = cSatz & Chr$(13) & Chr$(10)
             
             lPos = LOF(iFileNr)
@@ -8247,7 +8247,7 @@ Private Sub voreinstellungspeichernE171()
     End If
     
     
-    If Check1.Value = vbChecked Then
+    If Check1.value = vbChecked Then
         bo1 = 0
     Else
         bo1 = -1
@@ -8273,7 +8273,7 @@ Private Sub voreinstellungladenE171()
     Dim rs As Recordset
     
     Text1(7).Text = "DDMM"
-    Check1.Value = vbUnchecked
+    Check1.value = vbUnchecked
     
     If NewTableSuchenDBKombi("E171", gdBase) Then
     
@@ -8288,9 +8288,9 @@ Private Sub voreinstellungladenE171()
             
             
             If rs!bo1 = True Then
-                Check1.Value = vbUnchecked
+                Check1.value = vbUnchecked
             Else
-                Check1.Value = vbChecked
+                Check1.value = vbChecked
             End If
         
         
@@ -8656,18 +8656,18 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Label1_Click(Index As Integer)
+Private Sub Label1_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
     Dim cNr As String
 
-    Select Case Index
+    Select Case index
         Case 16, 17, 22, 23, 25, 26, 36, 37
-            Label1(Index).Caption = Format(Datumschreiben11a(3000, 4000), "DD.MM.YY")
+            Label1(index).Caption = Format(Datumschreiben11a(3000, 4000), "DD.MM.YY")
         Case 18
             URLGoTo Me.hwnd, "http://www.kisslive.de/downloads/winkiss/Handbuch.pdf"
         Case 30, 29
-            cNr = Label1(Index).Caption
+            cNr = Label1(index).Caption
             
             cNr = SwapStr(cNr, "Nr. ", "")
             
@@ -8684,12 +8684,12 @@ LOKAL_ERROR:
 
     Fehlermeldung1
 End Sub
-Private Sub Label1_MouseMove(Index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub Label1_MouseMove(index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
 On Error GoTo LOKAL_ERROR
 
-    Select Case Index
+    Select Case index
         Case 16, 17, 18, 22, 23, 25, 26, 29, 30, 36, 37
-            Label1(Index).ForeColor = glWarn
+            Label1(index).ForeColor = glWarn
     End Select
 
 Exit Sub
@@ -8703,11 +8703,11 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Label4_Click(Index As Integer)
+Private Sub Label4_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
 
-    Select Case Index
+    Select Case index
         Case 0
             URLGoTo Me.hwnd, "http://www.kisslive.de/winkiss/winkiss-beitraege/246-gdpdu_schnittstelle#Umsatz"
         Case 1
@@ -8745,7 +8745,7 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Label4_MouseMove(Index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub Label4_MouseMove(index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
 On Error GoTo LOKAL_ERROR
 
     Dim i As Integer
@@ -8753,7 +8753,7 @@ On Error GoTo LOKAL_ERROR
         Label4(i).ForeColor = glS1
     Next i
     
-    Label4(Index).ForeColor = glWarn
+    Label4(index).ForeColor = glWarn
     
 Exit Sub
 LOKAL_ERROR:
@@ -8766,13 +8766,13 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Option2_Click(Index As Integer)
+Private Sub Option2_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
-    If Option2(0).Value = True Then
+    If Option2(0).value = True Then
         Option2(0).ForeColor = glWarn
         Option2(2).ForeColor = glS1
-    ElseIf Option2(2).Value = True Then
+    ElseIf Option2(2).value = True Then
         Option2(2).ForeColor = glWarn
         Option2(0).ForeColor = glS1
     End If
@@ -8787,13 +8787,13 @@ LOKAL_ERROR:
 
     Fehlermeldung1
 End Sub
-Private Sub Text1_KeyPress(Index As Integer, KeyAscii As Integer)
+Private Sub Text1_KeyPress(index As Integer, KeyAscii As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim cZeichen As String
     Dim cValid As String
 
-    Select Case Index
+    Select Case index
         Case 6, 2, 1, 0, 11
             cValid = "1234567890" & Chr$(8)
         Case 7
@@ -8820,13 +8820,13 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Text5_KeyPress(Index As Integer, KeyAscii As Integer)
+Private Sub Text5_KeyPress(index As Integer, KeyAscii As Integer)
 On Error GoTo LOKAL_ERROR
     
     Dim cZeichen As String
     Dim cValid As String
 
-    Select Case Index
+    Select Case index
         Case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
             cValid = gcUPPER & gcLower & gcNUM & Chr$(8) & Chr$(32) & Chr(42) 'Leer *
             cValid = cValid & Chr(38) & Chr(45) & Chr(46)  '& - .

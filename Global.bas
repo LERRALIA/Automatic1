@@ -1,7 +1,7 @@
 Attribute VB_Name = "Global"
 Option Explicit
 
-Global Const glpVers                As Long = 3117
+Global Const glpVers                As Long = 3119
 Global gbSQLSERVER                  As Boolean
 
 Global gbDsFinvkPfad As String

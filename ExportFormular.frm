@@ -1,4 +1,5 @@
 VERSION 5.00
+Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form ExportFormular 
    Caption         =   "Form1"
    ClientHeight    =   4155
@@ -9,39 +10,29 @@ Begin VB.Form ExportFormular
    ScaleHeight     =   4155
    ScaleWidth      =   13995
    StartUpPosition =   3  'Windows-Standard
-   Begin VB.ComboBox bisJahr 
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   315
-      Left            =   4440
+   Begin MSComCtl2.DTPicker DTPicker2 
+      Height          =   375
+      Left            =   5160
       TabIndex        =   7
-      Text            =   "bis"
       Top             =   600
-      Width           =   1095
+      Width           =   1575
+      _ExtentX        =   2778
+      _ExtentY        =   661
+      _Version        =   393216
+      Format          =   110952449
+      CurrentDate     =   44400
    End
-   Begin VB.ComboBox vonJahr 
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   315
-      Left            =   3120
+   Begin MSComCtl2.DTPicker DTPicker1 
+      Height          =   375
+      Left            =   3360
       TabIndex        =   6
-      Text            =   "von"
       Top             =   600
-      Width           =   1095
+      Width           =   1455
+      _ExtentX        =   2566
+      _ExtentY        =   661
+      _Version        =   393216
+      Format          =   110952449
+      CurrentDate     =   44400
    End
    Begin VB.CommandButton Command1 
       Caption         =   "Ausgabe Pfad"
@@ -72,7 +63,7 @@ Begin VB.Form ExportFormular
          Strikethrough   =   0   'False
       EndProperty
       Height          =   300
-      Left            =   5640
+      Left            =   7080
       TabIndex        =   1
       Top             =   600
       Width           =   1335
@@ -163,28 +154,28 @@ Dim DateiZuErstellen As String
 
  
 
-Private Sub bisJahr_Change()
-
-bisJahr.BackColor = vbWhite
-
- Dim textval As String
-  
- textval = Trim(bisJahr.Text)
- textval = Replace(textval, ".", "")
- textval = Replace(textval, ",", "")
- 
-  If IsNumeric(textval) Then
-      bisJahr.Text = CStr(textval)
-    Else
-      bisJahr.Text = ""
-    
-  End If
-  
-End Sub
-
-Private Sub bisJahr_Click()
-bisJahr.BackColor = vbWhite
-End Sub
+'Private Sub bisJahr_Change()
+'
+'bisJahr.BackColor = vbWhite
+'
+' Dim textval As String
+'
+' textval = Trim(bisJahr.Text)
+' textval = Replace(textval, ".", "")
+' textval = Replace(textval, ",", "")
+'
+'  If IsNumeric(textval) Then
+'      bisJahr.Text = CStr(textval)
+'    Else
+'      bisJahr.Text = ""
+'
+'  End If
+'
+'End Sub
+'
+'Private Sub bisJahr_Click()
+'bisJahr.BackColor = vbWhite
+'End Sub
 
 Private Sub ChkOeffnen_Click()
  
@@ -219,12 +210,12 @@ If Trim(gbDsFinvkPfad) = "" Then
 
  MsgBox ("Bitte erstmal Pfad wählen ! ! !")
  
- ElseIf vonJahr.Text = "von" Or Trim(vonJahr.Text) = "" Then
-  MsgBox ("bitte Datum auswählen")
-  vonJahr.BackColor = vbRed
- ElseIf bisJahr.Text = "bis" Or Trim(bisJahr.Text) = "" Then
-  MsgBox ("bitte Datum auswählen")
-  bisJahr.BackColor = vbRed
+' ElseIf vonJahr.Text = "von" Or Trim(vonJahr.Text) = "" Then
+'  MsgBox ("bitte Datum auswählen")
+'  vonJahr.BackColor = vbRed
+' ElseIf bisJahr.Text = "bis" Or Trim(bisJahr.Text) = "" Then
+'  MsgBox ("bitte Datum auswählen")
+'  bisJahr.BackColor = vbRed
  Else
    
  Command2.Enabled = False
@@ -277,7 +268,7 @@ On Error GoTo LOKAL_ERROR
              '1. grunde Spalten abfragen (Hinweis: (BELEGNR) ist einfach BON_NR wie z.b 1001,1002. aber (BON_ID) ist eine fortlaufende Zahl, die jetzt erstellt wird
              lblProgress.Caption = "1. die entsprechenden Spalten für Bonkopf werden ermittelt ..."
              lblProgress.Refresh
-             gdBase.Execute ("SELECT KASNUM as Z_KASSE_ID, DATUM , UHRZEIT ,'' as Z_NR,BONNR as BON_NR,'Beleg' as BON_TYP,'' as BON_NAME,'' as TERMINAL_ID,'' as BON_STORNO,'' as BON_START,'' as BON_ENDE,'' as BEDIENER_ID,'' as BEDIENER_NAME,BETRAG as UMS_BRUTTO,'' as KUNDE_NAME,KUNDNR as KUNDE_ID,'' as KUNDE_TYP,'' as KUNDE_STRASSE,'' as KUNDE_PLZ,'' as KUNDE_ORT,'' as KUNDE_LAND,'' as KUNDE_USTID,'' as BON_NOTIZ INTO Bonkopf_tmp FROM KASSBON WHERE YEAR(DATUM)>=" & vonJahr.Text & " and YEAR(DATUM)<=" & bisJahr.Text)
+             gdBase.Execute ("SELECT KASNUM as Z_KASSE_ID, DATUM , UHRZEIT ,'' as Z_NR,BONNR as BON_NR,'Beleg' as BON_TYP,'' as BON_NAME,'' as TERMINAL_ID,'' as BON_STORNO,'' as BON_START,'' as BON_ENDE,'' as BEDIENER_ID,'' as BEDIENER_NAME,BETRAG as UMS_BRUTTO,'' as KUNDE_NAME,KUNDNR as KUNDE_ID,'' as KUNDE_TYP,'' as KUNDE_STRASSE,'' as KUNDE_PLZ,'' as KUNDE_ORT,'' as KUNDE_LAND,'' as KUNDE_USTID,'' as BON_NOTIZ INTO Bonkopf_tmp FROM KASSBON WHERE Datevalue(DATUM) between CDate('" & DTPicker1.value & "') and CDate('" & DTPicker2.value & "')")
              '2. fortlaufende BON_ID genarieren"
              lblProgress.Caption = "2. fortlaufende BON_ID genarieren ..."
              lblProgress.Refresh
@@ -304,7 +295,7 @@ On Error GoTo LOKAL_ERROR
             '   Hinweis: VKPR ist BruttoPreis
             lblProgress.Caption = "1. die grundlegende Columns aus der Tabelle [Kassjour] in der Tabelle [ToDsFinvK] kopieren  ..."
             lblProgress.Refresh
-            gdBase.Execute ("SELECT KASNUM,ADATE,AZEIT,BELEGNR,'' as BON_ID,BEZEICH,ARTNR,EAN,AGN,MENGE,VKPR,PREIS,MWST,'' as Z_NR,'' as POS_TERMINAL_ID,'Umsatz' as GV_TYP,'' as GV_NAME,'' as INHAUS,'' as AGENTUR_ID,'Stueck' as EINHEIT,'' as FAKTOR,'' as P_STORNO,'' as WARENGR INTO ToDsFinvK FROM Kassjour WHERE YEAR(ADATE)>=" & vonJahr.Text & " and YEAR(ADATE)<=" & bisJahr.Text)
+            gdBase.Execute ("SELECT KASNUM,ADATE,AZEIT,BELEGNR,'' as BON_ID,BEZEICH,ARTNR,EAN,AGN,MENGE,VKPR,PREIS,MWST,'' as Z_NR,'' as POS_TERMINAL_ID,'Umsatz' as GV_TYP,'' as GV_NAME,'' as INHAUS,'' as AGENTUR_ID,'Stueck' as EINHEIT,'' as FAKTOR,'' as P_STORNO,'' as WARENGR INTO ToDsFinvK FROM Kassjour WHERE Datevalue(ADATE) between CDate('" & DTPicker1.value & "') and CDate('" & DTPicker2.value & "')")
             gdBase.Execute ("ALTER TABLE ToDsFinvK ADD COLUMN POS_ZEILE COUNTER (0,1)")
             gdBase.Execute ("ALTER TABLE ToDsFinvK ADD COLUMN GUTSCHEIN_NR NUMBER")
             'ToDsFinvK & Bonkopf sind miteinander durch [ BON_ID ] verknüpfen
@@ -343,12 +334,18 @@ On Error GoTo LOKAL_ERROR
             lblProgress.Caption = "1.MWST wird ermitteln ..."
             lblProgress.Refresh
             gdBase.Execute ("ALTER TABLE ToDsFinvK ADD COLUMN UST_SCHLUESSEL NUMBER,POS_UST NUMBER")
-            gdBase.Execute ("UPDATE ToDsFinvK K INNER JOIN MWSTSATZ M ON YEAR(K.ADATE)=M.FurJahr SET K.UST_SCHLUESSEL=M.id,K.POS_UST=M.VOLL WHERE K.MWST='V'")
-            gdBase.Execute ("UPDATE ToDsFinvK K INNER JOIN MWSTSATZ M ON YEAR(K.ADATE)=M.FurJahr SET K.UST_SCHLUESSEL=M.id,K.POS_UST=M.ERM  WHERE K.MWST='E'")
-            gdBase.Execute ("UPDATE ToDsFinvK K INNER JOIN MWSTSATZ M ON YEAR(K.ADATE)=M.FurJahr SET K.UST_SCHLUESSEL=M.id,K.POS_UST=M.OHNE WHERE K.MWST='O'")
+            
+            gdBase.Execute ("UPDATE ToDsFinvK K INNER JOIN MWSTSATZ M ON K.ADATE>=M.vonD AND K.ADATE<=M.bisD SET K.UST_SCHLUESSEL=M.id,K.POS_UST=M.VOLL WHERE K.MWST='V'")
+            gdBase.Execute ("UPDATE ToDsFinvK K INNER JOIN MWSTSATZ M ON K.ADATE>=M.vonD AND K.ADATE<=M.bisD SET K.UST_SCHLUESSEL=M.id,K.POS_UST=M.ERM  WHERE K.MWST='E'")
+            gdBase.Execute ("UPDATE ToDsFinvK K INNER JOIN MWSTSATZ M ON K.ADATE>=M.vonD AND K.ADATE<=M.bisD SET K.UST_SCHLUESSEL=M.id,K.POS_UST=M.OHNE WHERE K.MWST='O'")
+            
+            'vielleicht ist [bisD] leer/Null
+            gdBase.Execute ("UPDATE ToDsFinvK K INNER JOIN MWSTSATZ M ON K.ADATE>=M.vonD SET K.UST_SCHLUESSEL=M.id,K.POS_UST=M.VOLL WHERE K.MWST='V' AND M.bisD is null")
+            gdBase.Execute ("UPDATE ToDsFinvK K INNER JOIN MWSTSATZ M ON K.ADATE>=M.vonD SET K.UST_SCHLUESSEL=M.id,K.POS_UST=M.ERM  WHERE K.MWST='E' AND M.bisD is null")
+            gdBase.Execute ("UPDATE ToDsFinvK K INNER JOIN MWSTSATZ M ON K.ADATE>=M.vonD SET K.UST_SCHLUESSEL=M.id,K.POS_UST=M.OHNE WHERE K.MWST='O' AND M.bisD is null")
             
             gdBase.Execute ("SELECT KASNUM as Z_KASSE_ID,Format (ADATE & ' ' & AZEIT, 'yyyy-mm-dd\Thh:nn:ss') as Z_ERSTELLUNG,Z_NR,BON_ID,POS_ZEILE,UST_SCHLUESSEL,VKPR as POS_BRUTTO,'' as POS_NETTO,POS_UST into Bonpos_USt FROM ToDsFinvK")
-             
+           
             '2. NettoPreis rechnen
              lblProgress.Caption = "2. NettoPreis wird gerechnet ..."
              lblProgress.Refresh
@@ -405,7 +402,8 @@ On Error GoTo LOKAL_ERROR
              '**************************************************************************************> Bonkopf_AbrKreis.csv
                                                     lblDatei.Caption = "Bonkopf_AbrKreis.csv"
                                                     lblDatei.Refresh
-              
+             lblProgress.Caption = ""
+             lblProgress.Refresh
              '1. hier bleibt die Spalte [ ABRECHNUNGSKREIS] Leer (in Winkiss nicht unterstützt [siehe Dokumentation von Bonkopf_AbrKreis.csv])
              gdBase.Execute ("SELECT Z_KASSE_ID,Z_ERSTELLUNG,Z_NR,BON_ID,'' as ABRECHNUNGSKREIS INTO Bonkopf_AbrKreis FROM Bonkopf")
                    
@@ -418,6 +416,9 @@ On Error GoTo LOKAL_ERROR
              lblProgress.Caption = "1. Zahlart jedes Kassenbons wird ermitteltt ..."
              lblProgress.Refresh
              gdBase.Execute ("SELECT Z_KASSE_ID,Z_ERSTELLUNG,Z_NR,BON_NR,BON_ID,'' as ZAHLART_TYP,'' as ZAHLART_NAME,'' as ZAHLWAEH_CODE,'' as ZAHLWAEH_BETRAG,UMS_BRUTTO as BASISWAEH_BETRAG INTO Bonkopf_Zahlarten FROM Bonkopf")
+             
+             lblProgress.Caption = "2. Zahlarten werden geschrieben ..."
+             lblProgress.Refresh
              gdBase.Execute ("UPDATE Bonkopf_Zahlarten BZA INNER JOIN KASSBON K ON BZA.Z_KASSE_ID=K.KASNUM AND BZA.Z_ERSTELLUNG= Format (K.DATUM & ' ' & K.UHRZEIT, 'yyyy-mm-dd\Thh:nn:ss') AND BZA.BON_NR=K.BONNR SET BZA.ZAHLART_TYP=K.KK_ART")
              gdBase.Execute ("UPDATE Bonkopf_Zahlarten SET ZAHLART_TYP='Unbar' WHERE ZAHLART_TYP<>'BA' AND ZAHLART_TYP<>'GZ'")
              gdBase.Execute ("UPDATE Bonkopf_Zahlarten SET ZAHLART_TYP='Bar' WHERE ZAHLART_TYP='BA'")
@@ -427,7 +428,8 @@ On Error GoTo LOKAL_ERROR
              '**************************************************************************************> Bon_Referenzen.csv
                                                     lblDatei.Caption = "Bon_Referenzen.csv"
                                                     lblDatei.Refresh
-               
+             lblProgress.Caption = "Bon_Referenzen wird mit den Daten gefüllt ..."
+             lblProgress.Refresh
              gdBase.Execute ("SELECT Z_KASSE_ID,Z_ERSTELLUNG,Z_NR,BON_ID,'' as POS_ZEILE,'' as REF_TYP,'' as REF_NAME,'' as REF_DATUM,'' as REF_Z_KASSE_ID,'' as REF_Z_NR,'' as REF_BON_ID INTO Bon_Referenzen FROM Bonkopf")
                
                    
@@ -435,8 +437,11 @@ On Error GoTo LOKAL_ERROR
              '**************************************************************************************> TSE_Transaktionen.csv
                                                     lblDatei.Caption = "TSE_Transaktionen.csv"
                                                     lblDatei.Refresh
-               
+             lblProgress.Caption = "von Bon_Kopf into TSE_Transaktionen"
+             lblProgress.Refresh
              gdBase.Execute ("SELECT Z_KASSE_ID,Z_ERSTELLUNG,Z_NR,BON_ID,BON_NR,'' as TSE_ID,'' as TSE_TANR,'' as TSE_TA_START,'' as TSE_TA_ENDE,'1' as TSE_TA_VORGANGSART,'' as TSE_TA_SIGZ,'' as TSE_TA_SIG,'' as TSE_TA_FEHLER,'' as TSE_VORGANSDATEN INTO TSE_Transaktionen FROM Bonkopf")
+             lblProgress.Caption = "TSE Daten werden geschrieben ..."
+             lblProgress.Refresh
              gdBase.Execute ("UPDATE TSE_Transaktionen TS INNER JOIN KASSBON KB ON TS.Z_KASSE_ID=KB.KASNUM AND TS.Z_ERSTELLUNG = Format (KB.DATUM & ' ' & KB.UHRZEIT, 'yyyy-mm-dd\Thh:nn:ss') AND TS.BON_NR=KB.BONNR SET TS.TSE_ID = KB.TSEID,TS.TSE_TANR = KB.TSETRANSACTION,TS.TSE_TA_START = KB.TSESTART,TS.TSE_TA_ENDE = KB.TSEEND,TS.TSE_TA_SIGZ = KB.FINISHSIGZAHLER,TS.TSE_TA_SIG = KB.TSEFINISHSIG,TS.TSE_TA_FEHLER = KB.TSEFEHLER")
              gdBase.Execute ("UPDATE TSE_Transaktionen SET TSE_TA_VORGANGSART='' WHERE LEN(TSE_TA_FEHLER) > 0")
              gdBase.Execute ("UPDATE TSE_Transaktionen SET TSE_TA_VORGANGSART='' WHERE (TSE_TA_FEHLER='' OR TSE_TA_FEHLER is null) AND (TSE_TANR is null OR TSE_TANR='')")
@@ -445,31 +450,134 @@ On Error GoTo LOKAL_ERROR
              '**************************************************************************************> Stamm_Abschluss.csv
                                                     lblDatei.Caption = "Stamm_Abschluss.csv"
                                                     lblDatei.Refresh
-               
+             '1.START/ENDE BON_ID
              gdBase.Execute ("SELECT Z_KASSE_ID,CDate(LEFT(Z_ERSTELLUNG,10))as Z_ERSTELLUNG1,BON_ID,ZAHLART_TYP,BASISWAEH_BETRAG into tmp_Stamm_Abschluss FROM Bonkopf_Zahlarten")
+             lblProgress.Caption = "1.Start/Ende von Bon_ID werden geschrieben ..."
+             lblProgress.Refresh
              gdBase.Execute ("SELECT Z_KASSE_ID ,Z_ERSTELLUNG1 ,min(BON_ID)as Z_START_ID ,max(BON_ID)as Z_ENDE_ID INTO tmp_Stamm_START_ID_ENDE_ID FROM tmp_Stamm_Abschluss  group by  Z_KASSE_ID,Z_ERSTELLUNG1")
+             
+             '2.Unbar Umsätze
+             lblProgress.Caption = "2.Unbar Umsätze werden summiert ..."
+             lblProgress.Refresh
              gdBase.Execute ("SELECT Z_KASSE_ID ,Z_ERSTELLUNG1, sum(BASISWAEH_BETRAG)as Z_SE_ZAHLUNGEN  INTO tmp_Stamm_SummeUnbar FROM tmp_Stamm_Abschluss WHERE ZAHLART_TYP='Unbar'  group by  Z_KASSE_ID ,Z_ERSTELLUNG1")
+             
+             '3.Bar Umsätze
+             lblProgress.Caption = "3.Bar Umsätze werden summiert ..."
+             lblProgress.Refresh
              gdBase.Execute ("SELECT Z_KASSE_ID ,Z_ERSTELLUNG1, sum(BASISWAEH_BETRAG)as Z_SE_BARZAHLUNGEN  INTO tmp_Stamm_SummeBar FROM tmp_Stamm_Abschluss WHERE ZAHLART_TYP='Bar'  group by  Z_KASSE_ID ,Z_ERSTELLUNG1")
-                                                                  
+             
+             '4.Bar/Unbar Umsätze schreiben
+             lblProgress.Caption = "4.Bar/Unbar Umsätze werden geschrieben ..."
+             lblProgress.Refresh
              gdBase.Execute ("Alter table  tmp_Stamm_START_ID_ENDE_ID add COLUMN Z_SE_ZAHLUNGEN NUMBER ,Z_SE_BARZAHLUNGEN NUMBER")
              gdBase.Execute ("UPDATE tmp_Stamm_START_ID_ENDE_ID SET Z_SE_ZAHLUNGEN=0,Z_SE_BARZAHLUNGEN=0")
              gdBase.Execute ("UPDATE tmp_Stamm_START_ID_ENDE_ID SIDEID INNER JOIN tmp_Stamm_SummeBar SB ON SIDEID.Z_KASSE_ID=SB.Z_KASSE_ID AND SIDEID.Z_ERSTELLUNG1=SB.Z_ERSTELLUNG1 SET SIDEID.Z_SE_BARZAHLUNGEN=SB.Z_SE_BARZAHLUNGEN")
              gdBase.Execute ("UPDATE tmp_Stamm_START_ID_ENDE_ID SIDEID INNER JOIN tmp_Stamm_SummeUnbar SUN ON SIDEID.Z_KASSE_ID=SUN.Z_KASSE_ID AND SIDEID.Z_ERSTELLUNG1=SUN.Z_ERSTELLUNG1 SET SIDEID.Z_SE_ZAHLUNGEN=SUN.Z_SE_ZAHLUNGEN")
+             
+             '5.Firma Daten schreiben
+             lblProgress.Caption = "5.Firma Daten werden geschrieben ..."
+             lblProgress.Refresh
              gdBase.Execute ("Alter table tmp_Stamm_START_ID_ENDE_ID add COLUMN NAME varchar(50), STRASSE varchar(50), PLZ varchar(7) , ORT varchar(50) ,LAND varchar(12), STEUERNR varchar(35),USTID NUMBER")
              gdBase.Execute ("UPDATE tmp_Stamm_START_ID_ENDE_ID SET LAND='Deutschland'")
              gdBase.Execute ("UPDATE tmp_Stamm_START_ID_ENDE_ID tmp1 , FIRMA F SET tmp1.NAME = F.NAME , tmp1.STRASSE=F.STRASSE , tmp1.PLZ = F.PLZ , tmp1.ORT = F.ORT , tmp1.STEUERNR = F.STEUERNR")
-             gdBase.Execute ("UPDATE tmp_Stamm_START_ID_ENDE_ID tmp1 INNER JOIN MWSTSATZ M ON YEAR(tmp1.Z_ERSTELLUNG1)=M.FurJahr SET tmp1.USTID=M.id")
+             gdBase.Execute ("UPDATE tmp_Stamm_START_ID_ENDE_ID tmp1 INNER JOIN MWSTSATZ M ON tmp1.Z_ERSTELLUNG1>=M.vonD AND tmp1.Z_ERSTELLUNG1<=M.bisD SET tmp1.USTID=M.id")
+             'vielleicht ist [bisD] in der Tabelle MWSTSATZ = Null
+             gdBase.Execute ("UPDATE tmp_Stamm_START_ID_ENDE_ID tmp1 INNER JOIN MWSTSATZ M ON tmp1.Z_ERSTELLUNG1>=M.vonD SET tmp1.USTID=M.id WHERE M.bisD is null")
+             
+             '6.End-Tabelle [Stamm_Abschluss] erstellen
+             lblProgress.Caption = "6.Tabelle [Stamm_Abschluss] erstellen ..."
+             lblProgress.Refresh
              gdBase.Execute ("SELECT Z_KASSE_ID,Z_ERSTELLUNG1,'' as Z_NR,'' as BUCHUNGSTAG,'' as TAXONOMIE_VERSION,Z_START_ID,Z_ENDE_ID,Z_SE_ZAHLUNGEN,Z_SE_BARZAHLUNGEN,NAME,STRASSE,PLZ,ORT,LAND,STEUERNR,USTID INTO Stamm_Abschluss FROM tmp_Stamm_START_ID_ENDE_ID")
              gdBase.Execute ("Alter table Stamm_Abschluss ADD Column Z_ERSTELLUNG varchar(25)")
              gdBase.Execute ("UPDATE Stamm_Abschluss SET Z_ERSTELLUNG=Z_ERSTELLUNG1 & ' 00:00:00'")
              gdBase.Execute ("UPDATE Stamm_Abschluss SET Z_ERSTELLUNG=Format(Z_ERSTELLUNG,'yyyy-mm-dd\Thh:nn:ss')")
              gdBase.Execute ("Alter table Stamm_Abschluss drop Column Z_ERSTELLUNG1")
              
-             'DROP die tmp Tabellen von Stamm_Abschluss
+             '7.DROP die tmp Tabellen von Stamm_Abschluss
+             lblProgress.Caption = "7.Temp-Tabellen werden entfernt ..."
+             lblProgress.Refresh
              gdBase.Execute ("DROP Table tmp_Stamm_Abschluss")
              gdBase.Execute ("DROP Table tmp_Stamm_START_ID_ENDE_ID")
              gdBase.Execute ("DROP Table tmp_Stamm_SummeBar")
              gdBase.Execute ("DROP Table tmp_Stamm_SummeUnbar")
+             
+             
+             
+             '**************************************************************************************> Stamm_Orte.csv
+                                                    lblDatei.Caption = "Stamm_Orte.csv"
+                                                    lblDatei.Refresh
+             lblProgress.Caption = ""
+             lblProgress.Refresh
+             gdBase.Execute ("SELECT '' as Z_KASSE_ID,'' as Z_ERSTELLUNG,'' as Z_NR,'' as LOC_NAME,'' as LOC_STRASSE,'' as LOC_PLZ,'' as LOC_ORT,'' as LOC_LAND,'' as LOC_USTID INTO Stamm_Orte")
+             
+             '**************************************************************************************> Stamm_Kassen.csv
+                                                    lblDatei.Caption = "Stamm_Kassen.csv"
+                                                    lblDatei.Refresh
+             lblProgress.Caption = ""
+             lblProgress.Refresh
+             gdBase.Execute ("SELECT '' as Z_KASSE_ID,'' as Z_ERSTELLUNG,'' as Z_NR,'' as KASSE_BRAND,'' as KASSE_MODELL,'' as KASSE_SERIENNR,'' as KASSE_SW_BRAND,'' as KASSE_SW_VERSION,'' as KASSE_BASISWAEH_CODE,'' as KEINE_UST_ZUORDNUNG INTO Stamm_Kassen")
+             
+                          
+             
+             '**************************************************************************************> Stamm_Terminals.csv
+                                                    lblDatei.Caption = "Stamm_Terminals.csv"
+                                                    lblDatei.Refresh
+             lblProgress.Caption = ""
+             lblProgress.Refresh
+             gdBase.Execute ("SELECT '' as Z_KASSE_ID,'' as Z_ERSTELLUNG,'' as Z_NR,'' as TERMINAL_ID,'' as TERMINAL_BRAND,'' as TERMINAL_MODEL,'' as TERMINAL_SERIENNR,'' as TERMINAL_SW_BRAND,'' as TERMINAL_SW_VERSION INTO Stamm_Terminals")
+             
+             
+             '**************************************************************************************> Stamm_Agenturen.csv
+                                                    lblDatei.Caption = "Stamm_Agenturen.csv"
+                                                    lblDatei.Refresh
+             lblProgress.Caption = ""
+             lblProgress.Refresh
+             gdBase.Execute ("SELECT '' as Z_KASSE_ID,'' as Z_ERSTELLUNG,'' as Z_NR,'' as AGENTUR_ID,'' as AGENTUR_NAME,'' as AGENTUR_STRASSE,'' as AGENTUR_PLZ,'' as AGENTUR_ORT,'' as AGENTUR_LAND,'' as AGENTUR_STNR,'' as AGENTUR_USTID INTO Stamm_Agenturen")
+                          
+             
+             '**************************************************************************************> Stamm_USt.csv
+                                                    lblDatei.Caption = "Stamm_USt.csv"
+                                                    lblDatei.Refresh
+             'NULL in MWSTSATZ auf 01.01.2100 setzen (besser zum Datum-Vergleichen)
+             gdBase.Execute ("update MWSTSATZ set bisD='01.01.2100' where bisD is null")
+             
+             '1.get KassenAbschlusse von den Tabellen AFCSTATP,KASSJOUR (nach der selektierten Frist)
+             lblProgress.Caption = "1.AFCSTATP,KASSJOUR (KassAbschluss) werden abgefragt ..."
+             lblProgress.Refresh
+             gdBase.Execute ("select AF.ADATE,AF.KASNUM,AF.BELEGNR,KJ.MWST,'' as UST_SCHLUESSEL,'' as UST_SATZ,'' as UST_BESCHR into tmp_Stamm_USt FROM AFCSTATP AF,KASSJOUR KJ where AF.ADATE=KJ.ADATE and AF.KASNUM=KJ.KASNUM and AF.BELEGNR=KJ.BELEGNR and Datevalue(AF.ADATE) between CDate('" & DTPicker1.value & "') and CDate('" & DTPicker2.value & "')")
+             
+             '2.schreibe UST_SCHLUESSEL,UST_SATZ mit Verknüpfung mit der Tabelle [MWSTSATZ]
+             lblProgress.Caption = "2.UST_SCHLUESSEL,UST_SATZ werden geschrieben ..."
+             lblProgress.Refresh
+             gdBase.Execute ("update tmp_Stamm_USt tmp , MWSTSATZ mw set tmp.UST_SCHLUESSEL=mw.id , tmp.UST_SATZ=mw.VOLL WHERE tmp.MWST='V' AND CDate(tmp.ADATE) between mw.vonD and mw.bisD")
+             gdBase.Execute ("update tmp_Stamm_USt tmp , MWSTSATZ mw set tmp.UST_SCHLUESSEL=mw.id , tmp.UST_SATZ=mw.ERM WHERE  tmp.MWST='E' AND CDate(tmp.ADATE) between mw.vonD and mw.bisD")
+             gdBase.Execute ("update tmp_Stamm_USt tmp , MWSTSATZ mw set tmp.UST_SCHLUESSEL=mw.id , tmp.UST_SATZ=mw.OHNE WHERE tmp.MWST='O' AND CDate(tmp.ADATE) between mw.vonD and mw.bisD")
+             
+             gdBase.Execute ("UPDATE tmp_Stamm_USt SET ADATE=ADATE & ' 00:00:00'")
+             gdBase.Execute ("UPDATE tmp_Stamm_USt SET ADATE=Format(ADATE,'yyyy-mm-dd\Thh:nn:ss')")
+             
+             gdBase.Execute ("SELECT KASNUM as Z_KASSE_ID,ADATE as Z_ERSTELLUNG,BELEGNR as Z_NR,UST_SCHLUESSEL,UST_SATZ,UST_BESCHR INTO Stamm_USt FROM tmp_Stamm_USt")
+             gdBase.Execute ("DROP TABLE tmp_Stamm_USt")
+             
+             lblProgress.Caption = ""
+             lblProgress.Refresh
+             gdBase.Execute ("update MWSTSATZ set bisD=null where bisD=CDate('01.01.2100')")
+              
+             '**************************************************************************************> Stamm_TSE.csv
+                                                    lblDatei.Caption = "Stamm_TSE.csv"
+                                                    lblDatei.Refresh
+             
+             gdBase.Execute ("SELECT ADATE,KASNUM,'' as Z_NR,'' as TSE_ID,'' as TSE_SERIAL,'' as TSE_SIG_ALGO,'generalizedTimeWithMilliseconds' as TSE_ZEITFORMAT,'UTF-8' as TSE_PD_ENCODING,'' as TSE_PUBLIC_KEY,'' as TSE_ZERTIFIKAT_I,'' as TSE_ZERTIFIKAT_II INTO tmp_Stamm_TSE_1 FROM AFCSTATP WHERE DateValue(ADATE) between CDate('" & DTPicker1.value & "') and CDate('" & DTPicker2.value & "')")
+             gdBase.Execute ("SELECT DISTINCT DATUM,KASNUM,TSEID INTO tmp_Stamm_TSE_2 FROM KASSBON WHERE DateValue(DATUM) between CDate('" & DTPicker1.value & "') and CDate('" & DTPicker2.value & "')")
+             gdBase.Execute ("UPDATE tmp_Stamm_TSE_1 tmp1 INNER JOIN tmp_Stamm_TSE_2 tmp2 ON tmp1.ADATE = tmp2.DATUM AND tmp1.KASNUM = tmp2.KASNUM SET tmp1.TSE_ID = tmp2.TSEID")
+            
+             gdBase.Execute ("UPDATE tmp_Stamm_TSE_1 SET TSE_ID='' WHERE TSE_ID IS NULL")
+             
+             gdBase.Execute ("UPDATE tmp_Stamm_TSE_1 tmp1 INNER JOIN TSEStorageInfo SI ON CStr(tmp1.TSE_ID) = CStr(SI.TSEID) SET tmp1.TSE_SERIAL = SI.SerialNum, tmp1.TSE_SIG_ALGO = SI.SignaturAlg,tmp1.TSE_PUBLIC_KEY = SI.PublicKey")
+             gdBase.Execute ("SELECT KASNUM as Z_KASSE_ID, ADATE as Z_ERSTELLUNG,Z_NR,TSE_ID,TSE_SERIAL,TSE_SIG_ALGO,TSE_ZEITFORMAT,TSE_PD_ENCODING,TSE_PUBLIC_KEY,TSE_ZERTIFIKAT_I,TSE_ZERTIFIKAT_II INTO Stamm_TSE FROM tmp_Stamm_TSE_1")
+             
+             gdBase.Execute ("DROP TABLE tmp_Stamm_TSE_1")
+             gdBase.Execute ("DROP TABLE tmp_Stamm_TSE_2")
              
              lblProgress.Caption = "FERTIG"
              lblProgress.Refresh
@@ -979,7 +1087,7 @@ Private Sub csvDateiErstellen(ByVal OrdnerName As String, ByVal DateiName As Str
                                       Do While Not rsRes.EOF
                                       
                                           tmpHeadersWerte = ""
-                                          tmpHeadersWerte = tmpHeadersWerte & rsRes!ADATE & ";" & rsRes!AZEIT & ";" & rsRes!BELEGNR & ";" & rsRes!artnr & ";" & rsRes!EAN & ";" & rsRes!AGN & ";" & rsRes!BEZEICH & ";" & rsRes!kasnum & ";" & rsRes!Menge & ";" & rsRes!Preis & ";" & rsRes!MWST & ";" & rsRes!nettopreis & ";" & rsRes!MWST_WERT & ";" & rsRes!vkpr & ";" & rsRes!Ust_Schluessel & ";" & rsRes!Warengruppe & ";" & rsRes!Einheit & ";" & rsRes!Stueck_Preis & ";" & rsRes!RabattAnteil & ";" & rsRes!Storno & " "
+                                          tmpHeadersWerte = tmpHeadersWerte & rsRes!ADATE & ";" & rsRes!AZEIT & ";" & rsRes!BELEGNR & ";" & rsRes!artnr & ";" & rsRes!EAN & ";" & rsRes!AGN & ";" & rsRes!BEZEICH & ";" & rsRes!KASNUM & ";" & rsRes!Menge & ";" & rsRes!Preis & ";" & rsRes!MWST & ";" & rsRes!nettopreis & ";" & rsRes!MWST_WERT & ";" & rsRes!vkpr & ";" & rsRes!Ust_Schluessel & ";" & rsRes!Warengruppe & ";" & rsRes!Einheit & ";" & rsRes!Stueck_Preis & ";" & rsRes!RabattAnteil & ";" & rsRes!Storno & " "
                                           Print #iDsF, tmpHeadersWerte
                                           rsRes.MoveNext
                                       Loop
@@ -994,7 +1102,7 @@ Private Sub csvDateiErstellen(ByVal OrdnerName As String, ByVal DateiName As Str
                                       Do While Not rsRes.EOF
                                       
                                           tmpHeadersWerte = ""
-                                          tmpHeadersWerte = tmpHeadersWerte & rsRes!ADATE & ";" & rsRes!AZEIT & ";" & rsRes!BELEGNR & ";" & rsRes!kasnum & ";" & rsRes!Bediener_ID & ";" & rsRes!Bediener_Name & ";" & rsRes!Kunde_Name & ";" & rsRes!Kunde_Strasse & ";" & rsRes!Kunde_PLZ & " "
+                                          tmpHeadersWerte = tmpHeadersWerte & rsRes!ADATE & ";" & rsRes!AZEIT & ";" & rsRes!BELEGNR & ";" & rsRes!KASNUM & ";" & rsRes!Bediener_ID & ";" & rsRes!Bediener_Name & ";" & rsRes!Kunde_Name & ";" & rsRes!Kunde_Strasse & ";" & rsRes!Kunde_PLZ & " "
                                           Print #iDsF, tmpHeadersWerte
                                           rsRes.MoveNext
                                       Loop
@@ -1008,7 +1116,7 @@ Private Sub csvDateiErstellen(ByVal OrdnerName As String, ByVal DateiName As Str
                                       Do While Not rsRes.EOF
                                       
                                           tmpHeadersWerte = ""
-                                          tmpHeadersWerte = tmpHeadersWerte & rsRes!ADATE & ";" & rsRes!AZEIT & ";" & rsRes!BELEGNR & ";" & rsRes!kasnum & ";" & rsRes!BON_NETTO & ";" & rsRes!BON_UST & ";" & rsRes!BON_BRUTTO & " "
+                                          tmpHeadersWerte = tmpHeadersWerte & rsRes!ADATE & ";" & rsRes!AZEIT & ";" & rsRes!BELEGNR & ";" & rsRes!KASNUM & ";" & rsRes!BON_NETTO & ";" & rsRes!BON_UST & ";" & rsRes!BON_BRUTTO & " "
                                           Print #iDsF, tmpHeadersWerte
                                           rsRes.MoveNext
                                       Loop
@@ -1023,7 +1131,7 @@ Private Sub csvDateiErstellen(ByVal OrdnerName As String, ByVal DateiName As Str
                                       Do While Not rsRes.EOF
                                       
                                           tmpHeadersWerte = ""
-                                          tmpHeadersWerte = tmpHeadersWerte & rsRes!ADATE & ";" & rsRes!AZEIT & ";" & rsRes!BELEGNR & ";" & rsRes!kasnum & ";" & rsRes!ZahlungArt & " "
+                                          tmpHeadersWerte = tmpHeadersWerte & rsRes!ADATE & ";" & rsRes!AZEIT & ";" & rsRes!BELEGNR & ";" & rsRes!KASNUM & ";" & rsRes!ZahlungArt & " "
                                           Print #iDsF, tmpHeadersWerte
                                           rsRes.MoveNext
                                       Loop
@@ -1054,7 +1162,7 @@ Private Sub csvDateiErstellen(ByVal OrdnerName As String, ByVal DateiName As Str
                                       Do While Not rsRes.EOF
                                       
                                           tmpHeadersWerte = ""
-                                          tmpHeadersWerte = tmpHeadersWerte & rsRes!ADATE & ";" & rsRes!kasnum & ";" & rsRes!Z_SE_BARZAHLUNGEN & ";" & rsRes!TAXONOMIE_VERSION & ";" & rsRes!Z_SE_ZAHLUNGEN & ";" & rsRes!Z_START_ID & ";" & rsRes!Z_ENDE_ID & " "
+                                          tmpHeadersWerte = tmpHeadersWerte & rsRes!ADATE & ";" & rsRes!KASNUM & ";" & rsRes!Z_SE_BARZAHLUNGEN & ";" & rsRes!TAXONOMIE_VERSION & ";" & rsRes!Z_SE_ZAHLUNGEN & ";" & rsRes!Z_START_ID & ";" & rsRes!Z_ENDE_ID & " "
                                           Print #iDsF, tmpHeadersWerte
                                           rsRes.MoveNext
                                       Loop
@@ -1082,7 +1190,7 @@ Private Sub csvDateiErstellen(ByVal OrdnerName As String, ByVal DateiName As Str
                                       Do While Not rsRes.EOF
                                       
                                           tmpHeadersWerte = ""
-                                          tmpHeadersWerte = tmpHeadersWerte & rsRes!ADATE & ";" & rsRes!kasnum & ";" & rsRes!ZAHLART_NAME & ";" & rsRes!Z_ZAHLART_BETRAG & " "
+                                          tmpHeadersWerte = tmpHeadersWerte & rsRes!ADATE & ";" & rsRes!KASNUM & ";" & rsRes!ZAHLART_NAME & ";" & rsRes!Z_ZAHLART_BETRAG & " "
                                           Print #iDsF, tmpHeadersWerte
                                           rsRes.MoveNext
                                       Loop
@@ -1139,14 +1247,14 @@ Private Sub Form_Load()
   lblDatei.ForeColor = vbYellow
   lblProgress.ForeColor = vbYellow
    
-  Dim i As Integer
-  i = Year(Date)
-    
-  Do While i >= 2020
-   vonJahr.AddItem (CStr(i))
-   bisJahr.AddItem (CStr(i))
-   i = i - 1
-  Loop
+'  Dim i As Integer
+'  i = Year(Date)
+'
+'  Do While i >= 2020
+'   vonJahr.AddItem (CStr(i))
+'   bisJahr.AddItem (CStr(i))
+'   i = i - 1
+'  Loop
   
 
 
@@ -1154,26 +1262,32 @@ End Sub
 
  
 
-Private Sub vonJahr_Change()
-vonJahr.BackColor = vbWhite
-
- Dim textval As String
-  
- textval = Trim(vonJahr.Text)
- textval = Replace(textval, ".", "")
- textval = Replace(textval, ",", "")
+Private Sub Form_Unload(Cancel As Integer)
  
-  If IsNumeric(textval) Then
-      vonJahr.Text = CStr(textval)
-    Else
-      vonJahr.Text = ""
-    
-  End If
+ gdBase.Execute ("update MWSTSATZ set bisD=null where bisD=CDate('01.01.2100')")
+                    
 End Sub
 
-Private Sub vonJahr_Click()
- vonJahr.BackColor = vbWhite
-End Sub
+'Private Sub vonJahr_Change()
+'vonJahr.BackColor = vbWhite
+'
+' Dim textval As String
+'
+' textval = Trim(vonJahr.Text)
+' textval = Replace(textval, ".", "")
+' textval = Replace(textval, ",", "")
+'
+'  If IsNumeric(textval) Then
+'      vonJahr.Text = CStr(textval)
+'    Else
+'      vonJahr.Text = ""
+'
+'  End If
+'End Sub
+
+'Private Sub vonJahr_Click()
+' vonJahr.BackColor = vbWhite
+'End Sub
 
 
 Private Sub alteTabellenVonDsFinvKLoschen()
@@ -1268,6 +1382,52 @@ On Error GoTo LOKAL_ERROR
      gdBase.Execute sSQL, dbFailOnError
   End If
    
+  If NewTableSuchenDB("Stamm_Orte", gdBase) Then
+     sSQL = "drop Table Stamm_Orte"
+     gdBase.Execute sSQL, dbFailOnError
+  End If
+  
+   If NewTableSuchenDB("Stamm_Kassen", gdBase) Then
+     sSQL = "drop Table Stamm_Kassen"
+     gdBase.Execute sSQL, dbFailOnError
+  End If
+  
+   If NewTableSuchenDB("Stamm_Terminals", gdBase) Then
+     sSQL = "drop Table Stamm_Terminals"
+     gdBase.Execute sSQL, dbFailOnError
+  End If
+  
+   If NewTableSuchenDB("Stamm_Agenturen", gdBase) Then
+     sSQL = "drop Table Stamm_Agenturen"
+     gdBase.Execute sSQL, dbFailOnError
+  End If
+  
+  If NewTableSuchenDB("tmp_Stamm_USt", gdBase) Then
+     sSQL = "drop Table tmp_Stamm_USt"
+     gdBase.Execute sSQL, dbFailOnError
+  End If
+  
+  If NewTableSuchenDB("Stamm_USt", gdBase) Then
+     sSQL = "drop Table Stamm_USt"
+     gdBase.Execute sSQL, dbFailOnError
+  End If
+  
+  If NewTableSuchenDB("tmp_Stamm_TSE_1", gdBase) Then
+     sSQL = "drop Table tmp_Stamm_TSE_1"
+     gdBase.Execute sSQL, dbFailOnError
+  End If
+  
+  If NewTableSuchenDB("tmp_Stamm_TSE_2", gdBase) Then
+     sSQL = "drop Table tmp_Stamm_TSE_2"
+     gdBase.Execute sSQL, dbFailOnError
+  End If
+  
+  If NewTableSuchenDB("Stamm_TSE", gdBase) Then
+     sSQL = "drop Table Stamm_TSE"
+     gdBase.Execute sSQL, dbFailOnError
+  End If
+  
+  
 Exit Sub
 
 LOKAL_ERROR:

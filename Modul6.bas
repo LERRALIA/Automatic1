@@ -3869,21 +3869,38 @@ Private Function fnVerarbeiteBEDZUGRIMOD6(dbDb As Database) As Long
     Dim cPfad As String
     Dim cSQL As String
     
+    Dim rszu As Recordset
+    Dim recordZahl As Integer
+    
     cPfad = gsKinPfad
     If Right(cPfad, 1) <> "\" Then
         cPfad = cPfad & "\"
     End If
     
+    cPfad = cPfad & "zf.mdb"
+    
     fnVerarbeiteBEDZUGRIMOD6 = 1
     
-    loeschNEW "BEDZUGRI", gdBase
-    cPfad = cPfad & "zf.mdb"
-    cSQL = "Select * into BEDZUGRI from ZUG_IN IN '" & cPfad & "'  "
-    gdBase.Execute cSQL, dbFailOnError
+    Set rszu = gdBase.OpenRecordset("Select count(*) as reslt from ZUG_IN IN '" & cPfad & "'")
+    If Not rszu.EOF Then
+        If Not IsNull(rszu!reslt) Then
+           recordZahl = rszu!reslt
+            If recordZahl > 0 Then
+        
+                loeschNEW "BEDZUGRI", gdBase
+                cSQL = "Select * into BEDZUGRI from ZUG_IN IN '" & cPfad & "'  "
+                gdBase.Execute cSQL, dbFailOnError
+
+                gbZugriffNew = True
+                cSQL = "Update DBEINSTE Set ZUGRIFFNEW = true"
+                gdBase.Execute cSQL, dbFailOnError
+            
+            End If
+          
+        End If
+    End If
     
-    gbZugriffNew = True
-    cSQL = "Update DBEINSTE Set ZUGRIFFNEW = true"
-    gdBase.Execute cSQL, dbFailOnError
+    
 
     fnVerarbeiteBEDZUGRIMOD6 = 0
     

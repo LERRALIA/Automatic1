@@ -24,6 +24,7 @@ Begin VB.Form frmWKL00
    ScaleWidth      =   11880
    StartUpPosition =   2  'Bildschirmmitte
    Begin VB.CommandButton Command15 
+      BackColor       =   &H80000000&
       Caption         =   "Test"
       Height          =   375
       Left            =   10200
@@ -2040,8 +2041,8 @@ Begin VB.Form frmWKL00
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   375
-      Left            =   4200
+      Height          =   495
+      Left            =   4440
       TabIndex        =   134
       ToolTipText     =   "kissnet"
       Top             =   4320
@@ -2482,10 +2483,10 @@ Begin VB.Form frmWKL00
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   4200
+      Left            =   4440
       TabIndex        =   127
       ToolTipText     =   "Zentrale"
-      Top             =   4800
+      Top             =   4920
       Visible         =   0   'False
       Width           =   255
       Begin sevCommand3.Command Command12 
@@ -2919,11 +2920,11 @@ Begin VB.Form frmWKL00
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   375
-      Left            =   4200
+      Height          =   495
+      Left            =   4440
       TabIndex        =   115
       ToolTipText     =   "Datenbank"
-      Top             =   5280
+      Top             =   5400
       Visible         =   0   'False
       Width           =   255
       Begin sevCommand3.Command Command12 
@@ -8175,11 +8176,11 @@ Begin VB.Form frmWKL00
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   615
-      Left            =   4200
+      Height          =   375
+      Left            =   4440
       TabIndex        =   59
       ToolTipText     =   "Einstellungen"
-      Top             =   3120
+      Top             =   3840
       Visible         =   0   'False
       Width           =   255
       Begin sevCommand3.Command Command9 
@@ -8690,7 +8691,7 @@ Begin VB.Form frmWKL00
          Strikethrough   =   0   'False
       EndProperty
       Height          =   615
-      Left            =   4200
+      Left            =   4440
       TabIndex        =   40
       ToolTipText     =   "Service"
       Top             =   3120
@@ -14638,23 +14639,16 @@ On Error GoTo LOKAL_ERROR
   
 ' MsgBox ("von :" & gZeiten(7).Von & "bis :" & gZeiten(7).Bis)
   
-  Dim tmpS As String
-  tmpS = ""
   
-  Dim lcount As Integer
   
-  For lcount = 1 To 9
+'  Dim obb As Object
+'  Set obb = GetObject("winmgmts:") _
+'        .ExecQuery("select * from win32_process where name='meineSchnitt.exe'")
+'
+'  If obb.Count > 0 Then
+'   MsgBox ("Running ...")
+'  End If
    
-     If lcount = 9 Then
-        tmpS = tmpS & vbCrLf
-      Else
-        tmpS = tmpS & " * " & vbCrLf
-     End If
-               
-  Next lcount
-    
-  MsgBox (tmpS)
-    
     
 Exit Sub
     
@@ -16179,9 +16173,9 @@ Private Sub Command6_Click(index As Integer)
             Case Is = 4     'DsFinvK Export.
             
             MsgBox ("in Arbeit . . .")
-            'ExportFormular.Left = (Me.ScaleWidth - ExportFormular.Width) / 2
-            'ExportFormular.Top = (Me.ScaleHeight - ExportFormular.Height) / 2
-            'ExportFormular.Show 1
+'            ExportFormular.Left = (Me.ScaleWidth - ExportFormular.Width) / 2
+'            ExportFormular.Top = (Me.ScaleHeight - ExportFormular.Height) / 2
+'            ExportFormular.Show 1
                 
             Case Is = 5     'Zugriffsrechte             ehemals 55
                 Screen.MousePointer = 11
@@ -25154,6 +25148,41 @@ On Error GoTo LOKAL_ERROR
     'prüf mal, ob Budni auf EDEKA schon geschafft ist (Budni auf EDEKA Umzug ist eine Anforderung, die im August 2021 geschafft wurde)
      BudniFtpUmzug
     
+    
+ 
+    'Leere Zeilen nach der Bon-Text <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START
+    
+    'Hier ist eine Erweiterung, mit der die Kunden anpassen können, wie viele leere
+    'Zeilen nach dem Bon-Text gedrückt werden sollen
+        
+            If Not NewTableSuchenDB("LeereZeilen", gdBase) Then
+                 
+                    gdBase.Execute "Create Table LeereZeilen (ZeilZahl NUMBER)", dbFailOnError
+                    gdBase.Execute "INSERT INTO LeereZeilen(ZeilZahl) VALUES (9)", dbFailOnError
+                    gbLeereZeil = 9
+                    frmWKL52.txtLeereZeil.Text = gbLeereZeil
+                    
+            Else
+                    
+                    Dim rsrsleer As Recordset
+                    Set rsrsleer = gdBase.OpenRecordset("SELECT ZeilZahl FROM LeereZeilen")
+                         
+                    If Not rsrsleer.EOF Then
+                              
+                      If Not IsNull(rsrsleer!ZeilZahl) Then
+                      
+                         frmWKL52.txtLeereZeil.Text = rsrsleer!ZeilZahl
+                         gbLeereZeil = CInt(rsrsleer!ZeilZahl)
+                         
+                      End If
+                              
+                    End If
+                     
+            End If
+        
+    'Leere Zeilen nach der Bon-Text <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ENDE
+
+
      Screen.MousePointer = 0
 Exit Sub
 

@@ -585,7 +585,7 @@ Begin VB.Form frmWKL82
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   112852993
+         Format          =   50987009
          CurrentDate     =   38457.8333333333
       End
       Begin MSComCtl2.DTPicker DTPickerBis 
@@ -608,7 +608,7 @@ Begin VB.Form frmWKL82
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   112852993
+         Format          =   50987009
          CurrentDate     =   38457.8333333333
       End
       Begin MSComctlLib.TreeView Tree11 
@@ -2186,7 +2186,7 @@ Begin VB.Form frmWKL82
       Height          =   5055
       Left            =   0
       TabIndex        =   4
-      Top             =   5160
+      Top             =   1440
       Visible         =   0   'False
       Width           =   11895
       Begin VB.Frame Frame1 
@@ -13224,9 +13224,16 @@ Private Sub SchreibeTerminAnlage(cBuchnr As String, lDat As Long, sUhrzeit As St
     
     Dim sBedname As String
     sBedname = ermBEDbez(CLng(sBednr))
-   
-    cSQL = "Insert into TERMINE_ANL (BUCHUNGSNR,ANLAGE_DATUM,UHRZEIT,BEDEINTRAG,BEDNAME) values (" & cBuchnr & "," & lDat & ",'" & sUhrzeit & "','" & sBednr & "','" & sBedname & "') "
-    gdBase.Execute cSQL, dbFailOnError
+    
+    'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START
+    
+     'cSQL = "Insert into TERMINE_ANL (BUCHUNGSNR,ANLAGE_DATUM,UHRZEIT,BEDEINTRAG,BEDNAME) values (" & cBuchnr & "," & lDat & ",'" & sUhrzeit & "','" & sBednr & "','" & sBedname & "') "
+      cSQL = "Insert into TERMINE_ANL (BUCHUNGSNR,ANLAGE_DATUM,UHRZEIT,BEDEINTRAG,BEDNAME) values (" & cBuchnr & ",Date(),Format(Time(),'HH:MM'),'" & sBednr & "','" & sBedname & "') "
+    
+    'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ENDE
+    
+    
+     gdBase.Execute cSQL, dbFailOnError
     
 Exit Sub
 LOKAL_ERROR:
@@ -15672,6 +15679,13 @@ Private Sub Command6_Click(index As Integer)
     Dim cTagTeil        As String
     Dim cJahrTeil       As String
     
+    'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START
+     Dim cZeitSpan As String
+     Dim cSQL As String
+     Dim dVon As Double
+     Dim dBis As Double
+    'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ENDE
+    
     Select Case index
         Case Is = 0
             If List7.ListIndex < 0 Then
@@ -15683,6 +15697,49 @@ Private Sub Command6_Click(index As Integer)
                 cDauer = Right(cLBSatz, 10)
                 cBezeich = Trim$(cBezeich)
                 cDauer = Trim$(cDauer)
+                
+                'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START
+                 
+                 If gFirma.FirmaName = "Roth Kosmetik" And Len(cBezeich) >= 7 Then
+                    
+                     
+                        cZeitSpan = TimeSerial(0, Val(cDauer), 0)
+                        dVon = TimeValue(Text1(1).Text)
+                        dBis = dVon + TimeValue(cZeitSpan)
+                        cZeitSpan = Format$(dBis, "HH:MM")
+                        
+                        cSQL = "Select * from TERMINE WHERE CDate(DATUM)=CDate('" & Text1(0).Text & "') AND TimeValue(UHRZEIT)>=TimeValue('" & Text1(1).Text & "') AND TimeValue(UHRZEIT)<TimeValue('" & cZeitSpan & "') "
+                        
+                        If Left(cBezeich, 7) = "Jetpeel" Then
+                            
+                          cSQL = cSQL & "AND LEFT(BEHANDLUNG,7)='Jetpeel'"
+                             
+                        ElseIf cBezeich = "Mikro +" Or cBezeich = "Radiofrequenz +" Then
+                            
+                          cSQL = cSQL & "AND BEHANDLUNG like '*" & cBezeich & "*'"
+                          
+                        ElseIf Left(cBezeich, 8) = "Needling" Then
+                            
+                          cSQL = cSQL & "AND LEFT(BEHANDLUNG,8)='Needling'"
+                        Else
+                          cSQL = ""
+                          GoTo Mach_Weiter
+                        End If
+                        
+                        Dim rsrs As DAO.Recordset
+                        Set rsrs = gdBase.OpenRecordset(cSQL)
+                        
+                        If Not rsrs.EOF Then
+                           MsgBox ("eine Zeitüberschneidung vorliegt mit [ " & cBezeich & " ]")
+                           Exit Sub
+                        End If
+                        rsrs.Close: Set rsrs = Nothing
+                     
+                    
+                 End If
+                'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ENDE
+Mach_Weiter:
+                
                 If Trim$(Text1(3).Text) = "" Then
                     Text1(3).Text = cBezeich
                     Text1(2).Text = cDauer

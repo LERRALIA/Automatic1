@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomct2.ocx"
+Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form ExportFormular 
    BorderStyle     =   3  'Fester Dialog
    Caption         =   "Form1"
@@ -16,30 +16,31 @@ Begin VB.Form ExportFormular
    StartUpPosition =   3  'Windows-Standard
    Begin MSComCtl2.DTPicker DTPicker2 
       Height          =   375
-      Left            =   5160
+      Left            =   3360
       TabIndex        =   7
       Top             =   600
       Width           =   1575
       _ExtentX        =   2778
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   114032641
+      Format          =   104595457
       CurrentDate     =   44400
    End
    Begin MSComCtl2.DTPicker DTPicker1 
       Height          =   375
-      Left            =   3360
+      Left            =   960
       TabIndex        =   6
       Top             =   600
       Width           =   1455
       _ExtentX        =   2566
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   114032641
+      Format          =   104595457
       CurrentDate     =   44400
    End
    Begin VB.CommandButton Command1 
       Caption         =   "Ausgabe Pfad"
+      Enabled         =   0   'False
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   12
@@ -50,10 +51,11 @@ Begin VB.Form ExportFormular
          Strikethrough   =   0   'False
       EndProperty
       Height          =   345
-      Left            =   600
+      Left            =   10920
       TabIndex        =   2
       Top             =   600
-      Width           =   2415
+      Visible         =   0   'False
+      Width           =   615
    End
    Begin VB.CommandButton Command2 
       Caption         =   "Starten"
@@ -67,7 +69,7 @@ Begin VB.Form ExportFormular
          Strikethrough   =   0   'False
       EndProperty
       Height          =   300
-      Left            =   7080
+      Left            =   5880
       TabIndex        =   1
       Top             =   600
       Width           =   1335
@@ -88,6 +90,40 @@ Begin VB.Form ExportFormular
       TabIndex        =   0
       Top             =   120
       Width           =   9735
+   End
+   Begin VB.Label lblBis 
+      Caption         =   "bis :"
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   375
+      Left            =   2760
+      TabIndex        =   9
+      Top             =   600
+      Width           =   495
+   End
+   Begin VB.Label lblVon 
+      Caption         =   "von :"
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   375
+      Left            =   240
+      TabIndex        =   8
+      Top             =   600
+      Width           =   615
    End
    Begin VB.Label lblProgress 
       Caption         =   "*****"
@@ -172,23 +208,17 @@ Private Sub ChkOeffnen_Click()
 End Sub
 
 Private Sub Command1_Click()
-
-ChooseFile.Top = Me.Top - 200
-ChooseFile.Left = Me.Left + Me.Width / 4
-ChooseFile.Show 1
+'
+'ChooseFile.Top = Me.Top - 200
+'ChooseFile.Left = Me.Left + Me.Width / 4
+'ChooseFile.Show 1
 
 End Sub
 
 Private Sub Command2_Click()
 On Error GoTo LOKAL_ERROR
 
-If Trim(gbDsFinvkPfad) = "" Then
-
- MsgBox ("Bitte erstmal Pfad wählen ! ! !")
- 
- Else
-   
-     
+  
     Command2.Enabled = False
      
     If WirdVerarbeitet Then
@@ -199,7 +229,7 @@ If Trim(gbDsFinvkPfad) = "" Then
        
     End If
      
-End If
+ 
 
 Exit Sub
 
@@ -636,7 +666,7 @@ On Error GoTo LOKAL_ERROR
                    autoOeffnen = "nein"
                  End If
                 
-                Shell App.Path & "\" & "CSVhelper.exe " & tmpDB_Pfad & " " & tmpDB_Pass & " " & gbDsFinvkPfad & " " & autoOeffnen, vbNormalFocus
+                Shell App.Path & "\" & "CSVhelper.exe " & tmpDB_Pfad & " " & tmpDB_Pass & " " & "LeereParam" & " " & autoOeffnen, vbNormalFocus
                 
              'CSVhelper.exe aufrufen  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ENDE
              
@@ -681,6 +711,8 @@ Private Sub Form_Load()
   lblProgress.BackColor = glH1
   ChkOeffnen.BackColor = glH1
   Label1.BackColor = glH1
+  lblVon.BackColor = glH1
+  lblBis.BackColor = glH1
   
   lblDatei.ForeColor = vbYellow
   lblProgress.ForeColor = vbYellow

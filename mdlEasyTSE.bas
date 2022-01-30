@@ -88,6 +88,8 @@ Option Explicit
  'False = (bei Stack_UpdateTime wird die Zeit vom Lokal_PC eingelesen)
  Global TSE_InternetZeitAbfragen As Boolean
  
+ Global TSE_TIMEOUT As Integer
+ 
  
  
  
@@ -123,7 +125,7 @@ Public Sub TSE_Initialisieren()
         
         If Not goTSE Is Nothing Then
             LeseUSBStickZugangdaten
-         Else
+        Else
             TseEinstellungen.lblZeig.ForeColor = vbRed
             TseEinstellungen.lblZeig.Caption = "kein Instanz erstellt . . ."
             TseEinstellungen.lblZeig.Refresh
@@ -248,6 +250,11 @@ End Sub
 Sub TSE_Verbinden()
  On Error GoTo LOKAL_ERROR
      
+     'Odayy<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START
+     Dim BeimFehlerNurEinmalVersuchen As Boolean
+     BeimFehlerNurEinmalVersuchen = True
+     'Odayy<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ENDE
+     
      TSE_OK = True
      TSE_Err = ""
      
@@ -273,6 +280,10 @@ Sub TSE_Verbinden()
      'nAutoSetup muss auf 1 gesetzt werden
      goTSE.nAutoSetup = 1
      
+'Odayy<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START
+HIER_START:
+'Odayy<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ENDE
+
      If goTSE.TSEConnectOpenSend("GetStorageInfo") = 1 Then
       
         
@@ -329,6 +340,15 @@ Sub TSE_Verbinden()
         SetupForPrinter
         
     Else
+        
+        'Odayy<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START
+        If BeimFehlerNurEinmalVersuchen Then
+           BeimFehlerNurEinmalVersuchen = False
+           Pause (TSE_TIMEOUT)
+           GoTo HIER_START
+        End If
+       'Odayy<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ENDE
+    
          TSE_OK = False
          TSE_Err = goTSE.cErrorList
          
@@ -369,14 +389,14 @@ End Sub
  
    TSE_OK = True
    TSE_Err = ""
+
    
    TseEinstellungen.lblZeig.Caption = "TSE: Setup For Printer . . ."
    TseEinstellungen.lblZeig.Refresh
    
    frmWKL00.lbl_TSE.Caption = "TSE: Setup For Printer . . ."
    frmWKL00.lbl_TSE.Refresh
-   
-   
+
  
      If goTSE.Stack_SetupForPrinter() = 1 Then
           USBSelfTest
@@ -428,11 +448,10 @@ Sub USBSelfTest()
    frmWKL00.lbl_TSE.Caption = "TSE: USB Self-Test . . ."
    frmWKL00.lbl_TSE.Refresh
    
-   
- 
+
      If goTSE.Stack_RunTSESelfTest() = 1 Then
           UpdateTime
-        Else
+     Else
           TSE_OK = False
           TSE_Err = "TSE: " & goTSE.cErrorList
           
@@ -474,7 +493,8 @@ Sub UpdateTime()
    
    TSE_OK = True
    TSE_Err = ""
-   
+
+    
    TseEinstellungen.lblZeig.Caption = "TSE: UpdateTime . . ."
    TseEinstellungen.lblZeig.Refresh
    
@@ -487,7 +507,7 @@ Sub UpdateTime()
         goTSE.cTimeServers = ""
      
      End If
-       
+
      If goTSE.Stack_UpdateTime() = 1 Then
      
          TseEinstellungen.lblZeig.Caption = "TSE ist erfolgreich initialisiert"
@@ -511,7 +531,7 @@ Sub UpdateTime()
          
          
         Else
-        
+         
           TSE_OK = False
           TSE_Err = "TSE: " & goTSE.cErrorList
           
@@ -756,6 +776,16 @@ On Error GoTo LOCAL_ERROR
                 TSE_InternetZeitAbfragen = False
          End If
          
+         If SpalteInTabellegefundenNEW("TSESettings", "TseTimeOut", gdApp) = False Then
+         
+                sSQL = "Alter table TSESettings add column TseTimeOut NUMBER"
+                gdApp.Execute sSQL, dbFailOnError
+                
+                sSQL = "UPDATE TSESettings SET TseTimeOut=30"
+                gdApp.Execute sSQL, dbFailOnError
+                
+         End If
+         
          
           Dim rsrs As Recordset
          
@@ -845,6 +875,12 @@ On Error GoTo LOCAL_ERROR
                         TSE_InternetZeitAbfragen = False
                     End If
                     
+              End If
+              
+              
+              If Not IsNull(rsrs!TseTimeOut) Then
+                        TseEinstellungen.txtTimeout.Text = rsrs!TseTimeOut
+                        TSE_TIMEOUT = CInt(rsrs!TseTimeOut)
               End If
                 
     
@@ -1242,66 +1278,73 @@ End Function
 Sub HideShowAlleControls(X As Boolean)
  
  If X Then
- 
- 
- TseEinstellungen.Label1.Visible = True
- TseEinstellungen.Label2.Visible = True
- TseEinstellungen.Label4.Visible = True
- TseEinstellungen.Label5.Visible = True
- TseEinstellungen.Label6.Visible = True
- TseEinstellungen.Label7.Visible = True
- TseEinstellungen.Label8.Visible = True
- 
-  
- TseEinstellungen.txtTSE_IP.Visible = True
- TseEinstellungen.txtTSE_Port.Visible = True
- TseEinstellungen.txtTSE_Adminpin.Visible = True
- TseEinstellungen.txtTSE_TimeAdminpin.Visible = True
- TseEinstellungen.txtTSE_DeviceID.Visible = True
- TseEinstellungen.comClients.Visible = True
- TseEinstellungen.txtTSE_SN.Visible = True
- 
- TseEinstellungen.btnVerbinden.Visible = True
- TseEinstellungen.btnNeueClient.Visible = True
- TseEinstellungen.btnTSEInfo.Visible = True
- TseEinstellungen.btnSpeicher.Visible = True
- TseEinstellungen.btnDatenExport.Visible = True
- TseEinstellungen.lblZeig.Visible = True
- 
- TseEinstellungen.chkQrCode.Visible = True
- TseEinstellungen.chkInterntZeit.Visible = True
- 
- 
+     
+    
+    TseEinstellungen.Label1.Visible = True
+    TseEinstellungen.Label2.Visible = True
+    TseEinstellungen.Label4.Visible = True
+    TseEinstellungen.Label5.Visible = True
+    TseEinstellungen.Label6.Visible = True
+    TseEinstellungen.Label7.Visible = True
+    TseEinstellungen.Label8.Visible = True
+    
+     
+    TseEinstellungen.txtTSE_IP.Visible = True
+    TseEinstellungen.txtTSE_Port.Visible = True
+    TseEinstellungen.txtTSE_Adminpin.Visible = True
+    TseEinstellungen.txtTSE_TimeAdminpin.Visible = True
+    TseEinstellungen.txtTSE_DeviceID.Visible = True
+    TseEinstellungen.comClients.Visible = True
+    TseEinstellungen.txtTSE_SN.Visible = True
+    
+    TseEinstellungen.btnVerbinden.Visible = True
+    TseEinstellungen.btnNeueClient.Visible = True
+    TseEinstellungen.btnTSEInfo.Visible = True
+    TseEinstellungen.btnSpeicher.Visible = True
+    TseEinstellungen.btnDatenExport.Visible = True
+    TseEinstellungen.lblZeig.Visible = True
+    
+    TseEinstellungen.chkQrCode.Visible = True
+    TseEinstellungen.chkInterntZeit.Visible = True
+    
+    TseEinstellungen.Label9.Visible = True
+    TseEinstellungen.txtTimeout.Visible = True
+    TseEinstellungen.Command2.Visible = True
+
  Else
- 
- 
- TseEinstellungen.Label1.Visible = False
- TseEinstellungen.Label2.Visible = False
- TseEinstellungen.Label4.Visible = False
- TseEinstellungen.Label5.Visible = False
- TseEinstellungen.Label6.Visible = False
- TseEinstellungen.Label7.Visible = False
- TseEinstellungen.Label8.Visible = False
- 
- TseEinstellungen.txtTSE_IP.Visible = False
- TseEinstellungen.txtTSE_Port.Visible = False
- TseEinstellungen.txtTSE_Adminpin.Visible = False
- TseEinstellungen.txtTSE_TimeAdminpin.Visible = False
- TseEinstellungen.txtTSE_DeviceID.Visible = False
- TseEinstellungen.comClients.Visible = False
- TseEinstellungen.txtTSE_SN.Visible = False
- 
- TseEinstellungen.btnVerbinden.Visible = False
- TseEinstellungen.btnNeueClient.Visible = False
- TseEinstellungen.btnTSEInfo.Visible = False
- TseEinstellungen.btnSpeicher.Visible = False
- TseEinstellungen.btnDatenExport.Visible = False
- TseEinstellungen.lblZeig.Visible = False
- 
- TseEinstellungen.chkQrCode.Visible = False
- TseEinstellungen.chkInterntZeit.Visible = False
- 
- frmWKL00.lbl_TSE.Visible = False
+    
+    
+    TseEinstellungen.Label1.Visible = False
+    TseEinstellungen.Label2.Visible = False
+    TseEinstellungen.Label4.Visible = False
+    TseEinstellungen.Label5.Visible = False
+    TseEinstellungen.Label6.Visible = False
+    TseEinstellungen.Label7.Visible = False
+    TseEinstellungen.Label8.Visible = False
+    
+    TseEinstellungen.txtTSE_IP.Visible = False
+    TseEinstellungen.txtTSE_Port.Visible = False
+    TseEinstellungen.txtTSE_Adminpin.Visible = False
+    TseEinstellungen.txtTSE_TimeAdminpin.Visible = False
+    TseEinstellungen.txtTSE_DeviceID.Visible = False
+    TseEinstellungen.comClients.Visible = False
+    TseEinstellungen.txtTSE_SN.Visible = False
+    
+    TseEinstellungen.btnVerbinden.Visible = False
+    TseEinstellungen.btnNeueClient.Visible = False
+    TseEinstellungen.btnTSEInfo.Visible = False
+    TseEinstellungen.btnSpeicher.Visible = False
+    TseEinstellungen.btnDatenExport.Visible = False
+    TseEinstellungen.lblZeig.Visible = False
+    
+    TseEinstellungen.chkQrCode.Visible = False
+    TseEinstellungen.chkInterntZeit.Visible = False
+    
+    frmWKL00.lbl_TSE.Visible = False
+    
+    TseEinstellungen.Label9.Visible = False
+    TseEinstellungen.txtTimeout.Visible = False
+    TseEinstellungen.Command2.Visible = False
  
  End If
  

@@ -4805,6 +4805,10 @@ End Function
 Public Sub FaerbenFlexH(ctmp As String, mshflex As MSHFlexGrid, iSpalte As Integer, lrow As Integer)
     On Error GoTo LOKAL_ERROR
     
+    ''''''''''''''''''''''''''''''''''''''''' ODAYY  <<<<< START
+    Dim j       As Integer
+    ''''''''''''''''''''''''''''''''''''''''' ODAYY  <<<<< ENDE
+    
     With mshflex
 
         If ctmp <> "0" Then
@@ -4817,8 +4821,26 @@ Public Sub FaerbenFlexH(ctmp As String, mshflex As MSHFlexGrid, iSpalte As Integ
                 .CellBackColor = glfarbe(2)
                 .CellForeColor = vbBlack
             ElseIf ctmp = "3" Then
-                .CellBackColor = glfarbe(3)
-                .CellForeColor = vbBlack
+            
+                   ''''''''''''''''''''''''''''''''''''''''' ODAYY  <<<<< START
+                    If IchBinBeiKundeSuche Then
+                       
+                       For j = 0 To .Cols - 1
+                         .Col = j
+                         .CellBackColor = glfarbe(3)
+                         .CellForeColor = vbBlack
+                       Next j
+                       
+                    Else
+                   ''''''''''''''''''''''''''''''''''''''''' ODAYY  <<<<< ENDE
+                   
+                      .CellBackColor = glfarbe(3)
+                      .CellForeColor = vbBlack
+                      
+                   ''''''''''''''''''''''''''''''''''''''''' ODAYY  <<<<< START
+                     End If
+                   ''''''''''''''''''''''''''''''''''''''''' ODAYY  <<<<< ENDE
+                  
             ElseIf ctmp = "4" Then
                 .CellBackColor = glfarbe(4)
                 .CellForeColor = vbBlack
@@ -4919,6 +4941,10 @@ LOKAL_ERROR:
 End Sub
 Public Sub FaerbenFlex(ctmp As String, mshflex As MSFlexGrid, iSpalte As Integer, lrow As Integer)
     On Error GoTo LOKAL_ERROR
+     
+    ''''''''''''''''''''''''''''''''''''''''' ODAYY  <<<<< START
+    Dim j       As Integer
+    ''''''''''''''''''''''''''''''''''''''''' ODAYY  <<<<< ENDE
     
     With mshflex
 
@@ -4932,8 +4958,27 @@ Public Sub FaerbenFlex(ctmp As String, mshflex As MSFlexGrid, iSpalte As Integer
                 .CellBackColor = glfarbe(2)
                 .CellForeColor = vbBlack
             ElseIf ctmp = "3" Then
-                .CellBackColor = glfarbe(3)
-                .CellForeColor = vbBlack
+            
+                   ''''''''''''''''''''''''''''''''''''''''' ODAYY  <<<<< START
+                    If IchBinBeiKundeSuche Then
+                       
+                       For j = 0 To .Cols - 1
+                         .Col = j
+                         .CellBackColor = glfarbe(3)
+                         .CellForeColor = vbBlack
+                       Next j
+                       
+                    Else
+                   ''''''''''''''''''''''''''''''''''''''''' ODAYY  <<<<< ENDE
+                   
+                      .CellBackColor = glfarbe(3)
+                      .CellForeColor = vbBlack
+                      
+                   ''''''''''''''''''''''''''''''''''''''''' ODAYY  <<<<< START
+                     End If
+                   ''''''''''''''''''''''''''''''''''''''''' ODAYY  <<<<< ENDE
+                   
+                    
             ElseIf ctmp = "4" Then
                 .CellBackColor = glfarbe(4)
                 .CellForeColor = vbBlack

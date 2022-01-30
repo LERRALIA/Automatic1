@@ -26,6 +26,13 @@ Begin VB.Form frmWKL52
    ScaleWidth      =   11910
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'Bildschirmmitte
+   Begin VB.TextBox txtLeereZeil 
+      Height          =   315
+      Left            =   7800
+      TabIndex        =   97
+      Top             =   2160
+      Width           =   495
+   End
    Begin VB.TextBox Text1 
       BeginProperty Font 
          Name            =   "Arial"
@@ -3740,9 +3747,9 @@ Begin VB.Form frmWKL52
    Begin sevCommand3.Command Command1 
       Height          =   495
       Index           =   1
-      Left            =   9720
+      Left            =   9840
       TabIndex        =   14
-      Top             =   3240
+      Top             =   3840
       Width           =   2055
       _ExtentX        =   0
       _ExtentY        =   0
@@ -3795,9 +3802,9 @@ Begin VB.Form frmWKL52
    Begin sevCommand3.Command Command1 
       Height          =   495
       Index           =   0
-      Left            =   9720
+      Left            =   9840
       TabIndex        =   13
-      Top             =   2640
+      Top             =   3240
       Width           =   2055
       _ExtentX        =   0
       _ExtentY        =   0
@@ -3923,6 +3930,24 @@ Begin VB.Form frmWKL52
       Top             =   240
       Width           =   4335
    End
+   Begin VB.Label Label2 
+      BackColor       =   &H00C0C000&
+      Caption         =   "leere Zeilen (1-9) :"
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   375
+      Left            =   6120
+      TabIndex        =   96
+      Top             =   2160
+      Width           =   1575
+   End
    Begin VB.Label Label1 
       BackColor       =   &H00C0C000&
       Caption         =   "Kopfzeile 4:"
@@ -3957,9 +3982,9 @@ Begin VB.Form frmWKL52
       EndProperty
       Height          =   255
       Index           =   4
-      Left            =   6360
+      Left            =   6480
       TabIndex        =   94
-      Top             =   2280
+      Top             =   2880
       Width           =   5415
    End
    Begin VB.Label Label1 
@@ -4197,6 +4222,8 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
+
+
 Private Sub Form_Unload(Cancel As Integer)
     On Error GoTo LOKAL_ERROR
     
@@ -4220,6 +4247,22 @@ Private Sub SchreibeDatenBonTextWKL52()
     Dim iZeilenNr As Integer
     Dim cZeilenText As String
     
+    'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START
+      If Trim(txtLeereZeil.Text) <> "" Then
+      
+        gdBase.Execute "UPDATE LeereZeilen SET ZeilZahl=" & txtLeereZeil.Text, dbFailOnError
+        gbLeereZeil = CInt(txtLeereZeil.Text)
+     
+      Else
+      
+        txtLeereZeil.Text = gbLeereZeil
+        MsgBox ("falschen Wert der leeren Zeilen eingegeben!!!")
+        Exit Sub
+             
+      End If
+    'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ENDE
+    
+    
     For iZeilenNr = 0 To 12
         cZeilenText = Text1(iZeilenNr).Text
         cZeilenText = Trim$(cZeilenText)
@@ -4236,7 +4279,7 @@ Private Sub SchreibeDatenBonTextWKL52()
         gcBonText(iZeilenNr) = cZeilenText
         rsrs.Close: Set rsrs = Nothing
     Next iZeilenNr
-
+     
     MsgBox "BonTexte gespeichert!", vbInformation, "Winkiss Hinweis:"
     
 Exit Sub
@@ -4249,10 +4292,10 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Command1_Click(Index As Integer)
+Private Sub Command1_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     Screen.MousePointer = 11
-    Select Case Index
+    Select Case index
         Case Is = 0
             SchreibeDatenBonTextWKL52
         Case Is = 1
@@ -4271,14 +4314,14 @@ LOKAL_ERROR:
     
 End Sub
 
-Private Sub Command3_Click(Index As Integer)
+Private Sub Command3_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim iZielIndex As Integer
     
     iZielIndex = Label3(2).Caption
     
-    Text1(iZielIndex).Text = Text1(iZielIndex).Text & Command3(Index).Caption
+    Text1(iZielIndex).Text = Text1(iZielIndex).Text & Command3(index).Caption
     Text1(iZielIndex).SetFocus
     Text1(iZielIndex).SelStart = Len(Text1(iZielIndex).Text)
 Exit Sub
@@ -4291,7 +4334,7 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Command4_Click(Index As Integer)
+Private Sub Command4_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim iZielIndex As Integer
@@ -4302,7 +4345,7 @@ Private Sub Command4_Click(Index As Integer)
     
     iZielIndex = Label3(2).Caption
         
-    Select Case Index
+    Select Case index
         Case Is = 0     'CLEAR
             Text1(iZielIndex).Text = ""
             
@@ -4424,6 +4467,10 @@ Private Sub Form_Load()
     rsrs.Close: Set rsrs = Nothing
     Label3(2).Caption = "0"
     
+    'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START
+      txtLeereZeil.Text = CStr(gbLeereZeil)
+    'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ENDE
+    
 Exit Sub
 LOKAL_ERROR:
      Fehler.gsDescr = err.Description
@@ -4434,11 +4481,11 @@ LOKAL_ERROR:
      
      Fehlermeldung1
 End Sub
-Private Sub Text1_GotFocus(Index As Integer)
+Private Sub Text1_GotFocus(index As Integer)
 On Error GoTo LOKAL_ERROR
 
-    Text1(Index).BackColor = glSelBack1
-    Label3(2).Caption = Trim$(Str$(Index))
+    Text1(index).BackColor = glSelBack1
+    Label3(2).Caption = Trim$(Str$(index))
     
     Exit Sub
 LOKAL_ERROR:
@@ -4450,10 +4497,10 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Text1_LostFocus(Index As Integer)
+Private Sub Text1_LostFocus(index As Integer)
 On Error GoTo LOKAL_ERROR
 
-    Text1(Index).BackColor = vbWhite
+    Text1(index).BackColor = vbWhite
     
 Exit Sub
 LOKAL_ERROR:
@@ -4464,4 +4511,26 @@ LOKAL_ERROR:
     Fehler.gsFehlertext = "Im Programmteil Texte Kassenbon ist ein Fehler aufgetreten."
     
     Fehlermeldung1
+End Sub
+
+Private Sub txtLeereZeil_Change()
+
+
+ Dim textval As String
+  
+ textval = Trim(txtLeereZeil.Text)
+ textval = Replace(textval, ".", "")
+ textval = Replace(textval, ",", "")
+ 
+  If IsNumeric(textval) Then
+  
+       If CInt(textval) >= 1 And CInt(textval) <= 9 Then
+            txtLeereZeil.Text = CStr(textval)
+       Else
+            txtLeereZeil.Text = ""
+       End If
+  Else
+       txtLeereZeil.Text = ""
+  End If
+  
 End Sub

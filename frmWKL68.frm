@@ -11055,8 +11055,8 @@ Private Sub SendeDaten2DruckerECCASH()
     '***********************************************
     'ein paar Leerzeilen drucken
     '***********************************************
-    For lcount = 1 To 9
-        If lcount = 9 Then
+    For lcount = 1 To gbLeereZeil
+        If lcount = gbLeereZeil Then
             cEscapeSequenz = vbCrLf
         Else
             cEscapeSequenz = " " & vbCrLf
@@ -11169,8 +11169,8 @@ Private Sub SendeDaten2DruckerECCASH_Kundenbeleg()
             '***********************************************
             'ein paar Leerzeilen drucken
             '***********************************************
-            For lcount = 1 To 9
-                If lcount = 9 Then
+            For lcount = 1 To gbLeereZeil
+                If lcount = gbLeereZeil Then
                     cEscapeSequenz = vbCrLf
                 Else
                     cEscapeSequenz = " " & vbCrLf
@@ -11230,8 +11230,8 @@ Private Sub SendeDaten2DruckerECCASH_Kundenbeleg()
             '***********************************************
             'ein paar Leerzeilen drucken
             '***********************************************
-            For lcount = 1 To 9
-                If lcount = 9 Then
+            For lcount = 1 To gbLeereZeil
+                If lcount = gbLeereZeil Then
                     cEscapeSequenz = vbCrLf
                 Else
                     cEscapeSequenz = " " & vbCrLf
@@ -11652,7 +11652,7 @@ Private Sub SendeDaten2DruckerNeuWKL68_Bonus(Optional dNichtUmsatz As Double = 0
     Dim cFeld                   As String
     Dim cDaten                  As String
     Dim ctmp                    As String
-    Dim cMwst                   As String
+    Dim cMWST                   As String
     Dim cMWSTzzgl               As String
     Dim aDeviceName             As String
     Dim cEscapeSequenz          As String
@@ -11975,8 +11975,8 @@ StartPunkt:
                 
                 cFeld = Mid(cLBSatz, 72, 1)
                 cDaten = cDaten & cFeld & "  "
-                cMwst = cFeld
-                cMWSTzzgl = cMwst
+                cMWST = cFeld
+                cMWSTzzgl = cMWST
                 
                 cFeld = Mid(cLBSatz, 14, 35)
                 cFeld = Trim$(cFeld)
@@ -12086,11 +12086,11 @@ StartPunkt:
                 '***********************************************
                 'MWSt-Summe berechnen
                 '***********************************************
-                If cMwst = "V" Then
+                If cMWST = "V" Then
                     dMWSt = dWert / (100 + gdMWStV)
                     dMWSt = dMWSt * gdMWStV
                     dMWStVoll = dMWStVoll + dMWSt
-                ElseIf cMwst = "E" Then
+                ElseIf cMWST = "E" Then
                    dMWSt = dWert / (100 + gdMWStE)
                     dMWSt = dMWSt * gdMWStE
                     dMWStErm = dMWStErm + dMWSt
@@ -13880,8 +13880,8 @@ NACH_TSE:
         Else
     
     
-            For lcount = 1 To 9
-                If lcount = 9 Then
+            For lcount = 1 To gbLeereZeil
+                If lcount = gbLeereZeil Then
                     cEscapeSequenz = vbCrLf
                 Else
                     cEscapeSequenz = " " & vbCrLf
@@ -17434,7 +17434,7 @@ Private Sub SendeDaten2DruckerLastSchriftWKL68()
     Dim cDaten          As String
     Dim ctmp            As String
     Dim cTmp2           As String
-    Dim cMwst           As String
+    Dim cMWST           As String
     Dim cText           As String
     Dim aDeviceName     As String
     Dim cEscapeSequenz  As String

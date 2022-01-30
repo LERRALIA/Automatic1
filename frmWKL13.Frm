@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{7D622DE6-0ABC-471E-9234-97DEC5E0A708}#3.8#0"; "sevCmd3.ocx"
-Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "MSFlxGrd.ocx"
+Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "msflxgrd.ocx"
 Object = "{0BA686C6-F7D3-101A-993E-0000C0EF6F5E}#1.0#0"; "threed32.ocx"
 Begin VB.Form frmWKL13 
    BorderStyle     =   3  'Fester Dialog
@@ -7270,7 +7270,7 @@ End Sub
 Private Sub Check1_Click()
 On Error GoTo LOKAL_ERROR
 
-If Check1.Value = vbChecked Then
+If Check1.value = vbChecked Then
     Command9.Visible = True
 Else
     Command9.Visible = False
@@ -7291,10 +7291,10 @@ End Sub
 
 
 
-Private Sub Command0_Click(Index As Integer)
+Private Sub Command0_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
-    Select Case Index
+    Select Case index
     
         Case Is = 0        ' Kalender
             Text1(23).Text = Format(Datumschreiben11a(3000, 4000), "DD.MM.YYYY")
@@ -7366,10 +7366,10 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Command45_Click(Index As Integer)
+Private Sub Command45_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
-    Select Case Index
+    Select Case index
         Case 0
             Frame6.Visible = True
             Command45(0).Visible = False
@@ -7807,9 +7807,9 @@ Public Sub HoleDatenWKL13(cSuch As String)
         End If
         ctmp = Trim$(ctmp)
         If ctmp = "N" Then
-            Check6.Value = vbUnchecked
+            Check6.value = vbUnchecked
         Else
-            Check6.Value = vbChecked
+            Check6.value = vbChecked
         End If
         
         If Not IsNull(rsrs!FORMATDAT) Then
@@ -7838,25 +7838,25 @@ Public Sub HoleDatenWKL13(cSuch As String)
         
         If Not IsNull(rsrs!BE) Then
             If rsrs!BE = True Then
-                Check1.Value = vbChecked
+                Check1.value = vbChecked
                 Command9.Visible = True
             Else
-                Check1.Value = vbUnchecked
+                Check1.value = vbUnchecked
                 Command9.Visible = False
             End If
         Else
-            Check1.Value = vbUnchecked
+            Check1.value = vbUnchecked
             Command9.Visible = False
         End If
         
         If Not IsNull(rsrs!DS) Then
             If rsrs!DS = True Then
-                Check7.Value = vbChecked
+                Check7.value = vbChecked
             Else
-                Check7.Value = vbUnchecked
+                Check7.value = vbUnchecked
             End If
         Else
-            Check7.Value = vbUnchecked
+            Check7.value = vbUnchecked
         End If
         
         If Not IsNull(rsrs!Datum1) Then
@@ -7966,21 +7966,21 @@ Public Sub HoleDatenWKL13(cSuch As String)
         Else
             dWert = 0
         End If
-        Option1(dWert).Value = True
+        Option1(dWert).value = True
         
-        If Option1(0).Value Then
+        If Option1(0).value Then
             Label4(36).Caption = Option1(0).Caption
-        ElseIf Option1(1).Value Then
+        ElseIf Option1(1).value Then
             Label4(36).Caption = Option1(1).Caption
-        ElseIf Option1(2).Value Then
+        ElseIf Option1(2).value Then
             Label4(36).Caption = Option1(2).Caption
-        ElseIf Option1(3).Value Then
+        ElseIf Option1(3).value Then
             Label4(36).Caption = Option1(3).Caption
-        ElseIf Option1(4).Value Then
+        ElseIf Option1(4).value Then
             Label4(36).Caption = Option1(4).Caption
-        ElseIf Option1(5).Value Then
+        ElseIf Option1(5).value Then
             Label4(36).Caption = Option1(5).Caption
-        ElseIf Option1(6).Value Then
+        ElseIf Option1(6).value Then
             Label4(36).Caption = Option1(6).Caption
         End If
         
@@ -8068,7 +8068,7 @@ Private Sub LeereKundenMaskeWKL13()
     Text1(35).Text = ""
     Text1(32).Text = "0,00"
     cbo1.Visible = True
-    Check1.Value = vbUnchecked
+    Check1.value = vbUnchecked
     Label4(30).ForeColor = vbBlack
     Label4(30).BackColor = glfarbe(0)
     Label4(30).Tag = 0
@@ -8298,7 +8298,7 @@ Private Sub SchreibeDatenWKL13(bLeereMaske As Boolean)
     rsrs!MERKMAL = Trim$(Text1(18).Text)
     
     cDBFeld = "MERKMAL2"
-    If Check6.Value = vbChecked Then
+    If Check6.value = vbChecked Then
         rsrs!MERKMAL2 = "J"
     Else
         rsrs!MERKMAL2 = "N"
@@ -8475,7 +8475,7 @@ Private Sub SchreibeDatenWKL13(bLeereMaske As Boolean)
     rsrs!NOTIZEN = Text2.Text
     
     iStufe = 41
-    If Check1.Value = vbChecked Then
+    If Check1.value = vbChecked Then
         rsrs!BE = True
     Else
         cSQL = "Delete from  BANKKU where kundnr = " & Trim$(Text1(5).Text)
@@ -8485,7 +8485,7 @@ Private Sub SchreibeDatenWKL13(bLeereMaske As Boolean)
     End If
     
      iStufe = 41
-    If Check7.Value = vbChecked Then
+    If Check7.value = vbChecked Then
         rsrs!DS = True
     Else
         rsrs!DS = False
@@ -8495,19 +8495,19 @@ Private Sub SchreibeDatenWKL13(bLeereMaske As Boolean)
     rsrs!AWM = Label4(30).Tag
     iStufe = 43
     cDBFeld = "PREISKZ"
-    If Option1(0).Value Then
+    If Option1(0).value Then
         rsrs!PREISKZ = 0
-    ElseIf Option1(1).Value Then
+    ElseIf Option1(1).value Then
         rsrs!PREISKZ = 1
-    ElseIf Option1(2).Value Then
+    ElseIf Option1(2).value Then
         rsrs!PREISKZ = 2
-    ElseIf Option1(3).Value Then
+    ElseIf Option1(3).value Then
         rsrs!PREISKZ = 3
-    ElseIf Option1(4).Value Then
+    ElseIf Option1(4).value Then
         rsrs!PREISKZ = 4
-    ElseIf Option1(5).Value Then
+    ElseIf Option1(5).value Then
         rsrs!PREISKZ = 5
-    ElseIf Option1(6).Value Then
+    ElseIf Option1(6).value Then
         rsrs!PREISKZ = 6
     End If
     
@@ -8805,13 +8805,13 @@ Private Function SucheKundenWKL13() As Boolean
     End If
     cwhere = cwhere & " (STATUS <> 'D' or STATUS is null) "
    
-    If Option2(0).Value Then
+    If Option2(0).value Then
         cSQL = cSQL & cwhere & "order by NAME, VORNAME, STADT "
-    ElseIf Option2(1).Value Then
+    ElseIf Option2(1).value Then
         cSQL = cSQL & cwhere & "order by DATUM1, NAME, VORNAME, STADT "
-    ElseIf Option2(2).Value Then
+    ElseIf Option2(2).value Then
         cSQL = cSQL & cwhere & "order by DATUM2, NAME, VORNAME, STADT "
-    ElseIf Option2(3).Value Then
+    ElseIf Option2(3).value Then
         cSQL = cSQL & cwhere & "order by MERKMAL, NAME, VORNAME, STADT "
     Else
         cSQL = cSQL & cwhere & "order by KUERZEL "
@@ -8866,14 +8866,14 @@ Private Function SucheKundenWKL13() As Boolean
                     txtStatus.Text = (lrow * 100) / counter
     
     
-                    If Check2.Value = vbChecked Then
+                    If Check2.value = vbChecked Then
                         If OffeneKB(rsrs!Kundnr) Then
     
                             rsrs.Edit
                             rsrs!OKB = "J"
                             rsrs.Update
                         Else
-                            If Check2.Value = vbChecked Then
+                            If Check2.value = vbChecked Then
                                 rsrs.delete
                                 GoTo hier
                             Else
@@ -8886,7 +8886,7 @@ Private Function SucheKundenWKL13() As Boolean
                         End If
                     End If
     
-                    If Check3.Value = vbChecked Then
+                    If Check3.value = vbChecked Then
                         dOSUM = OffeneKredite(rsrs!Kundnr)
                         If dOSUM > 0 Then
     
@@ -8894,7 +8894,7 @@ Private Function SucheKundenWKL13() As Boolean
                             rsrs!OSUM = dOSUM
                             rsrs.Update
                         Else
-                            If Check3.Value = vbChecked Then
+                            If Check3.value = vbChecked Then
                                 rsrs.delete
                                 GoTo hier
                             Else
@@ -8907,14 +8907,14 @@ Private Function SucheKundenWKL13() As Boolean
                         End If
                     End If
     
-                    If Check4.Value = vbChecked Then
+                    If Check4.value = vbChecked Then
                         If JEMALSKAUF(rsrs!Kundnr) Then
     
                             rsrs.Edit
                             rsrs!Aktiv = "J"
                             rsrs.Update
                         Else
-                            If Check4.Value = vbChecked Then
+                            If Check4.value = vbChecked Then
                                 rsrs.delete
                                 GoTo hier
                             Else
@@ -8927,7 +8927,7 @@ Private Function SucheKundenWKL13() As Boolean
                         End If
                     End If
     
-                    If Check5.Value = vbChecked Then
+                    If Check5.value = vbChecked Then
                         If rsrs!BE = False Then
                             rsrs.delete
                             GoTo hier
@@ -9212,13 +9212,13 @@ Private Function SucheKundenMitSterne(iSternew As Integer) As Boolean
     End If
     cwhere = cwhere & " (STATUS <> 'D' or STATUS is null) "
    
-    If Option2(0).Value Then
+    If Option2(0).value Then
         cSQL = cSQL & cwhere & "order by NAME, VORNAME, STADT "
-    ElseIf Option2(1).Value Then
+    ElseIf Option2(1).value Then
         cSQL = cSQL & cwhere & "order by DATUM1, NAME, VORNAME, STADT "
-    ElseIf Option2(2).Value Then
+    ElseIf Option2(2).value Then
         cSQL = cSQL & cwhere & "order by DATUM2, NAME, VORNAME, STADT "
-    ElseIf Option2(3).Value Then
+    ElseIf Option2(3).value Then
         cSQL = cSQL & cwhere & "order by MERKMAL, NAME, VORNAME, STADT "
     Else
         cSQL = cSQL & cwhere & "order by KUERZEL "
@@ -9331,22 +9331,22 @@ Private Function fnPruefeEingabeWKL13()
 
     fnPruefeEingabeWKL13 = 1
     
-    If Check2.Value = vbChecked Then
+    If Check2.value = vbChecked Then
         fnPruefeEingabeWKL13 = 0
         Exit Function
     End If
     
-    If Check3.Value = vbChecked Then
+    If Check3.value = vbChecked Then
         fnPruefeEingabeWKL13 = 0
         Exit Function
     End If
     
-    If Check4.Value = vbChecked Then
+    If Check4.value = vbChecked Then
         fnPruefeEingabeWKL13 = 0
         Exit Function
     End If
     
-    If Check5.Value = vbChecked Then
+    If Check5.value = vbChecked Then
         fnPruefeEingabeWKL13 = 0
         Exit Function
     End If
@@ -9491,14 +9491,14 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Command1_Click(Index As Integer)
+Private Sub Command1_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim lWert As Long
     
     Screen.MousePointer = 11
     
-    Select Case Index
+    Select Case index
         Case Is = 0     'Suchen
             glSelect = 0
             Text1(1).Text = UCase$(Text1(1).Text)
@@ -9514,7 +9514,7 @@ Private Sub Command1_Click(Index As Integer)
             LeereKundenMaskeWKL13
             lWert = fnHoleMaxKundenNr()
             Text1(5).Text = Format$(lWert, "#####0")
-            Check6.Value = vbChecked
+            Check6.value = vbChecked
             Frame3.Visible = True
             Frame0.Visible = False
             giDlgZustand = giNEU
@@ -9594,13 +9594,13 @@ LOKAL_ERROR:
 '    Resume Next
     
 End Sub
-Private Sub Command2_Click(Index As Integer)
+Private Sub Command2_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     Dim cSuch As String
     Dim cMeld As String
     Dim iRet As Integer
     
-    Select Case Index
+    Select Case index
         Case Is = 0     'Auswählen
         
             If MSFlexGrid1.Row < 1 Then
@@ -9711,7 +9711,7 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub SSCommand1_Click(Index As Integer)
+Private Sub SSCommand1_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim iZielIndex As Integer
@@ -9720,19 +9720,19 @@ Private Sub SSCommand1_Click(Index As Integer)
     iZielIndex = Label3(2).Caption
     If iZielIndex < 999 Then
         If iZielIndex >= 500 Then
-            SendKeys SSCommand1(Index).Caption
+            SendKeys SSCommand1(index).Caption
         Else
             If iZielIndex = 0 Or iZielIndex = 5 Then
-                If Index >= 11 And Index <= 20 Then
-                    Text1(iZielIndex).Text = Text1(iZielIndex).Text & SSCommand1(Index).Caption
+                If index >= 11 And index <= 20 Then
+                    Text1(iZielIndex).Text = Text1(iZielIndex).Text & SSCommand1(index).Caption
                 End If
             Else
-                Text1(iZielIndex).Text = Text1(iZielIndex).Text & SSCommand1(Index).Caption
+                Text1(iZielIndex).Text = Text1(iZielIndex).Text & SSCommand1(index).Caption
             End If
             Text1(iZielIndex).SetFocus
         End If
     Else
-        Text2.Text = Text2.Text & SSCommand1(Index).Caption
+        Text2.Text = Text2.Text & SSCommand1(index).Caption
         Text2.SetFocus
     End If
 Exit Sub
@@ -9747,7 +9747,7 @@ LOKAL_ERROR:
    
 End Sub
 
-Private Sub SSCommand1_GotFocus(Index As Integer)
+Private Sub SSCommand1_GotFocus(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim iZielIndex As Integer
@@ -9770,7 +9770,7 @@ LOKAL_ERROR:
 End Sub
 
 
-Private Sub SSCommand2_Click(Index As Integer)
+Private Sub SSCommand2_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim iZielIndex As Integer
@@ -9780,7 +9780,7 @@ Private Sub SSCommand2_Click(Index As Integer)
     
     If iZielIndex < 999 Then
         If iZielIndex < 500 Then
-            Select Case Index
+            Select Case index
                 Case Is = 0     'CLEAR
                     Text1(iZielIndex).Text = ""
                     
@@ -9948,7 +9948,7 @@ Private Sub SSCommand2_Click(Index As Integer)
 
             End If
         Else
-            Select Case Index
+            Select Case index
                 Case 0, 1     'CLEAR = BACKSPACE
         
                 
@@ -10013,7 +10013,7 @@ Private Sub SSCommand2_Click(Index As Integer)
         
         End If
     Else
-        Select Case Index
+        Select Case index
             Case Is = 0     'CLEAR
                 Text2.Text = ""
                 
@@ -10057,12 +10057,12 @@ LOKAL_ERROR:
     Fehler.gsNumber = err.Number
     Fehler.gsFormular = Me.name
     Fehler.gsFunktion = "SSCommand2_Click"
-    Fehler.gsFehlertext = "Im Programmteil Kundendaten bearbeiten ist ein Fehler aufgetreten. " & Index
+    Fehler.gsFehlertext = "Im Programmteil Kundendaten bearbeiten ist ein Fehler aufgetreten. " & index
     
     Fehlermeldung1
 End Sub
 
-Private Sub SSCommand2_GotFocus(Index As Integer)
+Private Sub SSCommand2_GotFocus(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim iZielIndex As Integer
@@ -10088,7 +10088,7 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Command5_Click(Index As Integer)
+Private Sub Command5_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     Screen.MousePointer = 11
     
@@ -10106,7 +10106,7 @@ Private Sub Command5_Click(Index As Integer)
     
     bGespeichert = False
     
-    Select Case Index
+    Select Case index
         Case Is = 0     'Speichern
             
             '//firma
@@ -10294,7 +10294,7 @@ Private Sub Command5_Click(Index As Integer)
         Case 9 'nur nach Sternchen suchen
             Sternchensuche
         Case 11, 12, 13, 14, 15
-            If SucheKundenMitSterne(Index - 10) Then
+            If SucheKundenMitSterne(index - 10) Then
                 zeige_Grid
                 If MSFlexGrid1.Visible = True Then
                     MSFlexGrid1.Col = 1
@@ -12162,7 +12162,15 @@ On Error GoTo LOKAL_ERROR
         
         Tabellenbreiteanpassen MSFlexGrid1, 1.25 * gdTabfak
         
+        '''''''''''''''''''''''''''''''''''''''''''''''''ODAYY  <<<<< START
+        IchBinBeiKundeSuche = True
+        '''''''''''''''''''''''''''''''''''''''''''''''''ODAYY  <<<<< ENDE
+        
         FaerbenGrid MSFlexGrid1, CInt(SpaltennummerAWM), CInt(SpaltennummerKUNDNR)
+        
+        '''''''''''''''''''''''''''''''''''''''''''''''''ODAYY  <<<<< START
+        IchBinBeiKundeSuche = False
+        '''''''''''''''''''''''''''''''''''''''''''''''''ODAYY  <<<<< ENDE
         
         FaerbeKundemitKB MSFlexGrid1, SpaltennummerKUNDNR, SpaltennummerSTERNE
 
@@ -12263,13 +12271,13 @@ Private Sub FuellenMSFlex13()
     Dim cSQL        As String
     Dim corder      As String
     
-    If Option2(0).Value Then
+    If Option2(0).value Then
         cSQL = cSQL & " order by NAME, VORNAME, STADT "
-    ElseIf Option2(1).Value Then
+    ElseIf Option2(1).value Then
         cSQL = cSQL & " order by DATUM1, NAME, VORNAME, STADT "
-    ElseIf Option2(2).Value Then
+    ElseIf Option2(2).value Then
         cSQL = cSQL & " order by DATUM2, NAME, VORNAME, STADT "
-    ElseIf Option2(3).Value Then
+    ElseIf Option2(3).value Then
         cSQL = cSQL & " order by MERKMAL, NAME, VORNAME, STADT "
     Else
         cSQL = cSQL & " order by KUERZEL "
@@ -12460,10 +12468,10 @@ LOKAL_ERROR:
 
     Fehlermeldung1
 End Sub
-Private Sub Label1_Click(Index As Integer)
+Private Sub Label1_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
-    If Index = 24 Then
+    If index = 24 Then
     
         Screen.MousePointer = 11
     
@@ -12508,17 +12516,17 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Label1_DblClick(Index As Integer)
+Private Sub Label1_DblClick(index As Integer)
 On Error GoTo LOKAL_ERROR
 
     Dim sSQL As String
 
-    If Index = 5 Then
+    If index = 5 Then
         Label1(5).Caption = "alle Farben"
         Label1(5).Tag = ""
         Label1(5).BackColor = Label1(4).BackColor
         Label1(5).ForeColor = Label1(4).ForeColor
-    ElseIf Index = 8 Then
+    ElseIf index = 8 Then
         If Label1(8).Caption = "bei Listen-EK: immer kleinsten EK beziehen" Then
             Label1(8).Caption = "bei Listen-EK: immer größten EK beziehen"
             
@@ -12546,12 +12554,12 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Label1_MouseMove(Index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub Label1_MouseMove(index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
 On Error GoTo LOKAL_ERROR
 
-    If Index = 24 Then
+    If index = 24 Then
         Label1(24).ForeColor = glLink
-    ElseIf Index = 8 Then
+    ElseIf index = 8 Then
         Label1(8).ForeColor = glLink
     End If
 
@@ -12606,11 +12614,11 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Label3_Change(Index As Integer)
+Private Sub Label3_Change(index As Integer)
 On Error GoTo LOKAL_ERROR
 
     Dim lcount As Long
-    If Index = 2 Then
+    If index = 2 Then
         For lcount = 0 To 30
             Text1(lcount).BackColor = vbWhite
         Next lcount
@@ -12628,14 +12636,14 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Label4_Click(Index As Integer)
+Private Sub Label4_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
     Dim Task$
     Dim sZielpfad       As String
     Dim sKUNDNR         As String
 
-    Select Case Index
+    Select Case index
         
         Case 37
             If Trim(Text1(5).Text) = "" Then
@@ -12709,10 +12717,10 @@ LOKAL_ERROR:
     End If
 End Sub
 
-Private Sub Label4_dblClick(Index As Integer)
+Private Sub Label4_dblClick(index As Integer)
 On Error GoTo LOKAL_ERROR
 
-    Select Case Index
+    Select Case index
         Case 30
             Command8_Click
         Case 37
@@ -12739,10 +12747,10 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Label4_MouseMove(Index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub Label4_MouseMove(index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
 On Error GoTo LOKAL_ERROR
     
-    Select Case Index
+    Select Case index
         Case 37
             Label4(37).ForeColor = glLink
         Case 38
@@ -12834,10 +12842,10 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Option1_GotFocus(Index As Integer)
+Private Sub Option1_GotFocus(index As Integer)
 On Error GoTo LOKAL_ERROR
     
-    schreibeKUPKZProt " für Kunde: " & Text1(5).Text & " " & Text1(10).Text & " " & Option1(Index).Caption & " wird gesetzt"
+    schreibeKUPKZProt " für Kunde: " & Text1(5).Text & " " & Text1(10).Text & " " & Option1(index).Caption & " wird gesetzt"
     
    Exit Sub
 LOKAL_ERROR:
@@ -12935,7 +12943,7 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Picture5_Click(Index As Integer)
+Private Sub Picture5_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
     Dim iDiv As Integer
@@ -12954,9 +12962,9 @@ On Error GoTo LOKAL_ERROR
     End Select
     
     Dim ctemp As String
-    ctemp = Picture5(Index).Tag
+    ctemp = Picture5(index).Tag
     
-    Zeige_weitere_Kunden_Bilder Picture5(Index).Tag, 0, Picture3, Image4, iDiv
+    Zeige_weitere_Kunden_Bilder Picture5(index).Tag, 0, Picture3, Image4, iDiv
     
     Label5(12).Caption = ctemp
     
@@ -13005,7 +13013,7 @@ End Sub
 '    Fehlermeldung1
 'End Sub
 
-Private Sub Text1_GotFocus(Index As Integer)
+Private Sub Text1_GotFocus(index As Integer)
     On Error GoTo LOKAL_ERROR
     Dim lcount As Long
     
@@ -13015,16 +13023,16 @@ Private Sub Text1_GotFocus(Index As Integer)
             Text1(lcount).BackColor = vbWhite
     Next lcount
 
-    If Index >= 5 Then
-        Label3(1).Caption = Label4(Index - 5).Caption
-        Label3(2).Caption = Trim$(Str$(Index))
+    If index >= 5 Then
+        Label3(1).Caption = Label4(index - 5).Caption
+        Label3(2).Caption = Trim$(Str$(index))
     Else
-        Label3(1).Caption = Label1(Index).Caption
-        Label3(2).Caption = Trim$(Str$(Index))
+        Label3(1).Caption = Label1(index).Caption
+        Label3(2).Caption = Trim$(Str$(index))
     End If
-    Text1(Index).BackColor = glSelBack1
-    Text1(Index).SelStart = 0
-    Text1(Index).SelLength = Len(Text1(Index).Text)
+    Text1(index).BackColor = glSelBack1
+    Text1(index).SelStart = 0
+    Text1(index).SelLength = Len(Text1(index).Text)
     
 Exit Sub
 LOKAL_ERROR:
@@ -13036,7 +13044,7 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Text1_KeyPress(Index As Integer, KeyAscii As Integer)
+Private Sub Text1_KeyPress(index As Integer, KeyAscii As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim cZeichen As String
@@ -13045,7 +13053,7 @@ Private Sub Text1_KeyPress(Index As Integer, KeyAscii As Integer)
     
     bSpringen = False
     
-    Select Case Index
+    Select Case index
     
         Case 2
             cZeichen = Chr$(KeyAscii)
@@ -13133,10 +13141,10 @@ Private Sub Text1_KeyPress(Index As Integer, KeyAscii As Integer)
     End Select
     
     'Hier die doppelten Kommas prüfen, nur bei den Preisen
-    Select Case Index
+    Select Case index
         Case 36 'Bonus
             If cZeichen = "," Then
-                If InStr(Text1(Index).Text, ",") > 0 Then
+                If InStr(Text1(index).Text, ",") > 0 Then
                     KeyAscii = 0
                 End If
             End If
@@ -13145,29 +13153,29 @@ Private Sub Text1_KeyPress(Index As Integer, KeyAscii As Integer)
     'Ende*****Hier die doppelten Kommas prüfen, nur bei den Preisen
     
     
-    If Len(Text1(Index).Text) = Text1(Index).MaxLength - 1 Then
+    If Len(Text1(index).Text) = Text1(index).MaxLength - 1 Then
         If KeyAscii <> 8 And KeyAscii <> 0 And KeyAscii <> 13 And KeyAscii <> 27 Then
             bSpringen = True
         End If
     End If
     
     If bSpringen Then
-        If Index = 4 Then
+        If index = 4 Then
             Command1(0).SetFocus
-        ElseIf Index = 19 Then
+        ElseIf index = 19 Then
             Text1(28).SetFocus
-        ElseIf Index = 16 Then
+        ElseIf index = 16 Then
             Text1(34).SetFocus
-        ElseIf Index = 28 Then
+        ElseIf index = 28 Then
             Text1(20).SetFocus
-        ElseIf Index = 27 Then
+        ElseIf index = 27 Then
             Text1(29).SetFocus
-        ElseIf Index = 34 Then
+        ElseIf index = 34 Then
             Text1(18).SetFocus
-        ElseIf Index = 32 Then
+        ElseIf index = 32 Then
             Command5(0).SetFocus
         Else
-            Text1(Index + 1).SetFocus
+            Text1(index + 1).SetFocus
         End If
     End If
     
@@ -13181,10 +13189,10 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Text1_KeyUp(Index As Integer, KeyCode As Integer, Shift As Integer)
+Private Sub Text1_KeyUp(index As Integer, KeyCode As Integer, Shift As Integer)
     On Error GoTo LOKAL_ERROR
     
-    If Index < 5 Then
+    If index < 5 Then
         If KeyCode = vbKeyReturn Then
             Command1_Click 0
         End If
@@ -13193,16 +13201,16 @@ Private Sub Text1_KeyUp(Index As Integer, KeyCode As Integer, Shift As Integer)
         Command1_Click 1
     End If
     
-    If Index = 22 Or Index = 23 Then
+    If index = 22 Or index = 23 Then
         If KeyCode = 8 Then
         
         Else
-            If Len(Text1(Index).Text) = 2 Then
-                Text1(Index).Text = Text1(Index).Text & "."
-            ElseIf Len(Text1(Index).Text) = 5 Then
-                Text1(Index).Text = Text1(Index).Text & "."
+            If Len(Text1(index).Text) = 2 Then
+                Text1(index).Text = Text1(index).Text & "."
+            ElseIf Len(Text1(index).Text) = 5 Then
+                Text1(index).Text = Text1(index).Text & "."
             End If
-            Text1(Index).SelStart = Len(Text1(Index).Text)
+            Text1(index).SelStart = Len(Text1(index).Text)
             
         End If
     End If
@@ -13217,10 +13225,10 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Text1_LostFocus(Index As Integer)
+Private Sub Text1_LostFocus(index As Integer)
     On Error GoTo LOKAL_ERROR
     
-    Text1(Index).BackColor = vbWhite
+    Text1(index).BackColor = vbWhite
     
 Exit Sub
 LOKAL_ERROR:
@@ -13378,7 +13386,7 @@ On Error GoTo LOKAL_ERROR
                                         
     Dim hwnd&
     Dim Y As String
-    Dim Result&
+    Dim result&
     Dim Title$
     
     Dim bgefunden As Boolean
@@ -13387,9 +13395,9 @@ On Error GoTo LOKAL_ERROR
     Y = "Logitech" & Chr(174) & " Webcam-Software"
     hwnd = GetWindow(Me.hwnd, GW_HWNDFIRST)
     Do
-        Result = GetWindowTextLength(hwnd) + 1
-        Title = Space(Result)
-        Result = GetWindowText(hwnd, Title, Result)
+        result = GetWindowTextLength(hwnd) + 1
+        Title = Space(result)
+        result = GetWindowText(hwnd, Title, result)
         Title = Left$(Title, Len(Title) - 1)
 
         If InStr(1, Title, Y) Then
@@ -13402,9 +13410,9 @@ On Error GoTo LOKAL_ERROR
     Y = "Logitech" & Chr(174) & " Webcam-Software"
     hwnd = GetWindow(Me.hwnd, GW_HWNDFIRST)
     Do
-        Result = GetWindowTextLength(hwnd) + 1
-        Title = Space(Result)
-        Result = GetWindowText(hwnd, Title, Result)
+        result = GetWindowTextLength(hwnd) + 1
+        Title = Space(result)
+        result = GetWindowText(hwnd, Title, result)
         Title = Left$(Title, Len(Title) - 1)
 
         If InStr(1, Title, Y) Then

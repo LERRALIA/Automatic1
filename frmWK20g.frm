@@ -3280,7 +3280,7 @@ Private Sub SendeDaten2DruckerGutschein2WK20g(lGutschnr As Long, dZuZahlen As Do
     Dim cDaten          As String
     Dim ctmp            As String
     Dim cTmp2           As String
-    Dim cMwst           As String
+    Dim cMWST           As String
     Dim cText           As String
     Dim aDeviceName     As String
     Dim cEscapeSequenz  As String
@@ -3526,7 +3526,7 @@ StartPunkt:
             cDaten = cFeld & " "
             cFeld = Mid(cLBSatz, 72, 1)
             cDaten = cDaten & cFeld & "  "
-            cMwst = cFeld
+            cMWST = cFeld
             cFeld = Mid(cLBSatz, 14, 35)
             cFeld = Trim$(cFeld)
             If Len(cFeld) > 17 Then
@@ -3625,11 +3625,11 @@ StartPunkt:
             ReDim Preserve cDruckZeile(1 To lAnzZeile) As String
             cDruckZeile(lAnzZeile) = cEscapeSequenz
             
-            If cMwst = "V" Then
+            If cMWST = "V" Then
                 dMWSt = dWert / (100 + gdMWStV)
                 dMWSt = dMWSt * gdMWStV
                 dMWStVoll = dMWStVoll + dMWSt
-            ElseIf cMwst = "E" Then
+            ElseIf cMWST = "E" Then
                 dMWSt = dWert / (100 + gdMWStE)
                 dMWSt = dMWSt * gdMWStE
                 dMWStErm = dMWStErm + dMWSt
@@ -5800,8 +5800,8 @@ NACH_TSE:
         Else
     
     
-            For lcount = 1 To 9
-                If lcount = 9 Then
+            For lcount = 1 To gbLeereZeil
+                If lcount = gbLeereZeil Then
                     cEscapeSequenz = vbCrLf
                 Else
                     cEscapeSequenz = " " & vbCrLf

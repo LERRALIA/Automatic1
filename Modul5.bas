@@ -4396,7 +4396,7 @@ Public Function BistDualleineinderDatenbank() As Boolean
         
 
 
-0    Exit Function
+Exit Function
 LOKAL_ERROR:
     If err.Number = 3356 Then  'Or err.Number = 3050
 

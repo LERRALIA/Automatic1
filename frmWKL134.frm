@@ -4211,7 +4211,7 @@ End Sub
 Private Sub Check7_Click()
 On Error GoTo LOKAL_ERROR
 
-If Check7.Value = vbChecked Then
+If Check7.value = vbChecked Then
 
     grd1.ColWidth(7) = 1500
     grd1.Refresh
@@ -4235,7 +4235,7 @@ End Sub
 Private Sub Check8_Click()
 On Error GoTo LOKAL_ERROR
 
-If Check8.Value = vbChecked Then
+If Check8.value = vbChecked Then
 
     grd1.ColWidth(5) = 3500
     grd1.Refresh
@@ -4258,7 +4258,7 @@ End Sub
 Private Sub Check11_Click()
 On Error GoTo LOKAL_ERROR
 
-If Check11.Value = vbChecked Then
+If Check11.value = vbChecked Then
 
     grd1.ColWidth(8) = 3500
     grd1.Refresh
@@ -4281,7 +4281,7 @@ End Sub
 Private Sub Check1_Click()
 On Error GoTo LOKAL_ERROR
 
-If Check1.Value = vbChecked Then
+If Check1.value = vbChecked Then
 
     grd1.ColWidth(6) = 2500
     grd1.Refresh
@@ -4303,7 +4303,7 @@ LOKAL_ERROR:
 
 End Sub
 
-Private Sub Command0_Click(Index As Integer)
+Private Sub Command0_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim iZielIndex As Integer
@@ -4314,9 +4314,9 @@ Private Sub Command0_Click(Index As Integer)
     End If
     
     If iZielIndex = 97 Then
-        Select Case Index
+        Select Case index
             Case 0 To 54, 63 To 117
-                Combo1.Text = Combo1.Text & Command0(Index).Caption
+                Combo1.Text = Combo1.Text & Command0(index).Caption
                 Combo1.SetFocus
             Case 55, 62    'Löschen
                 Combo1.Text = ""
@@ -4343,9 +4343,9 @@ Private Sub Command0_Click(Index As Integer)
                 
         End Select
     ElseIf iZielIndex = 4 Then
-        Select Case Index
+        Select Case index
             Case 45 To 54
-                Text3(iZielIndex).Text = Text3(iZielIndex).Text & Command0(Index).Caption
+                Text3(iZielIndex).Text = Text3(iZielIndex).Text & Command0(index).Caption
                 Text3(iZielIndex).SetFocus
                 
             Case 55, 62    'Löschen
@@ -4375,9 +4375,9 @@ Private Sub Command0_Click(Index As Integer)
         End Select
     Else
     
-        Select Case Index
+        Select Case index
             Case 0 To 54, 63 To 117
-                Text3(iZielIndex).Text = Text3(iZielIndex).Text & Command0(Index).Caption
+                Text3(iZielIndex).Text = Text3(iZielIndex).Text & Command0(index).Caption
                 Text3(iZielIndex).SetFocus
             Case 55, 62    'Löschen
 '                If iZielIndex = 5 Then
@@ -4446,10 +4446,10 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Command1_Click(Index As Integer)
+Private Sub Command1_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
-    Select Case Index
+    Select Case index
         Case Is = 56 'Farbe
             Screen.MousePointer = 0
             
@@ -4483,12 +4483,12 @@ LOKAL_ERROR:
    
 End Sub
 
-Private Sub Command4_Click(Index As Integer)
+Private Sub Command4_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
     Dim cLBSatz As String
 
-    Select Case Index
+    Select Case index
     
         Case 0 'alle zukünftigen Termine des Kunden drucken
         
@@ -5249,10 +5249,10 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Label1_Click(Index As Integer)
+Private Sub Label1_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
-    If Index = 27 Then
+    If index = 27 Then
         If Label1(27).Caption = "Karte/KdNr/Name" Then
             Label1(27).Caption = "Strasse"
         ElseIf Label1(27).Caption = "Strasse" Then
@@ -5279,10 +5279,10 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Text3_Click(Index As Integer)
+Private Sub Text3_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
-If Index = 3 Then
+If index = 3 Then
 
 End If
 
@@ -5296,13 +5296,13 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Text3_KeyPress(Index As Integer, KeyAscii As Integer)
+Private Sub Text3_KeyPress(index As Integer, KeyAscii As Integer)
 On Error GoTo LOKAL_ERROR
 
     Dim cZeichen As String
     Dim cValid As String
     
-    If Index = 3 Then
+    If index = 3 Then
         cValid = gcUPPER & gcLower & gcNUM & Chr$(8) & Chr$(32) & Chr(42) 'Leer *
         cValid = cValid & Chr(38) & Chr(45) & Chr(46) '& - .
         cValid = cValid & "+äÄÜüÖöß"
@@ -5312,7 +5312,7 @@ On Error GoTo LOKAL_ERROR
         If InStr(cValid, cZeichen) = 0 Then
             KeyAscii = 0
         End If
-    ElseIf Index = 5 Then
+    ElseIf index = 5 Then
         cValid = gcUPPER & gcLower & gcNUM & Chr$(8) & Chr$(32) & Chr(42) 'Leer *
         cValid = cValid & Chr(38) & Chr(45) & Chr(46) '& - .
         cValid = cValid & "+äÄÜüÖöß"
@@ -5384,17 +5384,17 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Label1_DblClick(Index As Integer)
+Private Sub Label1_DblClick(index As Integer)
 On Error GoTo LOKAL_ERROR
 
-    If Index = 10 Then
-        Label1(Index).Caption = "alle Farben"
-        Label1(Index).Tag = ""
-        Label1(Index).BackColor = Label1(26).BackColor
-        Label1(Index).ForeColor = Label1(26).ForeColor
+    If index = 10 Then
+        Label1(index).Caption = "alle Farben"
+        Label1(index).Tag = ""
+        Label1(index).BackColor = Label1(26).BackColor
+        Label1(index).ForeColor = Label1(26).ForeColor
     End If
     
-    If Index = 7 Then
+    If index = 7 Then
         frmWKL65.Show 1
     End If
 
@@ -5408,19 +5408,19 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Label1_MouseMove(Index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub Label1_MouseMove(index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
 On Error GoTo LOKAL_ERROR
 
-    If Index = 24 Then
+    If index = 24 Then
         Label1(24).ForeColor = glLink
     End If
     
-    If Index = 25 Then
+    If index = 25 Then
 '        Label1(25).ForeColor = vbRed
         Label1(25).Caption = "Klicke, Rangfolge der Mitarbeiter"
     End If
     
-    If Index = 27 Then
+    If index = 27 Then
         Label1(27).ForeColor = glLink
     End If
     
@@ -5751,9 +5751,38 @@ On Error GoTo LOKAL_ERROR
             grd1.Rows = lrow + 1
             grd1.Row = lrow
             
+            If Not IsNull(rsrs!GESPERRT) Then
+                cFeld = rsrs!GESPERRT
+            Else
+                cFeld = "N"
+            End If
+
+            If gbKUWAHLGESPERRTROT = True Then
+
+                For i = 1 To 7
+                    grd1.Col = i
+                    If cFeld <> "N" Then
+                        grd1.CellBackColor = vbRed
+                    Else
+                        grd1.CellBackColor = vbWhite
+                    End If
+                Next i
+            End If
+            
+            
             If Not IsNull(rsrs!Kundnr) Then
                 cFeld = rsrs!Kundnr
+                
+                ''''''''''''''''''''''''''''''''''''''''' ODAYY  <<<<< START
+                IchBinBeiKundeSuche = True
+                ''''''''''''''''''''''''''''''''''''''''' ODAYY  <<<<< ENDE
+                
                 FaerbenFlexH WhatIsAwmKU(cFeld), grd1, 0, CInt(lrow)
+                
+                ''''''''''''''''''''''''''''''''''''''''' ODAYY  <<<<< START
+                IchBinBeiKundeSuche = False
+                ''''''''''''''''''''''''''''''''''''''''' ODAYY  <<<<< ENDE
+                
             Else
                 cFeld = ""
             End If
@@ -5813,7 +5842,7 @@ On Error GoTo LOKAL_ERROR
             grd1.Col = 5
             grd1.Text = ctmp
             
-            If Check8.Value = vbChecked Then
+            If Check8.value = vbChecked Then
 
             Else
                 grd1.ColWidth(5) = 0
@@ -5824,33 +5853,31 @@ On Error GoTo LOKAL_ERROR
             grd1.Col = 6
             grd1.Text = cFeld
             
-            If Check1.Value = vbChecked Then
+            If Check1.value = vbChecked Then
 
             Else
                 grd1.ColWidth(6) = 0
             End If
             
+             
             
-            
-            
-            
-            If Not IsNull(rsrs!GESPERRT) Then
-                cFeld = rsrs!GESPERRT
-            Else
-                cFeld = "N"
-            End If
-            
-            If gbKUWAHLGESPERRTROT = True Then
-            
-                For i = 1 To 7
-                    grd1.Col = i
-                    If cFeld <> "N" Then
-                        grd1.CellBackColor = vbRed
-                    Else
-                        grd1.CellBackColor = vbWhite
-                    End If
-                Next i
-            End If
+'            If Not IsNull(rsrs!GESPERRT) Then
+'                cFeld = rsrs!GESPERRT
+'            Else
+'                cFeld = "N"
+'            End If
+'
+'            If gbKUWAHLGESPERRTROT = True Then
+'
+'                For i = 1 To 7
+'                    grd1.Col = i
+'                    If cFeld <> "N" Then
+'                        grd1.CellBackColor = vbRed
+'                    Else
+'                        grd1.CellBackColor = vbWhite
+'                    End If
+'                Next i
+'            End If
             
             
             If Not IsNull(rsrs!BONUS) Then
@@ -5867,7 +5894,7 @@ On Error GoTo LOKAL_ERROR
             grd1.Col = 7
             grd1.Text = cFeld
             
-            If Check7.Value = vbChecked Then
+            If Check7.value = vbChecked Then
 
             Else
                 grd1.ColWidth(7) = 0
@@ -5896,7 +5923,7 @@ On Error GoTo LOKAL_ERROR
             grd1.Col = 8
             grd1.Text = ctmp
             
-            If Check11.Value = vbChecked Then
+            If Check11.value = vbChecked Then
 
             Else
                 grd1.ColWidth(8) = 0
@@ -6092,7 +6119,7 @@ Private Sub SucheKundenKasseWKL134Alphas(cKuerzel As String)
             grd1.Col = 5
             grd1.Text = ctmp
             
-            If Check8.Value = vbChecked Then
+            If Check8.value = vbChecked Then
 
             Else
                 grd1.ColWidth(5) = 0
@@ -6103,7 +6130,7 @@ Private Sub SucheKundenKasseWKL134Alphas(cKuerzel As String)
             grd1.Col = 6
             grd1.Text = cFeld
             
-            If Check1.Value = vbChecked Then
+            If Check1.value = vbChecked Then
 
             Else
                 grd1.ColWidth(6) = 0
@@ -6145,7 +6172,7 @@ Private Sub SucheKundenKasseWKL134Alphas(cKuerzel As String)
             grd1.Col = 7
             grd1.Text = cFeld
             
-            If Check7.Value = vbChecked Then
+            If Check7.value = vbChecked Then
 
             Else
                 grd1.ColWidth(7) = 0
@@ -6175,7 +6202,7 @@ Private Sub SucheKundenKasseWKL134Alphas(cKuerzel As String)
             grd1.Col = 8
             grd1.Text = ctmp
             
-            If Check11.Value = vbChecked Then
+            If Check11.value = vbChecked Then
 
             Else
                 grd1.ColWidth(8) = 0
@@ -6312,13 +6339,13 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Text3_GotFocus(Index As Integer)
+Private Sub Text3_GotFocus(index As Integer)
     On Error GoTo LOKAL_ERROR
     
-    Text3(Index).BackColor = glSelBack1
-    Text3(Index).SelStart = 0
-    Text3(Index).SelLength = Len(Text3(Index).Text)
-    Label3(5).Caption = Trim$(Str$(Index))
+    Text3(index).BackColor = glSelBack1
+    Text3(index).SelStart = 0
+    Text3(index).SelLength = Len(Text3(index).Text)
+    Label3(5).Caption = Trim$(Str$(index))
     
 Exit Sub
 LOKAL_ERROR:
@@ -6330,11 +6357,11 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Text3_KeyUp(Index As Integer, KeyCode As Integer, Shift As Integer)
+Private Sub Text3_KeyUp(index As Integer, KeyCode As Integer, Shift As Integer)
 On Error GoTo LOKAL_ERROR
     
     If KeyCode = vbKeyReturn Then
-        If Index = 3 Then
+        If index = 3 Then
             Command4_Click 5
         End If
     End If
@@ -6350,10 +6377,10 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Text3_LostFocus(Index As Integer)
+Private Sub Text3_LostFocus(index As Integer)
     On Error GoTo LOKAL_ERROR
     
-    Text3(Index).BackColor = vbWhite
+    Text3(index).BackColor = vbWhite
     
     Exit Sub
 LOKAL_ERROR:
@@ -6365,14 +6392,14 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Text3_Change(Index As Integer)
+Private Sub Text3_Change(index As Integer)
 On Error GoTo LOKAL_ERROR
 
     Dim sNeuLinr As String
     Dim sNeuPGNNr As String
     Dim searchstr As String
 
-    If Index = 3 Then
+    If index = 3 Then
         If Len(Text3(3).Text) >= 8 Then
             If IsNumeric(Text3(3).Text) = False Then
                 SucheKundenKasseWKL134Alphas Text3(3).Text

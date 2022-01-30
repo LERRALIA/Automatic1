@@ -3300,14 +3300,14 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Command3_Click(index As Integer)
+Private Sub Command3_Click(Index As Integer)
 On Error GoTo LOKAL_ERROR
 
     Dim sTitle      As String
     Dim sFilter     As String
     Dim sOldpfad    As String
     
-    Select Case index
+    Select Case Index
     
         Case Is = 0 'Ändern
             sTitle = "Pfad zur Artikeldatei"
@@ -3347,13 +3347,13 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Command5_Click(index As Integer)
+Private Sub Command5_Click(Index As Integer)
  On Error GoTo LOKAL_ERROR
     Dim i As Integer
     Dim iFileNr As Integer
     Screen.MousePointer = 11
     
-    Select Case index
+    Select Case Index
         Case 0
             gsTankPfad = Text1(28).Text
             gsConverterPfad = Text1(1).Text
@@ -5697,10 +5697,10 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Text1_Change(index As Integer)
+Private Sub Text1_Change(Index As Integer)
 On Error GoTo LOKAL_ERROR
     
-    If index = 0 Then
+    If Index = 0 Then
         LiefKuerzelAufloesung lbl6(1), Text1(0)
     End If
     
@@ -5717,7 +5717,7 @@ LOKAL_ERROR:
     
 End Sub
 
-Private Sub Text1_KeyUp(index As Integer, KeyCode As Integer, Shift As Integer)
+Private Sub Text1_KeyUp(Index As Integer, KeyCode As Integer, Shift As Integer)
 On Error GoTo LOKAL_ERROR
     
     Dim lcount As Long
@@ -5733,14 +5733,14 @@ On Error GoTo LOKAL_ERROR
         gF2Prompt.cWahl = ""
         gF2Prompt.bMultiple = False
         
-        Select Case index
+        Select Case Index
             
             Case Is = 0
                 gF2Prompt.cFeld = "LINR"
                 
                 frmWK00a.Show 1
                 If gF2Prompt.cWahl <> "" Then
-                    Text1(index).Text = gF2Prompt.cWahl
+                    Text1(Index).Text = gF2Prompt.cWahl
 '                    Label1(10).Caption = gF2Prompt.cWert
                 End If
             

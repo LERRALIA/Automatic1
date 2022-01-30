@@ -7845,11 +7845,11 @@ End Sub
 Private Sub Form_Activate()
 
 'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START
-   If Command1(4).Enabled Then
-       Command1(4).Enabled = False
-       Pause (1)
-       Command1_Click 4
-   End If
+'   If Command1(4).Enabled Then
+'       Command1(4).Enabled = False
+'       Pause (1)
+'       Command1_Click 4
+'   End If
 'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ENDE
 
 

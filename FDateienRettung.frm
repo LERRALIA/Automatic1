@@ -93,7 +93,7 @@ Begin VB.Form FDateienRettung
       _ExtentX        =   3836
       _ExtentY        =   661
       _Version        =   393216
-      Format          =   112394241
+      Format          =   113901569
       CurrentDate     =   44482
    End
    Begin VB.TextBox txtFDatName2 
@@ -297,6 +297,7 @@ Private Sub btnRetten_Click()
     
   End If
  
+ 'dieses Formular ist mit einem Passwort geschützt, weil nur wir (KISS Mitarbeiter) die FDateien-Rettung bei den Kunden durchführen dürfen.
  If txtPasswort.Text = "fkiss2021" Then
    
   Dim ress As Integer
@@ -317,7 +318,7 @@ Private Sub btnRetten_Click()
        Exit Sub
       End If
       
-      
+      'in diesem Directory wird die Ausgabe der RettungsProzess am Ende zur Verfügung gestellt.
       If Dir(gcDBPfad & "\END Rettung\" & CStr(DTPicker1.value), vbDirectory) = "" Then
          MkDir gcDBPfad & "\END Rettung\" & CStr(DTPicker1.value)
       End If
@@ -348,7 +349,7 @@ Private Sub btnRetten_Click()
                        
          If ireslt1 = vbYes Then
          
-         
+                'in diesem Directory steht die gerettete F-Datei, die an die Zentrale geschickt wird.
                 If Dir(gcDBPfad & "\RettungAnZentrale", vbDirectory) = "" Then
                        MkDir gcDBPfad & "\RettungAnZentrale"
                 Else

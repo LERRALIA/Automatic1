@@ -13758,7 +13758,10 @@ Public Sub reportbildschirmToPrinter(aname As String)
         cPfad = cPfad & "\"
     End If
     
+     
     setzedrucker gcListenDrucker
+     
+     
     
     With frmWKL00.CrystalReport1
         If Not Modul6.FindFile(cPfad, aname & ".rpt") Then

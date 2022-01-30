@@ -1,7 +1,7 @@
 VERSION 5.00
 Object = "{7D622DE6-0ABC-471E-9234-97DEC5E0A708}#3.8#0"; "sevCmd3.ocx"
 Object = "{00025600-0000-0000-C000-000000000046}#5.2#0"; "CRYSTL32.OCX"
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
 Begin VB.Form frmWKL00 
    BackColor       =   &H00E0E0E0&
    ClientHeight    =   8595
@@ -14621,12 +14621,22 @@ End Sub
 
   
 Private Sub Command15_Click()
+
 ' TestZwecks.Show 1
 
 'an EDEKA FTP-Server eine Test-Bestellung schicken  <<<<<<<<<<<<<<<<<<< START
 ' giKissFtpMode = 49
 ' frmWKL38.Show 1
 'an EDEKA FTP-Server eine Test-Bestellung schicken  <<<<<<<<<<<<<<<<<<< ENDE
+
+'setzedrucker gcListenDrucker & "-oday"
+'reportbildschirmToPrinter "aWKL21i"
+
+' MsgBox (DatePart("ww", DateValue(Now), vbMonday, vbFirstFourDays)) '---> hat damals 44 geliefert
+' MsgBox (DatePart("ww", DateValue(Now))) '--->  hat damals 45 geliefert
+  
+MsgBox (Weekday(DateValue(Now), vbMonday))
+
 End Sub
 
 Private Sub Command7_KeyUp(index As Integer, KeyCode As Integer, Shift As Integer)

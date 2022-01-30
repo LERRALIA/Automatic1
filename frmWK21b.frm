@@ -3419,6 +3419,7 @@ Private Sub Command1_Click(index As Integer)
                 Else
                     DruckDatenBargeldWK21b
                 End If
+                
             End If
             
             gdWechselgeld = 0
@@ -3578,7 +3579,7 @@ Private Sub UpdateAFCStatEinUndAuszahlungen(sArt As String, dBetrag As Double)
     End Select
     'Datum und Kassennummer setzen
     rsrs!ADATE = lDatum
-    rsrs!KASNUM = Val(gcKasNum)
+    rsrs!kasnum = Val(gcKasNum)
 '    rsrs!BELEGNR = gdBonNr
 '    If gdBonNr < CLng(rsrs!BELEGNR) Then
 '
@@ -3664,7 +3665,7 @@ Private Sub EinAusKorrektur(dDiffbetrag As Double)
     rsrs!Betrag = dBetrag
     rsrs!BEZEICH = cBezeich
     rsrs!art = cART
-    rsrs!KASNUM = byKasnum
+    rsrs!kasnum = byKasnum
     rsrs.Update
     rsrs.Close: Set rsrs = Nothing
     
@@ -3678,7 +3679,7 @@ Private Sub EinAusKorrektur(dDiffbetrag As Double)
     rsrs!Betrag = dBetrag
     rsrs!BEZEICH = cBezeich
     rsrs!art = cART
-    rsrs!KASNUM = byKasnum
+    rsrs!kasnum = byKasnum
     rsrs!SENDOK = False
     rsrs!FILIALE = gcFilNr
     rsrs.Update
@@ -3694,7 +3695,7 @@ Private Sub EinAusKorrektur(dDiffbetrag As Double)
     rsrs!Betrag = dBetrag
     rsrs!BEZEICH = cBezeich
     rsrs!art = cART
-    rsrs!KASNUM = byKasnum
+    rsrs!kasnum = byKasnum
     rsrs!SENDOK = False
     rsrs!FILIALE = gcFilNr
     rsrs.Update

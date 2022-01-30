@@ -1,7 +1,7 @@
 VERSION 5.00
 Object = "{7D622DE6-0ABC-471E-9234-97DEC5E0A708}#3.8#0"; "sevCmd3.ocx"
-Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "MSFLXGRD.OCX"
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
+Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "msflxgrd.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "Mscomctl.ocx"
 Begin VB.Form frmWKL11 
    Appearance      =   0  '2D
    BackColor       =   &H00C0C000&
@@ -5364,7 +5364,7 @@ Private Sub SucheBildschirmdaten()
     Dim rsrs            As Recordset
     Dim dNettospanne    As Double
     Dim dEK             As Double
-    Dim cMwst           As String
+    Dim cMWST           As String
     Dim cNewKassenPr    As String
     
     cPfad = gcDBPfad    'Datenbankpfad
@@ -5506,9 +5506,9 @@ Private Sub SucheBildschirmdaten()
                 End If
 
                 If Not IsNull(rsrs!MWST) Then
-                    cMwst = rsrs!MWST
+                    cMWST = rsrs!MWST
                 Else
-                    cMwst = "V"
+                    cMWST = "V"
                 End If
 
 
@@ -5517,7 +5517,7 @@ Private Sub SucheBildschirmdaten()
                 Else
                     dNettospanne = 0
                 End If
-                cNewKassenPr = Runden(CDbl(fnVKneuNS(dEK, cMwst, dNettospanne)))
+                cNewKassenPr = Runden(CDbl(fnVKneuNS(dEK, cMWST, dNettospanne)))
 
                 rsrs.Edit
                 rsrs!KVKPR1 = cNewKassenPr

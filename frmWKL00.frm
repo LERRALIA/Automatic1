@@ -8694,7 +8694,7 @@ Begin VB.Form frmWKL00
       ToolTipText     =   "Service"
       Top             =   3120
       Visible         =   0   'False
-      Width           =   255
+      Width           =   375
       Begin sevCommand3.Command Command6 
          Height          =   615
          Index           =   2
@@ -16140,9 +16140,10 @@ Private Sub Command6_Click(index As Integer)
             
             Case Is = 4     'DsFinvK Export.
             
-                 ExportFormular.Left = (Me.ScaleWidth - ExportFormular.Width) / 2
-                 ExportFormular.Top = (Me.ScaleHeight - ExportFormular.Height) / 2
-                 ExportFormular.Show 1
+            MsgBox ("in Arbeit . . .")
+            'ExportFormular.Left = (Me.ScaleWidth - ExportFormular.Width) / 2
+            'ExportFormular.Top = (Me.ScaleHeight - ExportFormular.Height) / 2
+            'ExportFormular.Show 1
                 
             Case Is = 5     'Zugriffsrechte             ehemals 55
                 Screen.MousePointer = 11
@@ -16865,6 +16866,7 @@ End Sub
 Private Sub Command9_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     Dim lcount As Long
+    Dim ireslt As Integer
     
     If gbZugriffNew Then
     
@@ -16902,7 +16904,13 @@ Private Sub Command9_Click(index As Integer)
             Case Is = 7 'Bonus auf Bon
                 OpenProgrammTeil frmWKL34, ermittlezugriff(byteZGNr)
             Case Is = 8 'MWST
-                OpenProgrammTeil frmWKL56, ermittlezugriff(byteZGNr)
+                
+                ireslt = MsgBox("alle Kassen in der Filiale müssen zuerst halten (nicht mehr kassieren)" & vbNewLine & "sind alle kassen gehalten ?", vbQuestion + vbYesNo, "Winkiss Frage:")
+                If ireslt = vbYes Then
+                 TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+                 OpenProgrammTeil frmWKL56, ermittlezugriff(byteZGNr)
+                End If
+                
         End Select
     
     Else
@@ -16968,11 +16976,21 @@ Private Sub Command9_Click(index As Integer)
                 End If
     
             Case Is = 8
-                If glLevel >= DlgZugriff(25).dZugriff Then
+            
+                
+                ireslt = MsgBox("alle Kassen in der Filiale müssen zuerst halten (nicht mehr kassieren)" & vbNewLine & "sind alle kassen gehalten ?", vbQuestion + vbYesNo, "Winkiss Frage:")
+                If ireslt = vbYes Then
+                
+                  TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+                  
+                  If glLevel >= DlgZugriff(25).dZugriff Then
                     frmWKL56.Show 1
-                Else
+                  Else
                     MsgBox "Keine Zugangsberechtigung!", vbCritical, "KEIN ZUGRIFF"
+                  End If
+                  
                 End If
+                 
         End Select
     End If
     
@@ -25010,12 +25028,8 @@ On Error GoTo LOKAL_ERROR
      
     End If
     
-    If NewTableSuchenDB("MWSTSATZ_sic", gdBase) Then
-    
-        TabelleMWSTSATZ_Erweiterungen_wiederherstellen
-     
-    End If
-    
+    'prüf mal, ob Budni auf EDEKA schon geschafft ist (Budni auf EDEKA Umzug ist eine Anforderung, die im August 2021 geschafft wurde)
+'    BudniFtpUmzug
     
     Screen.MousePointer = 0
 Exit Sub
@@ -25113,6 +25127,42 @@ LOKAL_ERROR:
     End If
 End Sub
 
+Public Sub BudniFtpUmzug()
+ On Error GoTo LOKAL_ERROR
+     
+    Dim rsLi As Recordset
+    Dim sSQL As String
+    
+    sSQL = "SELECT Distinct FORMAT FROM LISRT WHERE FORMAT='EDIBUDNI' OR FORMAT='EDIBHSG'"
+    Set rsLi = gdBase.OpenRecordset(sSQL)
+    
+     If Not rsLi.EOF Then
+      
+       If Not NewTableSuchenDB("FTPumzugFertig", gdBase) Then
+          gbBudniNeuesFtpVerfahren = False
+          FTPwechsel.Left = (Me.ScaleWidth - FTPwechsel.Width) / 2
+          FTPwechsel.Top = (Me.ScaleHeight - FTPwechsel.Height) / 2
+          FTPwechsel.Show 1
+         Else
+          gbBudniNeuesFtpVerfahren = True
+       End If
+     
+     End If
+    
+    rsLi.Close: Set rsLi = Nothing
+ 
+ Exit Sub
+LOKAL_ERROR:
+    
+    Fehler.gsDescr = err.Description
+    Fehler.gsNumber = err.Number
+    Fehler.gsFormular = "frmWKL00"
+    Fehler.gsFunktion = "BudniFtpUmzug"
+    Fehler.gsFehlertext = "Es ist ein Fehler aufgetreten."
+    
+    Fehlermeldung1
+    
+End Sub
 
 Function GI_auf_EC_setzenFurAlleTabellenMitKK_ART() As Integer
 On Error GoTo LOKAL_ERROR:

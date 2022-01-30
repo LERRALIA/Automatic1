@@ -13210,14 +13210,23 @@ Public Sub TabelleMWSTSATZ_Zurucksetzen()
     
     'im Start-Formular [frmWkl00] wurde doch die Struktur der Tabelle [MWSTSATZ] wegen
     '[DsFinv-K] erweitert(die erweiterung ist nur wegen DsFinv-K),aber diese Erweiterungen haben manche .rpt-Dateien beeinflusst,
-    'deswegen wird die Tabelle [MWSTSATZ] hier zum Zustand gebracht, wie die vor DsFinv-K war
+    'deswegen wird die Tabelle [MWSTSATZ] hier zum Zustand gebracht, wie die vor DsFinv-K war.
     
     'Hinweis: diese Methode muss vor dem Aufruf einer .rpt-Datei ausgeführt werden, und danach werden die Änderungen der
     'Tabelle [MWSTSATZ] wieder gemacht.
     
-    gdBase.Execute ("SELECT * INTO MWSTSATZ_sic FROM MWSTSATZ")
-    gdBase.Execute ("DROP Table MWSTSATZ")
-    gdBase.Execute ("SELECT top 1 VOLL,ERM,OHNE INTO MWSTSATZ FROM MWSTSATZ_sic order by id desc")
+    If Not NewTableSuchenDB("MWSTSATZ_sic", gdBase) Then
+     
+     'lass nur den Satz für dies Jahr in der Tabelle MWSTSATZ
+     
+      gdBase.Execute ("SELECT * INTO MWSTSATZ_sic FROM MWSTSATZ")
+     'gdBase.Execute ("update MWSTSATZ_sic set bisD=null where bisD=CDate('01.01.2100')")
+      gdBase.Execute ("update MWSTSATZ set bisD='01.01.2100' where bisD is null")
+      gdBase.Execute ("DELETE FROM MWSTSATZ WHERE CDate('" & Date & "') not between vonD and bisD")
+        
+        
+    End If
+     
     
     
  Exit Sub
@@ -13236,13 +13245,15 @@ End Sub
 Public Sub TabelleMWSTSATZ_Erweiterungen_wiederherstellen()
  On Error GoTo LOKAL_ERROR
      
-    'Hinweis: diese Methode muss nach dem Aufruf einer .rpt-Datei ausgeführt werden, so dass die Änderungen der
-    'Tabelle [MWSTSATZ],die in StartFormular gemach wurden, wiederhergestellt werden.
+    'die gemachten Änderungen rückgängig machen, die in der Funktion [ TabelleMWSTSATZ_Zurucksetzen ] auf der Tabelle [MWSTSATZ] gemacht wurden
     
-    gdBase.Execute ("DROP Table MWSTSATZ")
-    gdBase.Execute ("SELECT * INTO MWSTSATZ FROM MWSTSATZ_sic")
-    gdBase.Execute ("DROP Table MWSTSATZ_sic")
+    If NewTableSuchenDB("MWSTSATZ_sic", gdBase) Then
+     
+     gdBase.Execute ("DELETE FROM MWSTSATZ")
+     gdBase.Execute ("INSERT INTO MWSTSATZ SELECT * FROM MWSTSATZ_sic")
+     gdBase.Execute ("DROP Table MWSTSATZ_sic")
     
+    End If
     
  Exit Sub
 LOKAL_ERROR:
@@ -13256,6 +13267,7 @@ LOKAL_ERROR:
     Fehlermeldung1
     
 End Sub
+
 
 
 Public Sub reportbildschirm(dname As String, aname As String)
@@ -13298,7 +13310,7 @@ Public Sub reportbildschirm(dname As String, aname As String)
             schickden_fehlenden_Report_Info_PerMail aname & ".rpt"
             MsgBox ctmp, vbOKOnly, "Winkiss Hinweis:"
             
-            TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+            
             Exit Sub
         Else
             Screen.MousePointer = 11
@@ -13331,8 +13343,7 @@ Public Sub reportbildschirm(dname As String, aname As String)
             
         End If
     End With
-    
-    TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+     
     
     Screen.MousePointer = 0
     
@@ -13349,8 +13360,7 @@ LOKAL_ERROR:
         Fehler.gsFehlertext = "Der Ausdruck " & aname & " konnte nicht geöffnet werden. "
             
         Fehlermeldung1
-        
-        TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+         
         
         Resume Next
     End If
@@ -13395,8 +13405,7 @@ Public Sub reportbildschirm_Gutschein(dname As String, aname As String, bMitVors
             
             schickden_fehlenden_Report_Info_PerMail aname & ".rpt"
             MsgBox ctmp, vbOKOnly, "Winkiss Hinweis:"
-            
-            TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+             
             Exit Sub
         Else
             Screen.MousePointer = 11
@@ -13433,8 +13442,7 @@ Public Sub reportbildschirm_Gutschein(dname As String, aname As String, bMitVors
             
         End If
     End With
-    
-    TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+     
     Screen.MousePointer = 0
     
     Exit Sub
@@ -13450,8 +13458,7 @@ LOKAL_ERROR:
         Fehler.gsFehlertext = "Der Ausdruck " & aname & " konnte nicht geöffnet werden. "
             
         Fehlermeldung1
-        
-        TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+         
         Resume Next
     End If
 
@@ -13473,8 +13480,7 @@ Public Sub reportbildschirmtoRTF_inDaba(aname As String, sVolldesPath As String)
     With frmWKL00.CrystalReport1
         If Not FindFile(cPfad, aname & ".rpt") Then
             Screen.MousePointer = 0
-            
-            TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+             
             Exit Sub
         Else
             Pause 1
@@ -13487,12 +13493,10 @@ Public Sub reportbildschirmtoRTF_inDaba(aname As String, sVolldesPath As String)
             .Action = 1
         End If
     End With
-    
-    TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+     
     Screen.MousePointer = 0
     Exit Sub
 LOKAL_ERROR:
-TabelleMWSTSATZ_Erweiterungen_wiederherstellen
 End Sub
 Public Sub reportbildschirmohneDrucker(dname As String, aname As String)
     On Error GoTo LOKAL_ERROR
@@ -13520,8 +13524,7 @@ Public Sub reportbildschirmohneDrucker(dname As String, aname As String)
         If Not Modul6.FindFile(cPfad, aname & ".rpt") Then
             Screen.MousePointer = 0
             MsgBox "Die Druckvorschau kann nicht erstellt werden.", vbOKOnly, "Winkiss Hinweis:"
-            
-            TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+             
             Exit Sub
         Else
             Screen.MousePointer = 11
@@ -13540,8 +13543,7 @@ Public Sub reportbildschirmohneDrucker(dname As String, aname As String)
            
         End If
     End With
-    
-    TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+     
     Screen.MousePointer = 0
     
     
@@ -13574,8 +13576,7 @@ LOKAL_ERROR:
             
         
         Fehlermeldung1
-    
-        TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+     
         
         Resume Next
     End If
@@ -13630,8 +13631,7 @@ Public Sub reportbildschirmtoText(aname As String, sVolldesPath As String)
     With frmWKL00.CrystalReport1
         If Not Modul6.FindFile(cPfad, aname & ".rpt") Then
             Screen.MousePointer = 0
-            
-            TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+             
             Exit Sub
         Else
 '            Pause 2
@@ -13655,8 +13655,7 @@ Public Sub reportbildschirmtoText(aname As String, sVolldesPath As String)
            
         End If
     End With
-    
-    TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+     
     Screen.MousePointer = 0
     
     
@@ -13671,7 +13670,6 @@ LOKAL_ERROR:
 '
 '
 '    Fehlermeldung1
-     TabelleMWSTSATZ_Erweiterungen_wiederherstellen
 '    Resume Next
 
 End Sub
@@ -13697,8 +13695,7 @@ Public Sub reportbildschirmtoPDF(aname As String, sVolldesPath As String)
     With frmWKL00.CrystalReport1
         If Not Modul6.FindFile(cPfad, aname & ".rpt") Then
             Screen.MousePointer = 0
-            
-            TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+             
             Exit Sub
         Else
 '            Pause 2
@@ -13726,8 +13723,7 @@ Public Sub reportbildschirmtoPDF(aname As String, sVolldesPath As String)
     End With
     
     Screen.MousePointer = 0
-    
-    TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+     
     
     Exit Sub
 LOKAL_ERROR:
@@ -13740,7 +13736,6 @@ LOKAL_ERROR:
 '
 '
 '    Fehlermeldung1
-     TabelleMWSTSATZ_Erweiterungen_wiederherstellen
 '    Resume Next
 
 End Sub
@@ -13769,8 +13764,7 @@ Public Sub reportbildschirmToPrinter(aname As String)
         If Not Modul6.FindFile(cPfad, aname & ".rpt") Then
             Screen.MousePointer = 0
             MsgBox "Die Druckvorschau kann nicht erstellt werden.", vbOKOnly, "Winkiss Hinweis:"
-            
-            TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+             
             Exit Sub
         Else
             Pause 2
@@ -13791,7 +13785,6 @@ Public Sub reportbildschirmToPrinter(aname As String)
     Screen.MousePointer = 0
     
     'Fehlerauslöser wird vermutlich der nicht eingeschaltete Drucker sein
-    TabelleMWSTSATZ_Erweiterungen_wiederherstellen
     Exit Sub
 LOKAL_ERROR:
     Fehler.gsDescr = err.Description
@@ -13802,8 +13795,7 @@ LOKAL_ERROR:
         
     
     Fehlermeldung1
-    
-    TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+     
     Resume Next
 End Sub
 Public Sub reportbildschirmToPrinterETI(aname As String, cDrucker As String, bPrinterset As Boolean)
@@ -13833,8 +13825,7 @@ Public Sub reportbildschirmToPrinterETI(aname As String, cDrucker As String, bPr
         If Not Modul6.FindFile(cPfad, aname & ".rpt") Then
             Screen.MousePointer = 0
             MsgBox "Die Druckvorschau kann nicht erstellt werden.", vbOKOnly, "Winkiss Hinweis:"
-            
-            TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+             
             Exit Sub
         Else
             If bPrinterset Then
@@ -13853,8 +13844,7 @@ Public Sub reportbildschirmToPrinterETI(aname As String, cDrucker As String, bPr
             .Action = 1
         End If
     End With
-    
-    TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+     
     Screen.MousePointer = 0
     
     Exit Sub
@@ -13867,8 +13857,7 @@ LOKAL_ERROR:
         
     
     Fehlermeldung1
-    
-    TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+     
     Resume Next
    
 End Sub
@@ -13897,8 +13886,7 @@ Public Sub reportbildschirmToPrinterAPP(aname As String, cDrucker As String)
         If Not Modul6.FindFile(cPfad, aname & ".rpt") Then
             Screen.MousePointer = 0
             MsgBox "Die Druckvorschau kann nicht erstellt werden.", vbOKOnly, "Winkiss Hinweis:"
-            
-            TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+             
             Exit Sub
         Else
             Pause 2
@@ -13915,8 +13903,7 @@ Public Sub reportbildschirmToPrinterAPP(aname As String, cDrucker As String)
            
         End If
     End With
-    
-    TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+     
     Screen.MousePointer = 0
     
     Exit Sub
@@ -13929,8 +13916,7 @@ LOKAL_ERROR:
         
     
     Fehlermeldung1
-    
-    TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+     
     Resume Next
    
 End Sub
@@ -14003,8 +13989,7 @@ Public Sub reportbildschirmtoTextAppBestellEmail(aname As String, sVolldesPath A
     With frmWKL00.CrystalReport1
         If Not FindFile(cPfad, aname & ".rpt") Then
             Screen.MousePointer = 0
-            
-            TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+             
             Exit Sub
         Else
             Pause 1
@@ -14016,14 +14001,12 @@ Public Sub reportbildschirmtoTextAppBestellEmail(aname As String, sVolldesPath A
             .Action = 1
         End If
     End With
-    
-    TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+     
     Screen.MousePointer = 0
     
     
     Exit Sub
 LOKAL_ERROR:
-TabelleMWSTSATZ_Erweiterungen_wiederherstellen
 End Sub
 Public Sub reportbildschirmApp(dname As String, aname As String)
     On Error GoTo LOKAL_ERROR
@@ -14056,8 +14039,7 @@ Public Sub reportbildschirmApp(dname As String, aname As String)
                 
                 schickden_fehlenden_Report_Info_PerMail aname & ".rpt"
                 MsgBox ctmp, vbOKOnly, "Winkiss Hinweis:"
-                
-                TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+                 
                 Exit Sub
             Else
 
@@ -14078,8 +14060,7 @@ Public Sub reportbildschirmApp(dname As String, aname As String)
         .Destination = 0
         .Action = 1
     End With
-    
-    TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+     
     
     Exit Sub
 LOKAL_ERROR:
@@ -14093,8 +14074,7 @@ LOKAL_ERROR:
         Fehler.gsFehlertext = "Der Ausdruck " & aname & " konnte nicht geöffnet werden. "
         
         Fehlermeldung1
-        
-        TabelleMWSTSATZ_Erweiterungen_wiederherstellen
+         
         
     End If
     

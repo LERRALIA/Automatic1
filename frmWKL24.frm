@@ -38,7 +38,7 @@ Begin VB.Form frmWKL24
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   1215
+      Height          =   1095
       Left            =   10560
       TabIndex        =   69
       Top             =   -120
@@ -660,12 +660,12 @@ Begin VB.Form frmWKL24
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   975
-      Left            =   11160
+      Height          =   1695
+      Left            =   10800
       TabIndex        =   27
-      Top             =   8400
+      Top             =   7680
       Visible         =   0   'False
-      Width           =   1095
+      Width           =   1455
       Begin sevCommand3.Command Command3 
          Height          =   615
          Index           =   5
@@ -4873,7 +4873,7 @@ Private Sub SchreibeAltRechnungWKL24(bReFuss As Boolean)
                     
                         'bau mal eine Tabelle für die regulären KVK und ArtRab in Proz
     
-                        If Modul6.FindFile(gcDBPfad, "aWKL24m.rpt") And UCase(gsStammFTPUSER) = "HICKMANN" Then
+                        'If Modul6.FindFile(gcDBPfad, "aWKL24m.rpt") And UCase(gsStammFTPUSER) = "HICKMANN" Then
                              
                             cSQL = "Alter Table DRU_REPO add ARTRAB Double "
                             gdBase.Execute cSQL, dbFailOnError
@@ -4891,7 +4891,13 @@ Private Sub SchreibeAltRechnungWKL24(bReFuss As Boolean)
                             cSQL = "Update DRU_REPO SET Artrab = Artrab * (-1)  "
                             gdBase.Execute cSQL, dbFailOnError
                             
-                        End If
+                            'ARTRAB , KVKPR1 formatieren
+                            cSQL = "UPDATE DRU_REPO SET ARTRAB=FORMAT(ARTRAB,'0.00') where ARTRAB is not null"
+                            gdBase.Execute cSQL, dbFailOnError
+                            cSQL = "UPDATE DRU_REPO SET KVKPR1=FORMAT(KVKPR1,'0.00')"
+                            gdBase.Execute cSQL, dbFailOnError
+                            
+                        'End If
                         
                         'Ende, bau mal eine Tabelle
                     
@@ -4936,6 +4942,33 @@ Private Sub SchreibeAltRechnungWKL24(bReFuss As Boolean)
                     End If
                 Case Is = "B"
                     If Modul6.FindFile(gcDBPfad, "aWKL24m.rpt") Then
+                     
+                          '''''''''''''''''''''''''''''''''''neu Odayy '''''''''''''''''''''''''''''''''''''''''
+                     
+                            cSQL = "Alter Table DRU_REPO add ARTRAB Double "
+                            gdBase.Execute cSQL, dbFailOnError
+                            
+                            cSQL = "Alter Table DRU_REPO add KVKPR1 Double "
+                            gdBase.Execute cSQL, dbFailOnError
+                            
+                            cSQL = "Update DRU_REPO inner join Artikel on DRU_REPO.Artnr = Artikel.Artnr "
+                            cSQL = cSQL & " Set DRU_REPO.KVKPR1 = Artikel.KVKPR1 "
+                            gdBase.Execute cSQL, dbFailOnError
+                            
+                            cSQL = "Update DRU_REPO SET Artrab = 100 - (EPREIS*100/kvkpr1) where kvkpr1 <> 0  "
+                            gdBase.Execute cSQL, dbFailOnError
+                            
+                            cSQL = "Update DRU_REPO SET Artrab = Artrab * (-1)  "
+                            gdBase.Execute cSQL, dbFailOnError
+                            
+                            'ARTRAB , KVKPR1 formatieren
+                            cSQL = "UPDATE DRU_REPO SET ARTRAB=FORMAT(ARTRAB,'0.00') where ARTRAB is not null"
+                            gdBase.Execute cSQL, dbFailOnError
+                            cSQL = "UPDATE DRU_REPO SET KVKPR1=FORMAT(KVKPR1,'0.00')"
+                            gdBase.Execute cSQL, dbFailOnError
+                            
+                          '''''''''''''''''''''''''''''''''''neu Odayy '''''''''''''''''''''''''''''''''''''''''
+                            
                         reportbildschirm "spez5e", "aWKL24m"
                     Else
                         reportbildschirm "WKL005e", "awkl24c"
@@ -5798,9 +5831,7 @@ Private Sub SchreibeDatenInRechnungWKL24(bReFuss As Boolean)
             End If
         Case Is = "B"
             If Modul6.FindFile(gcDBPfad, "aWKL24m.rpt") Then
-            
-            
-                
+             
     
                 'If Modul6.FindFile(gcDBPfad, "aWKL24m.rpt") And UCase(gsStammFTPUSER) = "HICKMANN" Then
                      
@@ -6643,7 +6674,7 @@ Private Sub ExportCSV()
    
     Screen.MousePointer = 11
     
-    anzeige "normal", "Exportdatei wird erstellt...", Label1(8)
+    anzeige "normal", "Exportdatei wird erstellt...", label1(8)
     
     cPfad1 = gcDBPfad      'dbpfad
     If Right(cPfad1, 1) <> "\" Then
@@ -6741,9 +6772,9 @@ Private Sub ExportCSV()
         Else
             MsgBox "Diese Datei ist unter (" & cPfad1 & "BOX) mit dem Namen: " & sAusgabedatname & " abgespeichert", vbInformation, "Winkiss Information:"
         End If
-        anzeige "normal", "", Label1(8)
+        anzeige "normal", "", label1(8)
     Else
-        anzeige "rot", "Keine Daten zum Export vorhanden.", Label1(8)
+        anzeige "rot", "Keine Daten zum Export vorhanden.", label1(8)
     End If
     
     Screen.MousePointer = 0

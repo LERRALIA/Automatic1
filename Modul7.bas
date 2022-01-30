@@ -598,7 +598,7 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Function
-Public Function ermgesBARgesamtMwst(cVon As String, cBis As String, cMwst As String) As Double
+Public Function ermgesBARgesamtMwst(cVon As String, cBis As String, cMWST As String) As Double
 On Error GoTo LOKAL_ERROR
     
     Dim sSQL        As String
@@ -609,7 +609,7 @@ On Error GoTo LOKAL_ERROR
     sSQL = "Select sum(Preis) as Maxi"
     sSQL = sSQL & " from Kassjour "
     sSQL = sSQL & " where ADATE between  " & cVon & " And " & cBis
-    sSQL = sSQL & " and MWST = '" & cMwst & "'"
+    sSQL = sSQL & " and MWST = '" & cMWST & "'"
     
     
     sSQL = sSQL & " and KK_ART = 'BA'"
@@ -633,7 +633,7 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Function
-Public Function ermgesKKgesamtMwst(cVon As String, cBis As String, cMwst As String) As Double
+Public Function ermgesKKgesamtMwst(cVon As String, cBis As String, cMWST As String) As Double
 On Error GoTo LOKAL_ERROR
     
     Dim sSQL        As String
@@ -644,7 +644,7 @@ On Error GoTo LOKAL_ERROR
     sSQL = "Select sum(Preis) as Maxi"
     sSQL = sSQL & " from Kassjour "
     sSQL = sSQL & " where ADATE between  " & cVon & " And " & cBis
-    sSQL = sSQL & " and MWST = '" & cMwst & "'"
+    sSQL = sSQL & " and MWST = '" & cMWST & "'"
     
     sSQL = sSQL & " and (KK_ART ='EC'"
     sSQL = sSQL & " or KK_ART ='VI'"
@@ -10188,7 +10188,7 @@ LOKAL_ERROR:
     Fehler.gsDescr = err.Description
     Fehler.gsNumber = err.Number
     Fehler.gsFormular = "Modul7"
-    Fehler.gsFunktion = "UmssatzNew"
+    Fehler.gsFunktion = "UmsatzNew"
     Fehler.gsFehlertext = "Es ist ein Fehler aufgetreten."
     
     Fehlermeldung1
@@ -10569,7 +10569,7 @@ Public Sub DublikateDelArtikel1(Label2 As Label)
                     rsartDupli.AddNew
                     lcount = rsArt.Fields.Count - 1
                     For i = 0 To lcount
-                        rsartDupli(i).Value = rsArt(i).Value
+                        rsartDupli(i).value = rsArt(i).value
                     Next i
                     rsartDupli.Update
                     
@@ -10649,7 +10649,7 @@ Public Sub DublikateDel_Kunden(Label2 As Label)
                     rsartDupli.AddNew
                     lcount = rsArt.Fields.Count - 1
                     For i = 0 To lcount
-                        rsartDupli(i).Value = rsArt(i).Value
+                        rsartDupli(i).value = rsArt(i).value
                     Next i
                     rsartDupli.Update
                     
@@ -10727,7 +10727,7 @@ Public Sub DuplikateDelTabelle(sTab As String, db As Database, cSpalte As String
                     rsartDupli.AddNew
                     lcount = rsArt.Fields.Count - 1
                     For i = 0 To lcount
-                        rsartDupli(i).Value = rsArt(i).Value
+                        rsartDupli(i).value = rsArt(i).value
                     Next i
                     rsartDupli.Update
                     
@@ -10803,7 +10803,7 @@ Public Sub DublikateDelLI46()
                     rsartDupli.AddNew
                     lcount = rsArt.Fields.Count - 1
                     For i = 0 To lcount
-                        rsartDupli(i).Value = rsArt(i).Value
+                        rsartDupli(i).value = rsArt(i).value
                     Next i
                     rsartDupli.Update
                     

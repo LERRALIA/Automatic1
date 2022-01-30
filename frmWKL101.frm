@@ -2357,16 +2357,16 @@ Dim bfil As Boolean
 
 
 
-Private Sub Combo1_GotFocus(Index As Integer)
+Private Sub Combo1_GotFocus(index As Integer)
 On Error GoTo LOKAL_ERROR
 
-    Label3(2).Caption = Combo1(Index).Tag
+    Label3(2).Caption = Combo1(index).Tag
     
-    Combo1(Index).BackColor = glSelBack1
-    Combo1(Index).SelStart = 0
-    Combo1(Index).SelLength = Len(Combo1(Index).Text)
+    Combo1(index).BackColor = glSelBack1
+    Combo1(index).SelStart = 0
+    Combo1(index).SelLength = Len(Combo1(index).Text)
     
-    Select Case Index
+    Select Case index
         Case 4 'stadt
             If bfil = True Then
                 fülleSpaltemitKrit Combo1(4), "Stadtd", "Kustadt", "Stadtd", Combo1(4).Text, "", " where plz like '" & Combo1(3).Text & "*'"
@@ -2395,11 +2395,11 @@ LOKAL_ERROR:
 End Sub
 
 
-Private Sub Combo1_LostFocus(Index As Integer)
+Private Sub Combo1_LostFocus(index As Integer)
 On Error GoTo LOKAL_ERROR
     
-    Combo1(Index).BackColor = vbWhite
-    Select Case Index
+    Combo1(index).BackColor = vbWhite
+    Select Case index
         Case 3
             If Trim(Combo1(3).Text) <> "" Then
                 If Len(Trim(Combo1(3).Text)) < 5 Then
@@ -2426,10 +2426,10 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Command0_Click(Index As Integer)
+Private Sub Command0_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
-    Select Case Index
+    Select Case index
         Case Is = 1        ' Kalender
             Text1(3).Text = Format(Datumschreiben11a(3000, 4000), "DD.MM.YYYY")
             'fertig
@@ -2445,13 +2445,13 @@ LOKAL_ERROR:
 
     Fehlermeldung1
 End Sub
-Private Sub Command1_Click(Index As Integer)
+Private Sub Command1_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
     Dim lcount As Long
     Dim cKundnr As String
     
-    Select Case Index
+    Select Case index
         Case 0
             If pruef(True) Then
                 SpeicherNeuKunde True
@@ -2555,7 +2555,7 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub SSCommand1_GotFocus(Index As Integer)
+Private Sub SSCommand1_GotFocus(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim iZielIndex As Integer
@@ -2626,7 +2626,7 @@ LOKAL_ERROR:
     
     
 End Sub
-Private Sub SSCommand2_Click(Index As Integer)
+Private Sub SSCommand2_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim iZielIndex As Integer
@@ -2634,7 +2634,7 @@ Private Sub SSCommand2_Click(Index As Integer)
     
     If Label3(2).Caption <> "" Then
         iZielIndex = Label3(2).Caption
-         Select Case Index
+         Select Case index
              Case Is = 0     'CLEAR
                  Select Case iZielIndex
                      Case 1
@@ -2853,12 +2853,12 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Command6_Click(Index As Integer)
+Private Sub Command6_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
 
     Screen.MousePointer = 11
 
-    Select Case Index
+    Select Case index
         Case 11 'Hilfe
             gsHelpstring = "Kasse \ Kunde neu"
             frmWKL110.Show 1
@@ -2877,7 +2877,7 @@ LOKAL_ERROR:
     Fehlermeldung1
     
 End Sub
-Private Sub SSCommand1_Click(Index As Integer)
+Private Sub SSCommand1_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim zIndex As Integer
@@ -2889,53 +2889,53 @@ Private Sub SSCommand1_Click(Index As Integer)
         
         Select Case zIndex
             Case 1
-                Combo1(0).Text = Combo1(0).Text & SSCommand1(Index).Caption
+                Combo1(0).Text = Combo1(0).Text & SSCommand1(index).Caption
                 Combo1(0).SetFocus
             Case 2
-                Combo1(1).Text = Combo1(1).Text & SSCommand1(Index).Caption
+                Combo1(1).Text = Combo1(1).Text & SSCommand1(index).Caption
                 Combo1(1).SetFocus
             Case 3
                 
-                Text1(0).Text = Text1(0).Text & SSCommand1(Index).Caption
+                Text1(0).Text = Text1(0).Text & SSCommand1(index).Caption
                 Text1(0).SetFocus
             Case 4
-                Text1(1).Text = Text1(1).Text & SSCommand1(Index).Caption
+                Text1(1).Text = Text1(1).Text & SSCommand1(index).Caption
                 Text1(1).SetFocus
             Case 5
-                Text1(2).Text = Text1(2).Text & SSCommand1(Index).Caption
+                Text1(2).Text = Text1(2).Text & SSCommand1(index).Caption
                 Text1(2).SetFocus
             Case 6
-                Text1(5).Text = Text1(5).Text & SSCommand1(Index).Caption
+                Text1(5).Text = Text1(5).Text & SSCommand1(index).Caption
                 Text1(5).SetFocus
                 
             Case 7
-                Combo1(4).Text = Combo1(4).Text & SSCommand1(Index).Caption
+                Combo1(4).Text = Combo1(4).Text & SSCommand1(index).Caption
                 Combo1(4).SetFocus
             Case 8
-                If IsNumeric(SSCommand1(Index).Caption) Then
-                    Combo1(3).Text = Combo1(3).Text & SSCommand1(Index).Caption
+                If IsNumeric(SSCommand1(index).Caption) Then
+                    Combo1(3).Text = Combo1(3).Text & SSCommand1(index).Caption
                 End If
                 Combo1(3).SetFocus
                 
             Case 9
-                Combo1(2).Text = Combo1(2).Text & SSCommand1(Index).Caption
+                Combo1(2).Text = Combo1(2).Text & SSCommand1(index).Caption
                 Combo1(2).SetFocus
             Case 10
-                Text1(3).Text = Text1(3).Text & SSCommand1(Index).Caption
+                Text1(3).Text = Text1(3).Text & SSCommand1(index).Caption
                 Text1(3).SetFocus
             Case 11
-                If IsNumeric(SSCommand1(Index).Caption) Then
-                    Text1(4).Text = Text1(4).Text & SSCommand1(Index).Caption
+                If IsNumeric(SSCommand1(index).Caption) Then
+                    Text1(4).Text = Text1(4).Text & SSCommand1(index).Caption
                 End If
                 Text1(4).SetFocus
             Case 12
-                Text1(9).Text = Text1(9).Text & SSCommand1(Index).Caption
+                Text1(9).Text = Text1(9).Text & SSCommand1(index).Caption
                 Text1(9).SetFocus
             Case 13
-                Text1(6).Text = Text1(6).Text & SSCommand1(Index).Caption
+                Text1(6).Text = Text1(6).Text & SSCommand1(index).Caption
                 Text1(6).SetFocus
             Case 14
-                Text1(7).Text = Text1(7).Text & SSCommand1(Index).Caption
+                Text1(7).Text = Text1(7).Text & SSCommand1(index).Caption
                 Text1(7).SetFocus
         End Select
        
@@ -2987,9 +2987,9 @@ Private Sub voreinstellungladen101()
     Set rs = gdApp.OpenRecordset("E101")
     If Not rs.EOF Then
         If rs!bo7 = True Then
-            Checkbox1.Value = vbUnchecked
+            Checkbox1.value = vbUnchecked
         Else
-            Checkbox1.Value = vbChecked
+            Checkbox1.value = vbChecked
         End If
     End If
     rs.Close: Set rs = Nothing
@@ -3016,7 +3016,7 @@ Private Sub voreinstellungspeichern101()
     CreateTable "E101", gdApp
 
     
-    If Checkbox1.Value = vbChecked Then
+    If Checkbox1.value = vbChecked Then
         bo7 = 0
     Else
         bo7 = -1
@@ -3130,14 +3130,14 @@ LOKAL_ERROR:
 
 End Sub
 
-Private Sub Text1_KeyPress(Index As Integer, KeyAscii As Integer)
+Private Sub Text1_KeyPress(index As Integer, KeyAscii As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim cZeichen As String
     Dim cValid As String
     
     
-    Select Case Index
+    Select Case index
         Case 0, 1, 2, 5 'Firma Name Vorname Strasse
             cValid = gcUPPER & gcLower & gcNUM & Chr$(8) & Chr$(32) & Chr(42) 'Leer *
             cValid = cValid & Chr(38) & Chr(45) & Chr(46) '& - .
@@ -3169,10 +3169,10 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Text1_LostFocus(Index As Integer)
+Private Sub Text1_LostFocus(index As Integer)
     On Error GoTo LOKAL_ERROR
     
-    Text1(Index).BackColor = vbWhite
+    Text1(index).BackColor = vbWhite
     
 Exit Sub
 LOKAL_ERROR:
@@ -3184,14 +3184,14 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Text1_GotFocus(Index As Integer)
+Private Sub Text1_GotFocus(index As Integer)
     On Error GoTo LOKAL_ERROR
     
-    Label3(2).Caption = Text1(Index).Tag
+    Label3(2).Caption = Text1(index).Tag
 
-    Text1(Index).BackColor = glSelBack1
-    Text1(Index).SelStart = 0
-    Text1(Index).SelLength = Len(Text1(Index).Text)
+    Text1(index).BackColor = glSelBack1
+    Text1(index).SelStart = 0
+    Text1(index).SelLength = Len(Text1(index).Text)
     
 Exit Sub
 LOKAL_ERROR:
@@ -3399,7 +3399,7 @@ Private Function pruef(bmitDuplicheck As Boolean) As Boolean
         Text1(2).SetFocus
         Exit Function
     Else
-        If Checkbox1.Value = vbChecked Then
+        If Checkbox1.value = vbChecked Then
             Text1(2).Text = GKAutomatik(Text1(2).Text, "NACHNAME")
         End If
     End If
@@ -3414,7 +3414,7 @@ Private Function pruef(bmitDuplicheck As Boolean) As Boolean
         If Trim(Combo1(0).Text) = "" Then
             
         Else
-            If Checkbox1.Value = vbChecked Then
+            If Checkbox1.value = vbChecked Then
                 Combo1(0).Text = GKAutomatik(Combo1(0).Text, "ANREDE")
                 
             End If
@@ -3441,7 +3441,7 @@ Private Function pruef(bmitDuplicheck As Boolean) As Boolean
     If Trim(Combo1(2).Text) = "" Then
         
     Else
-        If Checkbox1.Value = vbChecked Then
+        If Checkbox1.value = vbChecked Then
             Combo1(2).Text = GKAutomatik(Combo1(2).Text, "LAND")
         End If
     End If
@@ -3497,7 +3497,7 @@ Private Function pruef(bmitDuplicheck As Boolean) As Boolean
     If Trim(Text1(1).Text) = "" Then
         
     Else
-        If Checkbox1.Value = vbChecked Then
+        If Checkbox1.value = vbChecked Then
             Text1(1).Text = GKAutomatik(Text1(1).Text, "VORNAME")
         End If
     End If
@@ -3506,7 +3506,7 @@ Private Function pruef(bmitDuplicheck As Boolean) As Boolean
     If Trim(Text1(0).Text) = "" Then
         
     Else
-        If Checkbox1.Value = vbChecked Then
+        If Checkbox1.value = vbChecked Then
             Text1(0).Text = GKAutomatik(Text1(0).Text, "FIRMA")
         End If
     End If
@@ -3515,7 +3515,7 @@ Private Function pruef(bmitDuplicheck As Boolean) As Boolean
     If Trim(Text1(5).Text) = "" Then
         
     Else
-        If Checkbox1.Value = vbChecked Then
+        If Checkbox1.value = vbChecked Then
             Text1(5).Text = GKAutomatik(Text1(5).Text, "STRASSE")
         End If
     End If
@@ -3524,7 +3524,7 @@ Private Function pruef(bmitDuplicheck As Boolean) As Boolean
     If Trim(Combo1(4).Text) = "" Then
         
     Else
-        If Checkbox1.Value = vbChecked Then
+        If Checkbox1.value = vbChecked Then
             Combo1(4).Text = GKAutomatik(Combo1(4).Text, "ORT")
         End If
     End If
@@ -3533,7 +3533,7 @@ Private Function pruef(bmitDuplicheck As Boolean) As Boolean
     If Trim(Combo1(1).Text) = "" Then
         
     Else
-        If Checkbox1.Value = vbChecked Then
+        If Checkbox1.value = vbChecked Then
             Combo1(1).Text = GKAutomatik(Combo1(1).Text, "TITEL")
         End If
     End If

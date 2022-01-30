@@ -1,8 +1,11 @@
 Attribute VB_Name = "Global"
 Option Explicit
 
-Global Const glpVers                As Long = 3144
+Global Const glpVers                As Long = 3147
 Global gbSQLSERVER                  As Boolean
+
+Global IchBinBeiKundeSuche As Boolean
+Global gbLeereZeil As Integer
 
 Global gbDsFinvkPfad As String
 Global gbQRFlag As Boolean

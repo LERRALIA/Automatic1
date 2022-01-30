@@ -430,7 +430,9 @@ Attribute VB_Exposed = False
 Private Sub Form_Activate()
 On Error GoTo LOKAL_ERROR
 
-Text1.SetFocus
+If Text1.Visible Then
+ Text1.SetFocus
+End If
 
 Exit Sub
 LOKAL_ERROR:
@@ -682,16 +684,16 @@ Private Sub Command1_Click(index As Integer)
             If Label1.Caption = "Nein" Then
                 Label1.Caption = "Ja"
                 
-                label4.Visible = True
+                Label4.Visible = True
                 Text1.Visible = True
                 Text1.SetFocus
             ElseIf Label1.Caption = "Ja" Then
                 Label1.Caption = "Nein"
                 If gsMeldestatus = "Abmeldung" Then
-                    label4.Visible = False
+                    Label4.Visible = False
                     Text1.Visible = False
                 ElseIf gsMeldestatus = "Anmeldung" Then
-                    label4.Visible = True
+                    Label4.Visible = True
                     Text1.Visible = True
                     Text1.SetFocus
                 End If
@@ -842,8 +844,8 @@ End Function
 Private Sub Form_Load()
 On Error GoTo LOKAL_ERROR
     
-    lblueberschrift.Caption = gsMeldestatus
-    lblueberschrift.Refresh
+    lblUeberschrift.Caption = gsMeldestatus
+    lblUeberschrift.Refresh
     
     If (GetKeyState(vbKeyCapital) = 1) Then
     
@@ -862,25 +864,25 @@ On Error GoTo LOKAL_ERROR
 '    Modul6.Skalieren Me, True, True
     
     Modul6.Schrift Me: Modul6.Log Me
-    Modul6.alternativFarbform Me, lblueberschrift
+    Modul6.alternativFarbform Me, lblUeberschrift
     
     frmWK12a.Left = Screen.Width / 2 - frmWK12a.Width / 2
     
     If gsMeldestatus = "Anmeldung" Then
         Command1(2).Visible = True
         Command1(2).Caption = "Arbeitsbeginn"
-        label4.Visible = True
+        Label4.Visible = True
         Text1.Visible = True
         Label1.Visible = True
     ElseIf gsMeldestatus = "Abmeldung" Then
         Command1(2).Visible = True
         Command1(2).Caption = "Arbeitsende"
-        label4.Visible = False
+        Label4.Visible = False
         Text1.Visible = False
         Label1.Visible = True
     ElseIf gsMeldestatus = "Identifikation" Then
         Command1(2).Visible = False
-        label4.Visible = False
+        Label4.Visible = False
         Label1.Visible = False
         Text1.Visible = True
         gbStornoErlaubt = False
@@ -1050,7 +1052,7 @@ Private Sub unsichtbarer()
     On Error GoTo LOKAL_ERROR
     
     Text1.Visible = False
-    label4.Visible = False
+    Label4.Visible = False
     Label1.Visible = False
     Command1(0).Visible = False
     Command1(1).Visible = False

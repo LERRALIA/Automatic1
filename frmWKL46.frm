@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{7D622DE6-0ABC-471E-9234-97DEC5E0A708}#3.8#0"; "sevCmd3.ocx"
-Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "MSFlxGrd.ocx"
+Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "msflxgrd.ocx"
 Object = "{0ECD9B60-23AA-11D0-B351-00A0C9055D8E}#6.0#0"; "mshflxgd.ocx"
 Begin VB.Form frmWKL46 
    BackColor       =   &H00C0C000&
@@ -32,11 +32,11 @@ Begin VB.Form frmWKL46
    Tag             =   "Inventur"
    Begin VB.Frame Frame23 
       Caption         =   "Frame23"
-      Height          =   735
-      Left            =   10920
+      Height          =   375
+      Left            =   360
       TabIndex        =   239
-      Top             =   8040
-      Width           =   975
+      Top             =   3720
+      Width           =   1455
       Begin VB.TextBox txtAgn 
          BeginProperty Font 
             Name            =   "Arial"
@@ -329,11 +329,11 @@ Begin VB.Form frmWKL46
    End
    Begin VB.Frame Frame21 
       Caption         =   "Frame19"
-      Height          =   975
-      Left            =   11280
+      Height          =   375
+      Left            =   480
       TabIndex        =   230
-      Top             =   7680
-      Width           =   2175
+      Top             =   3240
+      Width           =   1575
       Begin VB.Frame Frame22 
          BorderStyle     =   0  'Kein
          Caption         =   "Frame13"
@@ -474,11 +474,11 @@ Begin VB.Form frmWKL46
    End
    Begin VB.Frame Frame19 
       Caption         =   "Frame19"
-      Height          =   495
+      Height          =   375
       Left            =   480
       TabIndex        =   221
       Top             =   4200
-      Width           =   975
+      Width           =   1455
       Begin sevCommand3.Command Command16 
          Height          =   495
          Left            =   9480
@@ -834,11 +834,11 @@ Begin VB.Form frmWKL46
    Begin VB.Frame Frame15 
       BackColor       =   &H00C0C0FF&
       Caption         =   "Frame15"
-      Height          =   1215
-      Left            =   240
+      Height          =   375
+      Left            =   360
       TabIndex        =   104
-      Top             =   5760
-      Width           =   735
+      Top             =   2760
+      Width           =   1575
       Begin sevCommand3.Command Command10 
          Height          =   310
          Left            =   9600
@@ -1653,11 +1653,11 @@ Begin VB.Form frmWKL46
    End
    Begin VB.Frame Frame12 
       Caption         =   "Frame12"
-      Height          =   975
-      Left            =   840
+      Height          =   375
+      Left            =   240
       TabIndex        =   74
-      Top             =   7680
-      Width           =   11055
+      Top             =   6000
+      Width           =   2055
       Begin VB.TextBox Text7 
          Height          =   315
          Left            =   9600
@@ -2551,11 +2551,11 @@ Begin VB.Form frmWKL46
    End
    Begin VB.Frame Frame11 
       Caption         =   "Frame11"
-      Height          =   735
-      Left            =   960
+      Height          =   255
+      Left            =   480
       TabIndex        =   71
-      Top             =   6240
-      Width           =   3135
+      Top             =   4680
+      Width           =   1455
       Begin VB.CheckBox Check11 
          Caption         =   "mit Strichcode drucken"
          Height          =   255
@@ -2963,9 +2963,9 @@ Begin VB.Form frmWKL46
    Begin VB.Frame Frame10 
       Caption         =   "Frame10"
       Height          =   375
-      Left            =   7680
+      Left            =   360
       TabIndex        =   68
-      Top             =   7920
+      Top             =   7320
       Width           =   1215
       Begin VB.CheckBox Check10 
          Caption         =   "Original-EAN"
@@ -3467,11 +3467,11 @@ Begin VB.Form frmWKL46
    End
    Begin VB.Frame Frame9 
       Caption         =   "Frame9"
-      Height          =   2535
-      Left            =   2040
+      Height          =   375
+      Left            =   240
       TabIndex        =   65
-      Top             =   1320
-      Width           =   6855
+      Top             =   2280
+      Width           =   2175
       Begin VB.Frame Frame18 
          BackColor       =   &H00C0C000&
          BorderStyle     =   0  'Kein
@@ -4712,11 +4712,11 @@ Begin VB.Form frmWKL46
    End
    Begin VB.Frame Frame8 
       Caption         =   "Frame8"
-      Height          =   735
-      Left            =   240
+      Height          =   375
+      Left            =   480
       TabIndex        =   62
-      Top             =   7080
-      Width           =   975
+      Top             =   5040
+      Width           =   1575
       Begin VB.Frame Frame36 
          BorderStyle     =   0  'Kein
          Height          =   500
@@ -5123,10 +5123,10 @@ Begin VB.Form frmWKL46
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   855
-      Left            =   3240
+      Height          =   375
+      Left            =   360
       TabIndex        =   8
-      Top             =   7320
+      Top             =   5520
       Visible         =   0   'False
       Width           =   1215
       Begin sevCommand3.Command Command3 
@@ -5417,12 +5417,12 @@ Begin VB.Form frmWKL46
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   735
-      Left            =   2040
+      Height          =   375
+      Left            =   360
       TabIndex        =   3
-      Top             =   7680
+      Top             =   6480
       Visible         =   0   'False
-      Width           =   855
+      Width           =   1215
       Begin VB.ListBox List2 
          BeginProperty Font 
             Name            =   "Lucida Console"
@@ -5610,11 +5610,11 @@ Begin VB.Form frmWKL46
    End
    Begin VB.Frame Frame7 
       Caption         =   "Frame7"
-      Height          =   1455
-      Left            =   7800
+      Height          =   255
+      Left            =   360
       TabIndex        =   23
-      Top             =   6240
-      Width           =   5895
+      Top             =   6960
+      Width           =   1215
       Begin sevCommand3.Command Command2 
          Height          =   525
          Index           =   1
@@ -7321,11 +7321,11 @@ Begin VB.Form frmWKL46
    End
    Begin VB.Frame Frame6 
       Caption         =   "Frame6"
-      Height          =   1095
-      Left            =   600
+      Height          =   855
+      Left            =   240
       TabIndex        =   21
-      Top             =   1080
-      Width           =   5655
+      Top             =   840
+      Width           =   6015
       Begin VB.OptionButton Option2 
          Alignment       =   1  'Rechts ausgerichtet
          Caption         =   "verfügbare Bestandshistorien"
@@ -8210,7 +8210,7 @@ Private Sub BerechneInventurWKL46()
     Dim lLinr           As Long
     Dim cLiefBez        As String
     Dim ctmp            As String
-    Dim cMwst           As String
+    Dim cMWST           As String
     Dim cBezeich        As String
     Dim cSQL            As String
     Dim cPfad           As String
@@ -8247,13 +8247,13 @@ Private Sub BerechneInventurWKL46()
     lCols = MSFlexGrid1.Cols
     
     cSQL = "Select * from INVLITE "
-    If Option1(0).Value = True Then
+    If Option1(0).value = True Then
         cSQL = cSQL & " order by ARTNR"
-    ElseIf Option1(1).Value = True Then
+    ElseIf Option1(1).value = True Then
         cSQL = cSQL & " order by BEZEICH"
-    ElseIf Option1(2).Value = True Then
+    ElseIf Option1(2).value = True Then
         cSQL = cSQL & " order by LINR"
-    ElseIf Option1(3).Value = True Then
+    ElseIf Option1(3).value = True Then
         cSQL = cSQL & " order by LPZ,LINR, BEZEICH"
     End If
     Set rsrs = gdBase.OpenRecordset(cSQL)
@@ -8316,11 +8316,11 @@ Private Sub BerechneInventurWKL46()
         MSFlexGrid1.Text = ctmp
         dSummeEkPr = dSummeEkPr + dEkWert
         rsrs!EKWERT = dEkWert
-        cMwst = MSFlexGrid1.TextMatrix(lrow, 13)
+        cMWST = MSFlexGrid1.TextMatrix(lrow, 13)
         
         lcol = 8
         MSFlexGrid1.Col = lcol
-        Select Case cMwst
+        Select Case cMWST
             Case Is = "V"
                dKVkPr1Netto = (dKVkPr1 / (100 + gdMWStV)) * 100
                dVkPrNetto = (dVkPr / (100 + gdMWStV)) * 100
@@ -8701,7 +8701,7 @@ Private Sub INVLITEakualli()
     sSQL = sSQL & ", Invlite.VKPR = artikel.VKPR "
     gdBase.Execute sSQL, dbFailOnError
     
-    If Option1(7).Value = True Then 'Schnittek
+    If Option1(7).value = True Then 'Schnittek
         Label3(3).Caption = "Schnitteinkaufswert"
         sSQL = "Update INVLITE inner join Artikel on Invlite.artnr = artikel.artnr "
         sSQL = sSQL & " Set Invlite.EKPR = artikel.EKPR "
@@ -8709,7 +8709,7 @@ Private Sub INVLITEakualli()
         
         
         
-    ElseIf Option1(4).Value = True Then 'Listeneinkaufspreis
+    ElseIf Option1(4).value = True Then 'Listeneinkaufspreis
     
     
        
@@ -8717,7 +8717,7 @@ Private Sub INVLITEakualli()
         loeschNEW "tempArtlief", gdBase
             
         sSQL = "Select Artnr    "
-        If opt1(22).Value = True Then
+        If opt1(22).value = True Then
             sSQL = sSQL & ", max(lekpr) as lek"
         Else
             sSQL = sSQL & ", min(lekpr) as lek"
@@ -8811,13 +8811,13 @@ Private Sub MoveDaten2DialogWKL46()
     cSQL = "Select * from INVLITE "
     
     
-    If Option1(0).Value = True Then
+    If Option1(0).value = True Then
         cSQL = cSQL & "order by ARTNR"
-    ElseIf Option1(1).Value = True Then
+    ElseIf Option1(1).value = True Then
         cSQL = cSQL & "order by BEZEICH"
-    ElseIf Option1(2).Value = True Then
+    ElseIf Option1(2).value = True Then
         cSQL = cSQL & "order by LINR,lpz"
-    ElseIf Option1(3).Value = True Then
+    ElseIf Option1(3).value = True Then
         cSQL = cSQL & "order by linr, Libesnr"
     End If
     
@@ -9617,13 +9617,13 @@ End Sub
 Private Sub Check2_Click()
     On Error GoTo LOKAL_ERROR
     
-    If Check2.Value = vbUnchecked Then
+    If Check2.value = vbUnchecked Then
         Frame1.Visible = True
         Text2.Text = ""
         Text2.SetFocus
         Command1.Visible = False
         
-    ElseIf Check2.Value = vbChecked Then
+    ElseIf Check2.value = vbChecked Then
         Frame1.Visible = False
         Command1.Visible = True
         Text3(0).SetFocus
@@ -9644,7 +9644,7 @@ On Error GoTo LOKAL_ERROR
 
 Dim cSQL As String
 
-    If Check6.Value = vbChecked Then
+    If Check6.value = vbChecked Then
         If MSFlexGrid1.Visible = True Then
             If MSFlexGrid1.Rows > 1 Then
             
@@ -9929,7 +9929,7 @@ LOKAL_ERROR:
 End Sub
 
 
-Private Sub Command0_Click(Index As Integer)
+Private Sub Command0_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim lrow As Long
@@ -9937,9 +9937,9 @@ Private Sub Command0_Click(Index As Integer)
     Dim ctmp As String
     
     If Frame4.Visible = True Then
-        Select Case Index
+        Select Case index
             Case 0 To 9         'Ziffern
-                Text9.Text = Text9.Text & Command0(Index).Caption
+                Text9.Text = Text9.Text & Command0(index).Caption
             
             Case Is = 11        'Clear
                 Text9.Text = ""
@@ -9958,9 +9958,9 @@ Private Sub Command0_Click(Index As Integer)
             Else
                 ctmp = Trim$(Str$(Val(ctmp)))
             End If
-            Select Case Index
+            Select Case index
                 Case 0 To 9         'Ziffern
-                    ctmp = ctmp & Command0(Index).Caption
+                    ctmp = ctmp & Command0(index).Caption
                 
                 Case Is = 11        'Clear
                     ctmp = ""
@@ -9991,13 +9991,13 @@ Private Sub Command0_Click(Index As Integer)
             MSFlexGrid1.Row = lrow
             MSFlexGrid1.Col = lcol
             
-            Select Case Index
+            Select Case index
                 Case 0 To 9         'Ziffern
-                    MSFlexGrid1.Text = MSFlexGrid1 & Command0(Index).Caption
+                    MSFlexGrid1.Text = MSFlexGrid1 & Command0(index).Caption
                     
                 Case Is = 10        'Komma
                     If InStr(MSFlexGrid1.Text, ",") = 0 Then
-                        MSFlexGrid1.Text = MSFlexGrid1 & Command0(Index).Caption
+                        MSFlexGrid1.Text = MSFlexGrid1 & Command0(index).Caption
                     End If
                     
                 Case Is = 11        'Clear
@@ -10077,7 +10077,7 @@ Private Sub Command1_Click()
     '************************************
     '* Alle zutreffenden Artikel einlesen
     '************************************
-    If Option1(7).Value = True Then 'Schnittek
+    If Option1(7).value = True Then 'Schnittek
         Label3(3).Caption = "Schnitteinkaufswert"
         'EKPR
         cSQL = "Insert into INVLITE "
@@ -10094,7 +10094,7 @@ Private Sub Command1_Click()
         cSQL = cSQL & " ,A.LINR, A.LPZ, A.MWST"
         gdBase.Execute cSQL, dbFailOnError
         
-    ElseIf Option1(4).Value = True Then 'Listeneinkaufspreis
+    ElseIf Option1(4).value = True Then 'Listeneinkaufspreis
         'LEKPR
 
         loeschNEW "ARTIKEL_INV", gdBase
@@ -10111,7 +10111,7 @@ Private Sub Command1_Click()
         
         
         If cLinr <> "" Then
-            If opt1(22).Value = True Then
+            If opt1(22).value = True Then
                 cSQL = cSQL & " ,max(LEKPR) as EKPR "
             Else
                 cSQL = cSQL & " ,min(LEKPR) as EKPR "
@@ -10187,7 +10187,7 @@ Private Sub Command1_Click()
             
             loeschNEW "ARTIKEL_MaxMin_" & srechnertab, gdBase
             
-            If opt1(22).Value = True Then
+            If opt1(22).value = True Then
                 'max(LEKPR)
                 
                 cSQL = "select artnr, max(lekpr) as xlekpr into ARTIKEL_MaxMin_" & srechnertab & " from Artlief "
@@ -10227,7 +10227,7 @@ Private Sub Command1_Click()
             
             loeschNEW "ARTIKEL_MaxMin_" & srechnertab, gdBase
             
-            If opt1(22).Value = True Then
+            If opt1(22).value = True Then
                 'max(LEKPR)
                 
                 cSQL = "select artnr, max(lekpr) as xlekpr into ARTIKEL_MaxMin_" & srechnertab & " from Artlief "
@@ -10283,7 +10283,7 @@ Private Sub Command1_Click()
     haengan2
     
     
-    If Check6.Value = vbChecked Then
+    If Check6.value = vbChecked Then
         abschlagen
     End If
     
@@ -10471,7 +10471,7 @@ LOKAL_ERROR:
 
 End Sub
 
-Private Sub Command14_Click(Index As Integer)
+Private Sub Command14_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim iFeld As Integer
@@ -10479,9 +10479,9 @@ Private Sub Command14_Click(Index As Integer)
     
     iFeld = Val(Label11.Caption)
     
-    Select Case Index
+    Select Case index
         Case 20 To 29
-            Text3(iFeld).Text = Text3(iFeld).Text & Command14(Index).Caption
+            Text3(iFeld).Text = Text3(iFeld).Text & Command14(index).Caption
 
         Case Is = 31
             Text3(iFeld).Text = ""
@@ -10939,7 +10939,7 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Command2_Click(Index As Integer)
+Private Sub Command2_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     Dim iRet As Integer
     Dim cLinr As String
@@ -10947,7 +10947,7 @@ Private Sub Command2_Click(Index As Integer)
     
     Screen.MousePointer = 11
     
-    Select Case Index
+    Select Case index
     
         Case 28
             'Daten werden aktualisiert
@@ -10977,10 +10977,10 @@ Private Sub Command2_Click(Index As Integer)
                 Screen.MousePointer = 11
                 iRet = MsgBox("Möchten Sie die Werte als Lieferantenübersicht angezeigt bekommen? (Nein = Artikelansicht)", vbQuestion + vbYesNo, "Winkiss Frage:")
                 If iRet = vbYes Then
-                    zeige_Best_Hist_GDPdU Left(List9.list(List9.ListIndex), 8), Label6, False, txtAGN.Text
+                    zeige_Best_Hist_GDPdU Left(List9.list(List9.ListIndex), 8), Label6, False, txtAgn.Text
 '                    zeige_Best_Hist List9.list(List9.ListIndex), txtAgn.Text
                 Else
-                    zeige_Best_Hist_Einzel_GDPdU Left(List9.list(List9.ListIndex), 8), Label6, False, txtAGN.Text
+                    zeige_Best_Hist_Einzel_GDPdU Left(List9.list(List9.ListIndex), 8), Label6, False, txtAgn.Text
 '                    zeige_Best_Hist_Einzel List9.list(List9.ListIndex), txtAGN.Text
                 End If
                 Screen.MousePointer = 0
@@ -11147,7 +11147,7 @@ Private Sub Command2_Click(Index As Integer)
         
             If Text3(1).Text = "" Then Text3(1).Text = "1"
             
-            If Check2.Value = vbUnchecked Then 'bestimmter Lieferant
+            If Check2.value = vbUnchecked Then 'bestimmter Lieferant
                 'und welcher
                 cLinr = Text2.Text
         
@@ -11194,7 +11194,7 @@ Private Sub Command2_Click(Index As Integer)
                 fuellelistlf List3
                 Label7(10).Caption = ermVart
                 Label7(11).Caption = ermGBart
-                If Check9.Value = vbChecked Then
+                If Check9.value = vbChecked Then
                     Text3(1).Text = "1"
                 End If
                 Text3(0).Text = ""
@@ -11205,7 +11205,7 @@ Private Sub Command2_Click(Index As Integer)
                     fuellelist List3
                     Label7(10).Caption = ermVart
                     Label7(11).Caption = ermGBart
-                    If Check9.Value = vbChecked Then
+                    If Check9.value = vbChecked Then
                         Text3(1).Text = "1"
                     End If
                     Text3(0).Text = ""
@@ -11324,8 +11324,8 @@ Private Sub openschritt2()
     Frame15.Visible = True
     Text4.Text = ""
     List8.Clear
-    Option3(0).Value = False
-    Option3(1).Value = False
+    Option3(0).value = False
+    Option3(1).value = False
     
     ue = False
     brueck2 = False
@@ -11355,13 +11355,13 @@ Private Sub MDElesen()
         anzeigeNew "rot2", "Es konnten keine Daten aus dem MDE - Gerät ausgelesen werden.", Label14
     Else
         anzeigeNew "normal", "", Label6
-        If Check8.Value = vbChecked Then
+        If Check8.value = vbChecked Then
             loeschNEW "ARTTEI", gdBase
             CreateTable "ARTTEI", gdBase
         End If
         MdeVerarbeitungInv
         
-        If Check8.Value = vbChecked Then
+        If Check8.value = vbChecked Then
             reportbildschirm "INVENe", "aWKL46u"
         End If
         
@@ -11417,7 +11417,7 @@ Private Sub MdeVerarbeitungInv()
             
             If artikelgefunden(sEAN, lMenge) Then
 
-                If Check8.Value = vbChecked Then
+                If Check8.value = vbChecked Then
                     speicherINTemp sEAN, lMenge, lscanfolge
                 End If
                 speicherErr sEAN, lMenge, lscanfolge, bezis(sEAN)
@@ -11522,7 +11522,7 @@ Private Function artikelgefunden(sEAN As String, lMenge As Long) As Boolean
             cSQL = cSQL & " or ean3 = '" & sEAN & "'"
         ElseIf Len(sEAN) = 8 Then
         
-            If Check10.Value = vbChecked Then
+            If Check10.value = vbChecked Then
                 cSQL = "select * from artikel where ean = '" & sEAN & "'"
                 cSQL = cSQL & " or ean2 = '" & sEAN & "'"
                 cSQL = cSQL & " or ean3 = '" & sEAN & "'"
@@ -11822,10 +11822,10 @@ Private Sub speicherIN_neu(sArtnr As String, lMenge As Long, sorgEAn As String)
         cSQL = cSQL & ", artikel.LPZ "
         cSQL = cSQL & ", artikel.AGN "
         
-        If Option1(7).Value = True Then
+        If Option1(7).value = True Then
             cSQL = cSQL & ", artikel.EKPR as LEKPR "
             cSQL = cSQL & ", (artikel.EKPR * " & lMenge & ") as MOPREIS "
-        ElseIf Option1(4).Value = True Then
+        ElseIf Option1(4).value = True Then
         
             cSQL = cSQL & ", artlief.LEKPR "
             cSQL = cSQL & ", (artlief.LEKPR * " & lMenge & ") as MOPREIS "
@@ -11844,9 +11844,9 @@ Private Sub speicherIN_neu(sArtnr As String, lMenge As Long, sorgEAn As String)
         cSQL = cSQL & " where artikel.artnr = " & sArtnr
         gdBase.Execute cSQL, dbFailOnError
         
-        If Option1(4).Value = True Then
+        If Option1(4).value = True Then
             Dim dLEK As Double
-            If opt1(22).Value = True Then
+            If opt1(22).value = True Then
                 dLEK = ermLEKPRundWelcher(sArtnr, "MAX")
             Else
                 dLEK = ermLEKPRundWelcher(sArtnr, "MIN")
@@ -11896,10 +11896,10 @@ Private Sub speicherINTemp(sEAN As String, lMenge As Long, lLFNR As Long)
         cSQL = cSQL & ", " & iBed & " as Bed "
         
         cSQL = cSQL & ", " & lLFNR & " as LFNR"
-        If Option1(7).Value = True Then
+        If Option1(7).value = True Then
             cSQL = cSQL & ", EKPR as LEKPR "
             cSQL = cSQL & ", (EKPR * Bestand) as MOPREIS "
-        ElseIf Option1(4).Value = True Then
+        ElseIf Option1(4).value = True Then
             cSQL = cSQL & ", LEKPR "
             cSQL = cSQL & ", (LEKPR * Bestand) as MOPREIS "
         End If
@@ -11922,7 +11922,7 @@ Private Sub speicherINTemp(sEAN As String, lMenge As Long, lLFNR As Long)
             cSQL = cSQL & " or ean2 = '" & sEAN & "'"
             cSQL = cSQL & " or ean3 = '" & sEAN & "'"
         ElseIf Len(sEAN) = 8 Then
-            If Check10.Value = vbChecked Then
+            If Check10.value = vbChecked Then
                 cSQL = cSQL & " from artikel where ean = '" & sEAN & "'"
                 cSQL = cSQL & " or ean2 = '" & sEAN & "'"
                 cSQL = cSQL & " or ean3 = '" & sEAN & "'"
@@ -11971,10 +11971,10 @@ Private Sub speicherINA1(sArt As String, lMenge As Long)
         cSQL = cSQL & ", LPZ "
         cSQL = cSQL & ", AGN "
         
-        If Option1(7).Value = True Then
+        If Option1(7).value = True Then
             cSQL = cSQL & ", EKPR as LEKPR "
             cSQL = cSQL & ", (EKPR * Bestand) as MOPREIS "
-        ElseIf Option1(4).Value = True Then
+        ElseIf Option1(4).value = True Then
             cSQL = cSQL & ", LEKPR "
             cSQL = cSQL & ", (LEKPR * Bestand) as MOPREIS "
         End If
@@ -11988,9 +11988,9 @@ Private Sub speicherINA1(sArt As String, lMenge As Long)
         cSQL = cSQL & " from artikel where artnr = " & sArt
         gdBase.Execute cSQL, dbFailOnError
         
-        If Option1(4).Value = True Then
+        If Option1(4).value = True Then
             Dim dLEK As Double
-            If opt1(22).Value = True Then
+            If opt1(22).value = True Then
                 dLEK = ermLEKPRundWelcher(sArt, "MAX")
             Else
                 dLEK = ermLEKPRundWelcher(sArt, "MIN")
@@ -12086,28 +12086,28 @@ Private Sub Zeigeauswahlframe()
     
     Frame6.Visible = False
     
-    If Option2(0).Value = True Then         'Inventurberechnung
+    If Option2(0).value = True Then         'Inventurberechnung
         vorbereitungInventberechnung
         
-    ElseIf Option2(1).Value = True Then     'Scanner
+    ElseIf Option2(1).value = True Then     'Scanner
         vorbereitungScanner
 
-    ElseIf Option2(2).Value = True Then     'Mde
+    ElseIf Option2(2).value = True Then     'Mde
         vorbereitungMDE
         
-    ElseIf Option2(3).Value = True Then         'Inventurliste
+    ElseIf Option2(3).value = True Then         'Inventurliste
         vorbereitungInventurliste
         
-    ElseIf Option2(4).Value = True Then     'Inventurliste erzeugen
+    ElseIf Option2(4).value = True Then     'Inventurliste erzeugen
         vorbereitungInventurlisteErzeugen
 
-    ElseIf Option2(5).Value = True Then     'Inventureinstellungen
+    ElseIf Option2(5).value = True Then     'Inventureinstellungen
         vorbereitungInventureinstellungen
-    ElseIf Option2(6).Value = True Then     'Import Excel
+    ElseIf Option2(6).value = True Then     'Import Excel
         vorbereitungImport
-    ElseIf Option2(7).Value = True Then     'Export Excel
+    ElseIf Option2(7).value = True Then     'Export Excel
         vorbereitungExport
-    ElseIf Option2(8).Value = True Then     'Export Excel
+    ElseIf Option2(8).value = True Then     'Export Excel
         vorbereitungBestHist
     End If
 
@@ -12135,9 +12135,9 @@ Private Sub BestandaufNull()
     
     
     
-    If Option3(0).Value Then
+    If Option3(0).value Then
         cLinr = "alle"
-    ElseIf Option3(1).Value Then
+    ElseIf Option3(1).value Then
         cLinr = Text4.Text
         
         If cLinr = "" Then
@@ -12147,7 +12147,7 @@ Private Sub BestandaufNull()
         Else
             cLinr = Trim$(Str$(Val(cLinr)))
         End If
-    ElseIf Option3(2).Value Then
+    ElseIf Option3(2).value Then
         cLinr = "alle"
         llpzvon = Val(Text6.Text)
         llpzbis = Val(Text5.Text)
@@ -12216,7 +12216,7 @@ Private Sub BestandaufNull()
     
     anzeigeNew "normal", "Bestände werden auf 0 gesetzt......", Label6
     
-    If Option3(2).Value Then
+    If Option3(2).value Then
         cSQL = "Update Artikel inner join lagerplatz on"
         cSQL = cSQL & " artikel.artnr = lagerplatz.artnr set artikel.Bestand = 0 "
         cSQL = cSQL & " where lagerplatz.lagerp between " & llpzvon
@@ -12471,10 +12471,10 @@ Private Sub UebernahmeInventur()
     cSQL = cSQL & ", 0.0 as diffLWEK "
     cSQL = cSQL & ", vkpr "
     
-    If Option1(7).Value = True Then
+    If Option1(7).value = True Then
         cSQL = cSQL & ", EKPR as LEKPR "
         cSQL = cSQL & ", (EKPR * Bestand) as LWEKSYS "
-    ElseIf Option1(4).Value = True Then
+    ElseIf Option1(4).value = True Then
         cSQL = cSQL & ", LEKPR "
         cSQL = cSQL & ", (LEKPR * Bestand) as LWEKSYS "
     End If
@@ -13019,7 +13019,7 @@ Private Sub vorbereitungBestHist()
 '    fuelle_BestDat List9
     fuelle_BestDat_GDPDU List9
     Frame23.Visible = True
-    txtAGN.Text = ""
+    txtAgn.Text = ""
     Label13.Caption = ""
     anzeigeNew "normal", "", Label6
     
@@ -13294,10 +13294,10 @@ End Sub
 '
 '    Fehlermeldung1
 'End Sub
-Private Sub Command20_Click(Index As Integer)
+Private Sub Command20_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
 
-    Select Case Index
+    Select Case index
         Case Is = 20        ' Kalender
             Text1(5).Text = Format(Datumschreiben11a(3000, 4000), "DD.MM.YYYY")
             'fertig
@@ -13314,7 +13314,7 @@ LOKAL_ERROR:
    
 End Sub
 
-Private Sub Command3_Click(Index As Integer)
+Private Sub Command3_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim cPfad   As String
@@ -13330,7 +13330,7 @@ Private Sub Command3_Click(Index As Integer)
     
     Screen.MousePointer = 11
     
-    Select Case Index
+    Select Case index
         Case Is = 0     'SPEICHERN
             SpeichereInventurDateiWKL46
             
@@ -13872,7 +13872,7 @@ Private Sub Command4_Click()
     
     
     
-    If Check1 = vbChecked Then
+    If check1 = vbChecked Then
         reportbildschirm "INVENe", "aWKL46a"
     Else
         If FileExists(cPfad & "aWKL46S.rpt") Then
@@ -13952,16 +13952,16 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Command6_Click(Index As Integer)
+Private Sub Command6_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim i As Integer
 
-    Select Case Index
+    Select Case index
         Case 0 'suchen
             If SucheArtikelWKL46 Then
                 For i = 0 To 3
-                    If Option4(i).Value = True Then
+                    If Option4(i).value = True Then
                         zeigeartikel Option4(i).Tag
                     Exit For
                     End If
@@ -13973,7 +13973,7 @@ Private Sub Command6_Click(Index As Integer)
             Combo2_KeyUp vbKeyF2, 0
         Case 3     'drucken
             If List5.ListCount > 0 Then
-                If Check4.Value = vbChecked Then
+                If Check4.value = vbChecked Then
                     If Text7.Text = "" Then
                         anzeigeNew "rot", "Vergeben Sie bitte einen Dateinamen!", Label6
                         Text7.SetFocus
@@ -14048,7 +14048,7 @@ Private Sub EntfernenVonListEin()
     
     If bFound Then
         For i = 0 To 3
-            If Option4(i).Value = True Then
+            If Option4(i).value = True Then
                 zeigeartikel Option4(i).Tag
             Exit For
             End If
@@ -14138,7 +14138,7 @@ Private Sub Drucklist46()
             rsRSQ!linr = rsrs!linr
             rsRSQ!LPZ = rsrs!LPZ
             rsRSQ!KVKPR1 = rsrs!KVKPR1
-            If Check7.Value = vbChecked Then
+            If Check7.value = vbChecked Then
                 rsRSQ!BESTAND = rsrs!BESTAND
             Else
                 rsRSQ!BESTAND = Null
@@ -14164,7 +14164,7 @@ Private Sub Drucklist46()
     rsrs.Close: Set rsrs = Nothing
     rsRSQ.Close
     
-    If Check5.Value = vbChecked Then
+    If Check5.value = vbChecked Then
         reportbildschirm "", "aWKL46f"
     Else
 
@@ -14238,7 +14238,7 @@ Private Sub Drucklist46FERTIG()
     rsrs.Close: Set rsrs = Nothing
     rsRSQ.Close
     
-    If Check11.Value = vbChecked Then
+    If Check11.value = vbChecked Then
         reportbildschirm "", "aWKL46f"
     Else
 
@@ -14517,7 +14517,7 @@ Private Function SucheArtikelWKL46() As Boolean
     
     cJoin = "and A.ARTNR = B.ARTNR "
     
-    If Check3.Value = vbChecked Then
+    If Check3.value = vbChecked Then
         cJoin = cJoin & " and A.GEFUEHRT = 'J' "
     End If
     cSQL = cSQL & cwhere & cJoin
@@ -14827,10 +14827,10 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Label1_Click(Index As Integer)
+Private Sub Label1_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
-    Select Case Index
+    Select Case index
         Case Is = 20 'Inventur mit Scanner
         
             URLGoTo Me.hwnd, "http://www.kisslive.de/winkiss/winkiss-beitraege/123-inventur-leicht-gemacht.html"
@@ -14854,24 +14854,24 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Label1_MouseMove(Index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub Label1_MouseMove(index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
 On Error GoTo LOKAL_ERROR
 
     
     
-    If Index = 20 Then
+    If index = 20 Then
         Label1(20).ForeColor = glLink
     End If
     
-    If Index = 21 Then
+    If index = 21 Then
         Label1(21).ForeColor = glLink
     End If
     
-    If Index = 22 Then
+    If index = 22 Then
         Label1(22).ForeColor = glLink
     End If
     
-    If Index = 23 Then
+    If index = 23 Then
         Label1(23).ForeColor = glLink
     End If
     
@@ -15141,42 +15141,42 @@ Private Sub voreinstellungspeichern()
     loeschNEW "E46", gdBase
     CreateTable "E46", gdBase
     
-    bo0 = Option2(0).Value
-    bo1 = Option2(1).Value
-    bo2 = Option2(2).Value
-    bo3 = Option2(3).Value
-    bo4 = Option2(4).Value
-    bo5 = Option2(5).Value
+    bo0 = Option2(0).value
+    bo1 = Option2(1).value
+    bo2 = Option2(2).value
+    bo3 = Option2(3).value
+    bo4 = Option2(4).value
+    bo5 = Option2(5).value
     
-    If Check1.Value = vbChecked Then
+    If check1.value = vbChecked Then
         bo6 = 0
     Else
         bo6 = -1
     End If
     
-    bo7 = Option1(0).Value
-    bo8 = Option1(1).Value
-    bo9 = Option1(2).Value
-    bo10 = Option1(3).Value
+    bo7 = Option1(0).value
+    bo8 = Option1(1).value
+    bo9 = Option1(2).value
+    bo10 = Option1(3).value
     
-    bo11 = Option1(7).Value 'sek
-    bo12 = Option1(4).Value 'lek
+    bo11 = Option1(7).value 'sek
+    bo12 = Option1(4).value 'lek
     
     bo13 = 1
     bo14 = 1
     
-    If Check7.Value = vbChecked Then
+    If Check7.value = vbChecked Then
         bo15 = 0
     Else
         bo15 = -1
     End If
     
-    bo16 = Option2(6).Value
-    bo17 = Option2(7).Value
-    bo18 = Option2(8).Value
+    bo16 = Option2(6).value
+    bo17 = Option2(7).value
+    bo18 = Option2(8).value
     
-    bo19 = opt1(22).Value
-    bo20 = opt1(23).Value
+    bo19 = opt1(22).value
+    bo20 = opt1(23).value
     
     sSQL = "Insert into E46 ( bo0,bo1,bo2,bo3,bo4,bo5,bo6,bo7,bo8,bo9,bo10,bo11,bo12,bo13,bo14,bo15,bo16,bo17,bo18,bo19,bo20) "
     sSQL = sSQL & " values (" & bo0 & "," & bo1 & "," & bo2 & "," & bo3 & "," & bo4
@@ -15203,44 +15203,44 @@ Private Sub voreinstellungladen()
     
     Set rs = gdBase.OpenRecordset("E46")
     If Not rs.EOF Then
-        Option2(0).Value = rs!bo0
-        Option2(1).Value = rs!bo1
-        Option2(2).Value = rs!bo2
-        Option2(3).Value = rs!bo3
-        Option2(4).Value = rs!bo4
-        Option2(5).Value = rs!bo5
+        Option2(0).value = rs!bo0
+        Option2(1).value = rs!bo1
+        Option2(2).value = rs!bo2
+        Option2(3).value = rs!bo3
+        Option2(4).value = rs!bo4
+        Option2(5).value = rs!bo5
         
         If rs!bo6 = True Then
-            Check1.Value = vbUnchecked
+            check1.value = vbUnchecked
         Else
-            Check1.Value = vbChecked
+            check1.value = vbChecked
         End If
         
-        Option1(0).Value = rs!bo7
-        Option1(1).Value = rs!bo8
-        Option1(2).Value = rs!bo9
-        Option1(3).Value = rs!bo10
+        Option1(0).value = rs!bo7
+        Option1(1).value = rs!bo8
+        Option1(2).value = rs!bo9
+        Option1(3).value = rs!bo10
         
-        Option1(7).Value = rs!bo11
-        Option1(4).Value = rs!bo12
+        Option1(7).value = rs!bo11
+        Option1(4).value = rs!bo12
         
         If rs!bo15 = True Then
-            Check7.Value = vbUnchecked
+            Check7.value = vbUnchecked
         Else
-            Check7.Value = vbChecked
+            Check7.value = vbChecked
         End If
         
-        Option2(6).Value = rs!bo16
-        Option2(7).Value = rs!bo17
-        Option2(8).Value = rs!bo18
+        Option2(6).value = rs!bo16
+        Option2(7).value = rs!bo17
+        Option2(8).value = rs!bo18
         
-        opt1(22).Value = rs!bo19
-        opt1(23).Value = rs!bo20
+        opt1(22).value = rs!bo19
+        opt1(23).value = rs!bo20
     
     End If
     rs.Close: Set rs = Nothing
     
-    If Option1(4).Value = True Then
+    If Option1(4).value = True Then
         Frame36.Visible = True
     Else
         Frame36.Visible = False
@@ -15271,12 +15271,12 @@ Private Sub voreinstellungspeichernE46il()
     loeschNEW "E46LI", gdBase
     CreateTable "E46LI", gdBase
     
-    bo0 = Option4(0).Value
-    bo1 = Option4(1).Value
-    bo2 = Option4(2).Value
-    bo3 = Option4(3).Value
+    bo0 = Option4(0).value
+    bo1 = Option4(1).value
+    bo2 = Option4(2).value
+    bo3 = Option4(3).value
    
-    If Check5.Value = vbChecked Then
+    If Check5.value = vbChecked Then
         bo4 = 0
     Else
         bo4 = -1
@@ -15305,15 +15305,15 @@ Private Sub voreinstellungladenE46IL()
     Set rs = gdBase.OpenRecordset("E46LI")
     If Not rs.EOF Then
     
-        Option4(0).Value = rs!bo0
-        Option4(1).Value = rs!bo1
-        Option4(2).Value = rs!bo2
-        Option4(3).Value = rs!bo3
+        Option4(0).value = rs!bo0
+        Option4(1).value = rs!bo1
+        Option4(2).value = rs!bo2
+        Option4(3).value = rs!bo3
         
         If rs!bo4 = True Then
-            Check5.Value = vbUnchecked
+            Check5.value = vbUnchecked
         Else
-            Check5.Value = vbChecked
+            Check5.value = vbChecked
         End If
         
         
@@ -15494,12 +15494,12 @@ LOKAL_ERROR:
     
 End Sub
 
-Private Sub Option1_Click(Index As Integer)
+Private Sub Option1_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
     
-    If Option1(4).Value = True Then
+    If Option1(4).value = True Then
         Frame36.Visible = True
-    ElseIf Option1(7).Value = True Then
+    ElseIf Option1(7).value = True Then
         Frame36.Visible = False
     End If
     
@@ -15514,12 +15514,12 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Option3_Click(Index As Integer)
+Private Sub Option3_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     
     
-    If Option3(1).Value = True Then
+    If Option3(1).value = True Then
         Text4.Visible = True
         Text4.Text = ""
         Text4.SetFocus
@@ -15540,7 +15540,7 @@ Private Sub Option3_Click(Index As Integer)
         Label9(1).Visible = False
         Label10.Visible = False
         
-    ElseIf Option3(1).Value = False Then
+    ElseIf Option3(1).value = False Then
         Text4.Visible = False
         Text4.Text = ""
         
@@ -15555,7 +15555,7 @@ Private Sub Option3_Click(Index As Integer)
     
     End If
     
-    If Option3(2).Value = True Then
+    If Option3(2).value = True Then
         Text6.Visible = True
         Text5.Visible = True
         Label9(1).Visible = True
@@ -15593,11 +15593,11 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Option4_Click(Index As Integer)
+Private Sub Option4_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
 
     If NewTableSuchenDBKombi("li46", gdBase) Then
-        zeigeartikel Option4(Index).Tag
+        zeigeartikel Option4(index).Tag
     End If
     
     Exit Sub
@@ -15626,13 +15626,13 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Text3_KeyPress(Index As Integer, KeyAscii As Integer)
+Private Sub Text3_KeyPress(index As Integer, KeyAscii As Integer)
 On Error GoTo LOKAL_ERROR
     
     Dim cZeichen As String
     Dim cValid As String
     
-    If Index = 1 Then
+    If index = 1 Then
 
         cValid = "1234567890-" & Chr$(8)
         cZeichen = Chr$(KeyAscii)
@@ -15659,8 +15659,8 @@ End Sub
 Private Sub txtAGN_Change()
 On Error GoTo LOKAL_ERROR
     
-    If Len(txtAGN.Text) >= 3 Then
-        Label13.Caption = Ermittleagntext(txtAGN.Text)
+    If Len(txtAgn.Text) >= 3 Then
+        Label13.Caption = Ermittleagntext(txtAgn.Text)
     End If
     
     Exit Sub
@@ -15677,7 +15677,7 @@ End Sub
 Private Sub txtAgn_GotFocus()
     On Error GoTo LOKAL_ERROR
     
-    txtAGN.BackColor = glSelBack1
+    txtAgn.BackColor = glSelBack1
     
     
     Exit Sub
@@ -15690,7 +15690,7 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Text1_KeyUp(Index As Integer, KeyCode As Integer, Shift As Integer)
+Private Sub Text1_KeyUp(index As Integer, KeyCode As Integer, Shift As Integer)
     On Error GoTo LOKAL_ERROR
     
     If KeyCode = vbKeyReturn Then
@@ -15708,7 +15708,7 @@ Private Sub Text1_KeyUp(Index As Integer, KeyCode As Integer, Shift As Integer)
         gF2Prompt.cWahl = ""
         gF2Prompt.bMultiple = False
         
-        Select Case Index
+        Select Case index
             Case Is = 1     'ArtNr
                 If Combo2.Text = "" Then
                     MsgBox "Bitte einen Lieferanten angeben!", vbCritical, "STOP!"
@@ -15725,7 +15725,7 @@ Private Sub Text1_KeyUp(Index As Integer, KeyCode As Integer, Shift As Integer)
         If gF2Prompt.cFeld <> "" Then
             frmWK00a.Show 1
             If gF2Prompt.cWahl <> "" Then
-                Text1(Index).Text = gF2Prompt.cWahl
+                Text1(index).Text = gF2Prompt.cWahl
             End If
         End If
     End If
@@ -16022,11 +16022,11 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Text1_GotFocus(Index As Integer)
+Private Sub Text1_GotFocus(index As Integer)
 On Error GoTo LOKAL_ERROR
 
-    Text1(Index).BackColor = glSelBack1
-    Text1(Index).SelStart = Len(Text1(Index).Text)
+    Text1(index).BackColor = glSelBack1
+    Text1(index).SelStart = Len(Text1(index).Text)
     
 Exit Sub
 LOKAL_ERROR:
@@ -16038,7 +16038,7 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Text1_KeyPress(KeyAscii As Integer, Index As Integer)
+Private Sub Text1_KeyPress(KeyAscii As Integer, index As Integer)
     On Error GoTo LOKAL_ERROR
 
     Dim cValid As String
@@ -16046,7 +16046,7 @@ Private Sub Text1_KeyPress(KeyAscii As Integer, Index As Integer)
     
     cZeichen = Chr$(KeyAscii)
     
-    Select Case Index
+    Select Case index
         Case Is = 101, 6, 0, 5, 7
             cValid = "1234567890" & Chr$(8)
             If InStr(cValid, cZeichen) = 0 Then
@@ -16067,10 +16067,10 @@ LOKAL_ERROR:
     
 End Sub
 
-Private Sub Text1_LostFocus(Index As Integer)
+Private Sub Text1_LostFocus(index As Integer)
     On Error GoTo LOKAL_ERROR
     
-    Text1(Index).BackColor = vbWhite
+    Text1(index).BackColor = vbWhite
     
     Exit Sub
 LOKAL_ERROR:
@@ -16107,7 +16107,7 @@ End Sub
 Private Sub txtAgn_LostFocus()
     On Error GoTo LOKAL_ERROR
     
-    txtAGN.BackColor = vbWhite
+    txtAgn.BackColor = vbWhite
     
     Exit Sub
 LOKAL_ERROR:
@@ -16237,14 +16237,14 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Text3_GotFocus(Index As Integer)
+Private Sub Text3_GotFocus(index As Integer)
     On Error GoTo LOKAL_ERROR
     
-    Text3(Index).BackColor = glSelBack1
-    Text3(Index).SelStart = 0
-    Text3(Index).SelLength = Len(Text3(Index).Text)
+    Text3(index).BackColor = glSelBack1
+    Text3(index).SelStart = 0
+    Text3(index).SelLength = Len(Text3(index).Text)
     
-    Label11.Caption = Trim$(Str$(Index))
+    Label11.Caption = Trim$(Str$(index))
     
     Exit Sub
 LOKAL_ERROR:
@@ -16256,10 +16256,10 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Text3_KeyUp(Index As Integer, KeyCode As Integer, Shift As Integer)
+Private Sub Text3_KeyUp(index As Integer, KeyCode As Integer, Shift As Integer)
     On Error GoTo LOKAL_ERROR
     
-    If Index = 0 And (KeyCode = 187 Or KeyCode = 106) Then
+    If index = 0 And (KeyCode = 187 Or KeyCode = 106) Then
         If Len(Text3(0).Text) > 1 Then
             Text3(1).Text = Left(Text3(0).Text, Len(Text3(0).Text) - 1)
             Text3(0).Text = ""
@@ -16268,9 +16268,9 @@ Private Sub Text3_KeyUp(Index As Integer, KeyCode As Integer, Shift As Integer)
     End If
     
     If KeyCode = vbKeyReturn Then
-        If Index = 0 Then
+        If index = 0 Then
             Command2_Click 11
-        ElseIf Index = 1 Then
+        ElseIf index = 1 Then
             
             Text3(1).Text = ""
             Text3(0).Text = ""
@@ -16290,7 +16290,7 @@ Private Sub Text3_KeyUp(Index As Integer, KeyCode As Integer, Shift As Integer)
         Text3(1).SetFocus
     End If
     
-    If Index = 1 Then
+    If index = 1 Then
            
         If KeyCode = vbKeyUp Then
             Text3(1).Text = CInt(Text3(1).Text) + 1
@@ -16314,10 +16314,10 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Text3_LostFocus(Index As Integer)
+Private Sub Text3_LostFocus(index As Integer)
 On Error GoTo LOKAL_ERROR
 
-   Text3(Index).BackColor = vbWhite
+   Text3(index).BackColor = vbWhite
    
 '    If IsNumeric(Text3(1).Text) Or Text3(1).Text = "" Then
 '        Text3(Index).BackColor = vbWhite
@@ -16470,7 +16470,7 @@ On Error GoTo LOKAL_ERROR
         gF2Prompt.cFeld = "AGN"
         frmWK00a.Show 1
         If gF2Prompt.cWahl <> "" Then
-            txtAGN.Text = gF2Prompt.cWahl
+            txtAgn.Text = gF2Prompt.cWahl
         End If
                 
     End If

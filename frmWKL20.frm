@@ -10091,11 +10091,11 @@ Begin VB.Form frmWKL20
          Strikethrough   =   0   'False
       EndProperty
       Height          =   2775
-      Left            =   6720
+      Left            =   2400
       TabIndex        =   55
-      Top             =   5040
+      Top             =   6720
       Visible         =   0   'False
-      Width           =   4695
+      Width           =   8655
       Begin VB.CheckBox chk_Kunde_halten 
          BackColor       =   &H00FFC0C0&
          Caption         =   "halten"
@@ -35667,8 +35667,8 @@ NACH_TSE:
         Else
          
         
-            For lcount = 1 To 9
-                If lcount = 9 Then
+            For lcount = 1 To gbLeereZeil
+                If lcount = gbLeereZeil Then
                    cEscapeSequenz = vbCrLf
                 Else
                    cEscapeSequenz = " " & vbCrLf
@@ -37106,8 +37106,8 @@ endbetrag:
     '***********************************************
     'ein paar Leerzeilen drucken
     '***********************************************
-    For lcount = 1 To 9
-        If lcount = 9 Then
+    For lcount = 1 To gbLeereZeil
+        If lcount = gbLeereZeil Then
             cEscapeSequenz = vbCrLf
         Else
             cEscapeSequenz = " " & vbCrLf
@@ -38834,8 +38834,8 @@ endbetrag:
     '***********************************************
     'ein paar Leerzeilen drucken
     '***********************************************
-    For lcount = 1 To 9
-        If lcount = 9 Then
+    For lcount = 1 To gbLeereZeil
+        If lcount = gbLeereZeil Then
             cEscapeSequenz = vbCrLf
         Else
             cEscapeSequenz = " " & vbCrLf
@@ -39733,8 +39733,8 @@ endbetrag:
     '***********************************************
     'ein paar Leerzeilen drucken
     '***********************************************
-    For lcount = 1 To 9
-        If lcount = 9 Then
+    For lcount = 1 To gbLeereZeil
+        If lcount = gbLeereZeil Then
             cEscapeSequenz = vbCrLf
         Else
             cEscapeSequenz = " " & vbCrLf
@@ -40639,8 +40639,8 @@ endbetrag:
     '***********************************************
     'ein paar Leerzeilen drucken
     '***********************************************
-    For lcount = 1 To 9
-        If lcount = 9 Then
+    For lcount = 1 To gbLeereZeil
+        If lcount = gbLeereZeil Then
             cEscapeSequenz = vbCrLf
         Else
             cEscapeSequenz = " " & vbCrLf
@@ -41848,8 +41848,8 @@ StartPunkt:
     '***********************************************
     'ein paar Leerzeilen drucken
     '***********************************************
-    For lcount = 1 To 9
-        If lcount = 9 Then
+    For lcount = 1 To gbLeereZeil
+        If lcount = gbLeereZeil Then
             cEscapeSequenz = "." & vbCrLf
         Else
             cEscapeSequenz = " " & vbCrLf
@@ -42537,8 +42537,8 @@ StartPunkt:
     '***********************************************
     'ein paar Leerzeilen drucken
     '***********************************************
-    For lcount = 1 To 9
-        If lcount = 9 Then
+    For lcount = 1 To gbLeereZeil
+        If lcount = gbLeereZeil Then
             cEscapeSequenz = "." & vbCrLf
         Else
             cEscapeSequenz = " " & vbCrLf
@@ -43189,8 +43189,8 @@ StartPunkt:
     '***********************************************
     'ein paar Leerzeilen drucken
     '***********************************************
-    For lcount = 1 To 9
-        If lcount = 9 Then
+    For lcount = 1 To gbLeereZeil
+        If lcount = gbLeereZeil Then
             cEscapeSequenz = "." & vbCrLf
         Else
             cEscapeSequenz = " " & vbCrLf
@@ -49054,9 +49054,39 @@ On Error GoTo LOKAL_ERROR
             grd1.Rows = lrow + 1
             grd1.Row = lrow
             
+            If Not IsNull(rsrs!GESPERRT) Then
+                cFeld = rsrs!GESPERRT
+            Else
+                cFeld = "N"
+            End If
+            
+            If gbKUWAHLGESPERRTROT = True Then
+
+                For i = 1 To 7
+                    grd1.Col = i
+                    If cFeld <> "N" Then
+                        grd1.CellBackColor = vbRed
+                    Else
+                        grd1.CellBackColor = vbWhite
+                    End If
+                Next i
+                
+            End If
+            
+            
             If Not IsNull(rsrs!Kundnr) Then
                 cFeld = rsrs!Kundnr
+                
+                ''''''''''''''''''''''''''''''''''''''''' ODAYY  <<<<< START
+                IchBinBeiKundeSuche = True
+                ''''''''''''''''''''''''''''''''''''''''' ODAYY  <<<<< ENDE
+                
                 FaerbenFlexH WhatIsAwmKU(cFeld), grd1, 0, CInt(lrow)
+                
+                ''''''''''''''''''''''''''''''''''''''''' ODAYY  <<<<< START
+                IchBinBeiKundeSuche = False
+                ''''''''''''''''''''''''''''''''''''''''' ODAYY  <<<<< ENDE
+                
             Else
                 cFeld = ""
             End If
@@ -49130,23 +49160,24 @@ On Error GoTo LOKAL_ERROR
 '                grd1.ColWidth(6) = 0
 '            End If
             
-            If Not IsNull(rsrs!GESPERRT) Then
-                cFeld = rsrs!GESPERRT
-            Else
-                cFeld = "N"
-            End If
-            
-            If gbKUWAHLGESPERRTROT = True Then
-            
-                For i = 1 To 7
-                    grd1.Col = i
-                    If cFeld <> "N" Then
-                        grd1.CellBackColor = vbRed
-                    Else
-                        grd1.CellBackColor = vbWhite
-                    End If
-                Next i
-            End If
+'            If Not IsNull(rsrs!GESPERRT) Then
+'                cFeld = rsrs!GESPERRT
+'            Else
+'                cFeld = "N"
+'            End If
+'
+'            If gbKUWAHLGESPERRTROT = True Then
+'
+'                For i = 1 To 7
+'                    grd1.Col = i
+'                    If cFeld <> "N" Then
+'                        grd1.CellBackColor = vbRed
+'                    Else
+'                        grd1.CellBackColor = vbWhite
+'                    End If
+'                Next i
+'
+'            End If
             
             If Not IsNull(rsrs!BONUS) Then
                 dBonus = rsrs!BONUS

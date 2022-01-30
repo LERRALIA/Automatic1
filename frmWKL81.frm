@@ -4185,7 +4185,7 @@ Private Sub CopyBed2Termin()
     rsrs!bedname = cbedname
     rsrs!farbe = cFarbe
     rsrs!FARBCODE = lFarbcode
-    rsrs!Kundnr = cKundnr
+    rsrs!kundnr = cKundnr
     rsrs.Update
     rsrs.Close: Set rsrs = Nothing
     
@@ -4371,8 +4371,8 @@ Private Sub HoleTerminMitarbeiterWKL81()
             cFeld = cFeld & Space$(2 - Len(cFeld))
             cLBSatz = cLBSatz & cFeld & " "
             
-            If Not IsNull(rsrs!Kundnr) Then
-                cFeld = rsrs!Kundnr
+            If Not IsNull(rsrs!kundnr) Then
+                cFeld = rsrs!kundnr
             Else
                 cFeld = "0"
             End If
@@ -4494,7 +4494,7 @@ Private Sub SaveLokalitaetenWKL81()
         
             rsrs.Edit
             
-            If Check1.Value = vbChecked Then
+            If Check1.value = vbChecked Then
                 rsrs!anzeigeN = True
             Else
                 rsrs!anzeigeN = False
@@ -4503,7 +4503,7 @@ Private Sub SaveLokalitaetenWKL81()
             rsrs.Update
             
             Text1(0).Text = ""
-            Check1.Value = vbChecked
+            Check1.value = vbChecked
             Text1(0).SetFocus
         Else
             Text1(0).SetFocus
@@ -4511,7 +4511,7 @@ Private Sub SaveLokalitaetenWKL81()
     Else
         rsrs.AddNew
         rsrs!BEZEICH = cOrt
-        If Check1.Value = vbChecked Then
+        If Check1.value = vbChecked Then
             rsrs!anzeigeN = True
         Else
             rsrs!anzeigeN = False
@@ -4520,7 +4520,7 @@ Private Sub SaveLokalitaetenWKL81()
         
         List6.AddItem cOrt
         Text1(0).Text = ""
-        Check1.Value = vbChecked
+        Check1.value = vbChecked
         Text1(0).SetFocus
     End If
     
@@ -4594,10 +4594,10 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Command1_Click(Index As Integer)
+Private Sub Command1_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
-    Select Case Index
+    Select Case index
         Case 0     'Übernehmen
             CopyBed2Termin
         Case 1     'Löschen
@@ -4795,8 +4795,8 @@ On Error GoTo LOKAL_ERROR
                 If Not rsRSQ.EOF Then
                     rsRSQ.MoveFirst
                     
-                    If Not IsNull(rsRSQ!Kundnr) Then
-                        sBetreff = WhatIsXfromKu(rsRSQ!Kundnr, "Name") & ", " & WhatIsXfromKu(rsRSQ!Kundnr, "Vorname")
+                    If Not IsNull(rsRSQ!kundnr) Then
+                        sBetreff = WhatIsXfromKu(rsRSQ!kundnr, "Name") & ", " & WhatIsXfromKu(rsRSQ!kundnr, "Vorname")
                     End If
                     
                     If Not IsNull(rsRSQ!BEDNU) Then
@@ -4813,20 +4813,20 @@ On Error GoTo LOKAL_ERROR
                     
                    
 
-                    If Not IsNull(rsRSQ!Kundnr) Then
-                        sBESCHREIBUNG = sBESCHREIBUNG & "Kunde: " & rsRSQ!Kundnr & " " & WhatIsXfromKu(rsRSQ!Kundnr, "Name") & ", " & WhatIsXfromKu(rsRSQ!Kundnr, "Vorname") & vbCrLf
+                    If Not IsNull(rsRSQ!kundnr) Then
+                        sBESCHREIBUNG = sBESCHREIBUNG & "Kunde: " & rsRSQ!kundnr & " " & WhatIsXfromKu(rsRSQ!kundnr, "Name") & ", " & WhatIsXfromKu(rsRSQ!kundnr, "Vorname") & vbCrLf
 
-                        sBESCHREIBUNG = sBESCHREIBUNG & WhatIsXfromKu(rsRSQ!Kundnr, "PLZ") & " " & WhatIsXfromKu(rsRSQ!Kundnr, "Stadt") & vbCrLf
+                        sBESCHREIBUNG = sBESCHREIBUNG & WhatIsXfromKu(rsRSQ!kundnr, "PLZ") & " " & WhatIsXfromKu(rsRSQ!kundnr, "Stadt") & vbCrLf
 
-                        sBESCHREIBUNG = sBESCHREIBUNG & WhatIsXfromKu(rsRSQ!Kundnr, "STRASSE") & vbCrLf
+                        sBESCHREIBUNG = sBESCHREIBUNG & WhatIsXfromKu(rsRSQ!kundnr, "STRASSE") & vbCrLf
 
-                        sBESCHREIBUNG = sBESCHREIBUNG & "Telefon: " & WhatIsXfromKu(rsRSQ!Kundnr, "TEL") & vbCrLf
+                        sBESCHREIBUNG = sBESCHREIBUNG & "Telefon: " & WhatIsXfromKu(rsRSQ!kundnr, "TEL") & vbCrLf
 
-                        sBESCHREIBUNG = sBESCHREIBUNG & "Fax: " & WhatIsXfromKu(rsRSQ!Kundnr, "FAXNR") & vbCrLf
+                        sBESCHREIBUNG = sBESCHREIBUNG & "Fax: " & WhatIsXfromKu(rsRSQ!kundnr, "FAXNR") & vbCrLf
 
-                        sBESCHREIBUNG = sBESCHREIBUNG & "Mobil: " & WhatIsXfromKu(rsRSQ!Kundnr, "Mobiltel") & vbCrLf
+                        sBESCHREIBUNG = sBESCHREIBUNG & "Mobil: " & WhatIsXfromKu(rsRSQ!kundnr, "Mobiltel") & vbCrLf
 
-                        sBESCHREIBUNG = sBESCHREIBUNG & "Email: " & WhatIsXfromKu(rsRSQ!Kundnr, "Email") & vbCrLf
+                        sBESCHREIBUNG = sBESCHREIBUNG & "Email: " & WhatIsXfromKu(rsRSQ!kundnr, "Email") & vbCrLf
                     End If
                     
 '                     MsgBox sBESCHREIBUNG
@@ -4988,11 +4988,11 @@ LOKAL_ERROR:
 End Sub
 
 
-Private Sub Command2_Click(Index As Integer)
+Private Sub Command2_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
-    If Index <> 40 Then
-        Text1(CInt(Label0.Caption)).Text = Text1(CInt(Label0.Caption)).Text & Command2(Index).Caption
+    If index <> 40 Then
+        Text1(CInt(Label0.Caption)).Text = Text1(CInt(Label0.Caption)).Text & Command2(index).Caption
     Else
         Text1(CInt(Label0.Caption)).Text = ""
     End If
@@ -5023,10 +5023,10 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Command4_Click(Index As Integer)
+Private Sub Command4_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
-    Select Case Index
+    Select Case index
         Case Is = 0
             frmWK81a.Show 1
         Case Is = 1
@@ -5048,21 +5048,21 @@ Private Sub Command4_Click(Index As Integer)
             
             lese_Termin_Optionen
             If gbTerm_Name = True Then
-                Check2.Value = vbChecked
+                Check2.value = vbChecked
             Else
-                Check2.Value = vbUnchecked
+                Check2.value = vbUnchecked
             End If
             
             If gbTerm_InfoDauerh = True Then
-                Check3.Value = vbChecked
+                Check3.value = vbChecked
             Else
-                Check3.Value = vbUnchecked
+                Check3.value = vbUnchecked
             End If
             
             If gbTerm_BedKass = True Then
-                Check4.Value = vbChecked
+                Check4.value = vbChecked
             Else
-                Check4.Value = vbUnchecked
+                Check4.value = vbUnchecked
             End If
         Case Is = 6
             frmWK81f.Show 1
@@ -5090,19 +5090,19 @@ On Error GoTo LOKAL_ERROR
     Dim bo13            As Integer
     Dim bo14            As Integer
     
-    If Check2.Value = vbUnchecked Then
+    If Check2.value = vbUnchecked Then
         bo12 = 0
     Else
         bo12 = -1
     End If
     
-    If Check3.Value = vbUnchecked Then
+    If Check3.value = vbUnchecked Then
         bo13 = 0
     Else
         bo13 = -1
     End If
     
-    If Check4.Value = vbUnchecked Then
+    If Check4.value = vbUnchecked Then
         bo14 = 0
     Else
         bo14 = -1
@@ -5121,6 +5121,7 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
+ 
 Private Sub Form_Load()
     On Error GoTo LOKAL_ERROR
     
@@ -5224,6 +5225,71 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
+Private Sub List2_Click()
+On Error GoTo LOKAL_ERROR
+
+    Dim cLBSatz As String
+    Dim cbednu As String
+    Dim cmmd As String
+    Dim recS As DAO.Recordset
+    Dim WennNichtGefundenNochmalVersuchen As Boolean
+    WennNichtGefundenNochmalVersuchen = True
+    
+    Text1(1).Text = ""
+    
+    If List2.ListIndex >= 0 Then
+    
+        cLBSatz = List2.list(List2.ListIndex)
+        cbednu = Left(cLBSatz, 3)
+        cbednu = Trim$(cbednu)
+  
+        cmmd = "select K.KUNDNR  from KUNDEN K,BEDNAME B Where B.BEDNAME=K.vorname +' '+K.name and B.BEDNU=" & cbednu
+
+Start_hier:
+        Set recS = gdBase.OpenRecordset(cmmd)
+        If Not recS.EOF Then
+         
+         
+            If Not IsNull(recS!kundnr) Then
+            
+               Text1(1).Text = recS!kundnr
+              
+            ElseIf WennNichtGefundenNochmalVersuchen Then
+            
+               cmmd = "select K.KUNDNR  from KUNDEN K,BEDNAME B Where B.BEDNAME=K.name and B.BEDNU=" & cbednu
+               WennNichtGefundenNochmalVersuchen = False
+               GoTo Start_hier
+               
+            End If
+            
+            
+         
+        ElseIf WennNichtGefundenNochmalVersuchen Then
+        
+         cmmd = "select K.KUNDNR  from KUNDEN K,BEDNAME B Where B.BEDNAME=K.name and B.BEDNU=" & cbednu
+         WennNichtGefundenNochmalVersuchen = False
+         GoTo Start_hier
+         
+        End If
+        
+        
+    Else
+    
+        Exit Sub
+      
+    End If
+    
+Exit Sub
+LOKAL_ERROR:
+    Fehler.gsDescr = err.Description
+    Fehler.gsNumber = err.Number
+    Fehler.gsFormular = Me.name
+    Fehler.gsFunktion = "List2_Click"
+    Fehler.gsFehlertext = "Im Programmteil Termine ist ein Fehler aufgetreten."
+    
+    Fehlermeldung1
+End Sub
+
 Private Sub List6_Click()
 On Error GoTo LOKAL_ERROR
 
@@ -5241,9 +5307,9 @@ On Error GoTo LOKAL_ERROR
         If Not IsNull(rsrs!anzeigeN) Then
             iSichtbar = rsrs!anzeigeN
             If iSichtbar = 0 Then
-                Check1.Value = vbUnchecked
+                Check1.value = vbUnchecked
             ElseIf iSichtbar = -1 Then
-                Check1.Value = vbChecked
+                Check1.value = vbChecked
             End If
         End If
     End If
@@ -5263,11 +5329,11 @@ LOKAL_ERROR:
 '    Resume Next
 End Sub
 
-Private Sub Text1_GotFocus(Index As Integer)
+Private Sub Text1_GotFocus(index As Integer)
 On Error GoTo LOKAL_ERROR
 
-    Text1(Index).BackColor = glSelBack1
-    Label0.Caption = Index
+    Text1(index).BackColor = glSelBack1
+    Label0.Caption = index
     
 Exit Sub
 LOKAL_ERROR:
@@ -5280,10 +5346,10 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Text1_LostFocus(Index As Integer)
+Private Sub Text1_LostFocus(index As Integer)
 On Error GoTo LOKAL_ERROR
 
-    Text1(Index).BackColor = vbWhite
+    Text1(index).BackColor = vbWhite
     
 Exit Sub
 LOKAL_ERROR:

@@ -3,16 +3,31 @@ Begin VB.Form TseEinstellungen
    BackColor       =   &H00C0C000&
    BorderStyle     =   1  'Fest Einfach
    Caption         =   "TSE Einstellungen"
-   ClientHeight    =   7620
+   ClientHeight    =   8205
    ClientLeft      =   45
    ClientTop       =   390
    ClientWidth     =   8775
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   7620
+   ScaleHeight     =   8205
    ScaleWidth      =   8775
    StartUpPosition =   3  'Windows-Standard
+   Begin VB.CommandButton Command2 
+      Caption         =   "ok"
+      Height          =   285
+      Left            =   4800
+      TabIndex        =   28
+      Top             =   5880
+      Width           =   375
+   End
+   Begin VB.TextBox txtTimeout 
+      Height          =   285
+      Left            =   4080
+      TabIndex        =   27
+      Top             =   5880
+      Width           =   615
+   End
    Begin VB.CheckBox chkInterntZeit 
       BackColor       =   &H00C0C000&
       Caption         =   "Zeit vom Internet abfragen"
@@ -29,7 +44,7 @@ Begin VB.Form TseEinstellungen
       Left            =   3960
       TabIndex        =   25
       Top             =   5520
-      Width           =   3375
+      Width           =   2895
    End
    Begin VB.CommandButton Command1 
       Caption         =   "?"
@@ -247,6 +262,24 @@ Begin VB.Form TseEinstellungen
       Top             =   1560
       Width           =   1695
    End
+   Begin VB.Label Label9 
+      BackColor       =   &H00C0C000&
+      Caption         =   "Time-out (1-120 s) : "
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   255
+      Left            =   2400
+      TabIndex        =   26
+      Top             =   5930
+      Width           =   1695
+   End
    Begin VB.Label lblZeig 
       BackColor       =   &H00C0C000&
       BeginProperty Font 
@@ -262,7 +295,7 @@ Begin VB.Form TseEinstellungen
       Height          =   1455
       Left            =   600
       TabIndex        =   16
-      Top             =   6000
+      Top             =   6600
       Width           =   7695
    End
    Begin VB.Label Label8 
@@ -415,6 +448,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+
 Private Sub btnDatenExport_Click()
     On Error GoTo LOKAL_ERROR
     
@@ -682,6 +716,35 @@ MsgBox ("beim alten Druckmodus wird kein QR-Code gedruckt, " & vbNewLine & "weil
 
 End Sub
 
+Private Sub Command2_Click()
+On Error GoTo LOKAL_ERROR
+
+    If Trim(TxtTimeout.Text) <> "" Then
+     
+          sSQL = "UPDATE TSESettings SET TseTimeOut=" & TxtTimeout.Text
+          gdApp.Execute sSQL, dbFailOnError
+          
+          TSE_TIMEOUT = CInt(TxtTimeout.Text)
+          MsgBox ("Timout erfolgreich gespeichert")
+          
+    Else
+          TxtTimeout.Text = TSE_TIMEOUT
+          MsgBox ("Tse Timeout ist falsch (muss 1 - 120 Sekunden sein) !!!")
+    End If
+    
+
+Exit Sub
+LOKAL_ERROR:
+    Screen.MousePointer = 0
+    Fehler.gsDescr = err.Description
+    Fehler.gsNumber = err.Number
+    Fehler.gsFormular = "TseEinstellungen"
+    Fehler.gsFunktion = "Command2_Click"
+    Fehler.gsFehlertext = "Im Programmteil TseEinstellungen ist ein Fehler aufgetreten."
+    
+    Fehlermeldung1
+End Sub
+
 Private Sub Form_Load()
  Check_TSE_Einstellugen
 End Sub
@@ -700,3 +763,40 @@ btnVerbinden.SetFocus
     
 End Sub
 
+Private Sub txtTimeout_Change()
+On Error GoTo LOKAL_ERROR
+
+ TxtTimeout.BackColor = vbWhite
+
+ Dim textval As String
+  
+ textval = Trim(TxtTimeout.Text)
+ textval = Replace(textval, ".", "")
+ textval = Replace(textval, ",", "")
+ 
+  If IsNumeric(textval) Then
+  
+       If CInt(textval) >= 1 And CInt(textval) <= 120 Then
+            TxtTimeout.Text = CStr(textval)
+       Else
+            TxtTimeout.Text = ""
+       End If
+  Else
+       TxtTimeout.Text = ""
+  End If
+  
+   
+ 
+Exit Sub
+LOKAL_ERROR:
+    Screen.MousePointer = 0
+    Fehler.gsDescr = err.Description
+    Fehler.gsNumber = err.Number
+    Fehler.gsFormular = "TseEinstellungen"
+    Fehler.gsFunktion = "txtTimeout_Change"
+    Fehler.gsFehlertext = "Im Programmteil TseEinstellungen ist ein Fehler aufgetreten."
+    
+    Fehlermeldung1
+  
+  
+End Sub

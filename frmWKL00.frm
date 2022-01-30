@@ -1,7 +1,7 @@
 VERSION 5.00
 Object = "{7D622DE6-0ABC-471E-9234-97DEC5E0A708}#3.8#0"; "sevCmd3.ocx"
-Object = "{00025600-0000-0000-C000-000000000046}#5.2#0"; "Crystl32.OCX"
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
+Object = "{00025600-0000-0000-C000-000000000046}#5.2#0"; "CRYSTL32.OCX"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
 Begin VB.Form frmWKL00 
    BackColor       =   &H00E0E0E0&
    ClientHeight    =   8595
@@ -13308,6 +13308,9 @@ Private Sub LeseMWStSaetzeWKL00()
          
      End If
     
+    '01.01.2100 muss auf Null gesetzt werden, wenn dieses Datum von ExportFormular(DsFinvK) für Zwischenrechnen-Zwecks benutzt wurde
+    gdBase.Execute ("update MWSTSATZ set bisD=null where bisD=CDate('01.01.2100')")
+    
     cSQL = "Select * from MWSTSATZ WHERE vonD>= CDate('" & Date & "') AND bisD<= CDate('" & Date & "') AND bisD <> NULL"
     Set rsrs = gdBase.OpenRecordset(cSQL)
     If Not rsrs.EOF Then
@@ -25004,6 +25007,12 @@ On Error GoTo LOKAL_ERROR
          If GI_auf_EC_setzenFurAlleTabellenMitKK_ART = 1 Then
           gdBase.Execute "Create Table GI_zum_EC_Fertig(EsIstFertig bit)", dbFailOnError
          End If
+     
+    End If
+    
+    If NewTableSuchenDB("MWSTSATZ_sic", gdBase) Then
+    
+        TabelleMWSTSATZ_Erweiterungen_wiederherstellen
      
     End If
     

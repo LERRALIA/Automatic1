@@ -1,7 +1,7 @@
 VERSION 5.00
 Object = "{7D622DE6-0ABC-471E-9234-97DEC5E0A708}#3.8#0"; "sevCmd3.ocx"
-Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "MSFLXGRD.OCX"
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
+Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "msflxgrd.ocx"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
 Begin VB.Form frmWKL24 
    BackColor       =   &H00C0C000&
    Caption         =   "Kreditverwaltung"
@@ -2948,7 +2948,7 @@ SCHUBLADE:
                         schreibeProtokollUNITXT CStr(dGPreis), "Kartenzahlung"
                     End If
             End Select
-            rsrs!KASNUM = gcKasNum
+            rsrs!kasnum = gcKasNum
             rsrs!ADATE = lDatumJetzt
             
             
@@ -3456,7 +3456,7 @@ Private Sub AusbuchenKreditVerkaufWKL24ohneBon()
                         schreibeProtokollUNITXT CStr(dGPreis), "Kartenzahlung"
                     End If
             End Select
-            rsrs!KASNUM = gcKasNum
+            rsrs!kasnum = gcKasNum
             rsrs!ADATE = lDatumJetzt
             rsrs.Update
             rsrs.Close: Set rsrs = Nothing
@@ -3865,7 +3865,7 @@ Private Sub LeseKreditDetailsWKL24()
                 .Text = IIf(IsNull(rsrs!BEZEICH), "", rsrs!BEZEICH)
                 .Col = 4
                 iStufe = 26
-                .Text = IIf(IsNull(rsrs!MENGE), "", rsrs!MENGE)
+                .Text = IIf(IsNull(rsrs!Menge), "", rsrs!Menge)
                 .Col = 5
                 iStufe = 27
                 'Achtung Änderung f. Schlanstein 050907
@@ -4179,7 +4179,7 @@ Private Sub MoveDaten2RechnungWKL24(lAktRecord As Long, cReNr As String, dSumme 
     Dim cAnzahl As String
     Dim cEPreis As String
     Dim cGPreis As String
-    Dim cMwst As String
+    Dim cMWST As String
     Dim cKdnr As String
     Dim cPreisKz As String
     
@@ -4223,7 +4223,7 @@ Private Sub MoveDaten2RechnungWKL24(lAktRecord As Long, cReNr As String, dSumme 
     MSFlexGrid2.Col = 7
     ctmp = MSFlexGrid2.Text
     ctmp = fnMoveComma2Point$(ctmp)
-    cMwst = ctmp
+    cMWST = ctmp
     
     MSFlexGrid2.Col = 8
     ctmp = MSFlexGrid2.Text
@@ -4258,7 +4258,7 @@ Private Sub MoveDaten2RechnungWKL24(lAktRecord As Long, cReNr As String, dSumme 
     cSQL = cSQL & ", " & cAnzahl & ""
     cSQL = cSQL & ", " & cEPreis & ""
     cSQL = cSQL & ", " & cGPreis & ""
-    cSQL = cSQL & ", '" & cMwst & "' "
+    cSQL = cSQL & ", '" & cMWST & "' "
     cSQL = cSQL & ", " & cPreisKz & ""
     cSQL = cSQL & ", " & lreihenfolge & ""
     cSQL = cSQL & ") "

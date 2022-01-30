@@ -61,8 +61,8 @@ Option Explicit
  Global R_QRCodeAlsImgPath As String
  Global R_StartSignatur As String
  Global R_FinishSignatur As String
- Global R_FINISH_SIG_Zaehler As String
- Global R_START_SIG_Zaehler As String
+ Global R_FINISH_SIG_Zaehler As Integer
+ Global R_START_SIG_Zaehler As Integer
  
  'wenn TSE vernünftig initialisiert ist, ist TSE_OK = True , TSE_Err = ""
  Global TSE_OK As Boolean

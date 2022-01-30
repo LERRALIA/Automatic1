@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{7D622DE6-0ABC-471E-9234-97DEC5E0A708}#3.8#0"; "sevCmd3.ocx"
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "MSCOMCTL.OCX"
 Begin VB.Form frmWKL38 
    BorderStyle     =   1  'Fest Einfach
    Caption         =   "KISSNET..."
@@ -1977,15 +1977,11 @@ Attribute rfConnection.VB_VarHelpID = -1
 Public cFiles As New Collection, cAttrs As New Collection, cSize As New Collection, cRemAttrs As New Collection
 Public nTotal As Long, DriveCol As New Collection, sCurPath As String
 
-Private Sub Check2_Click(Index As Integer)
-
-End Sub
-
-Private Sub Command9_Click(Index As Integer)
+Private Sub Command9_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
     
     
-    Select Case Check2(Index).Caption
+    Select Case Check2(index).Caption
         Case Is = "Neue Stammdaten sind übertragen."
             If glLevel >= DlgZugriff(1).dZugriff Then
                 frmWKL11.Show 1
@@ -3403,7 +3399,7 @@ End Sub
 Private Sub cmdrExec_Click()
     On Error GoTo LOKAL_ERROR
     
-    If (cRemAttrs.Item(lvRemote.SelectedItem.Index) And vbDirectory) <> vbDirectory Then
+    If (cRemAttrs.Item(lvRemote.SelectedItem.index) And vbDirectory) <> vbDirectory Then
         Dim strTemp As String
         strTemp = String(100, 0)
         GetTempPath 100, strTemp
@@ -3466,7 +3462,7 @@ End Sub
 Private Sub cmdrRename_Click()
     On Error GoTo LOKAL_ERROR
     
-    If lvRemote.SelectedItem.Index = 1 Then Exit Sub
+    If lvRemote.SelectedItem.index = 1 Then Exit Sub
     Dim ret As String
     ret = InputBox("Enter the new name for " + lvRemote.SelectedItem.Text)
     If ret <> "" Then

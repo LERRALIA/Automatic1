@@ -4469,7 +4469,7 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Check1_GotFocus(Index As Integer)
+Private Sub Check1_GotFocus(index As Integer)
 On Error GoTo LOKAL_ERROR
     
     If bVorhanden Then
@@ -4536,12 +4536,12 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub cmdAusgabe_Click(Index As Integer)
+Private Sub cmdAusgabe_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     Dim rsrs As Recordset
     Dim sHaupt As String
     
-    Select Case Index
+    Select Case index
         Case Is = 0
             fraListen.Visible = True
             fraEtiketten.Visible = False
@@ -4807,7 +4807,7 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub cmdEtikett_Click(Index As Integer)
+Private Sub cmdEtikett_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim sSQL As String
@@ -4833,16 +4833,16 @@ Private Sub cmdEtikett_Click(Index As Integer)
         
         sSQL = sSQL & " from KUTEILME "
         
-        If Option1(0).Value = True Then
+        If Option1(0).value = True Then
     '        Sortierung 1
             sSQL = sSQL & " order by Month(Datum1),Day(Datum1)"
-        ElseIf Option1(1).Value = True Then
+        ElseIf Option1(1).value = True Then
     '        Sortierung 2
             sSQL = sSQL & " order by Name"
-        ElseIf Option1(2).Value = True Then
+        ElseIf Option1(2).value = True Then
     '        Sortierung 3
             sSQL = sSQL & " order by Plz"
-        ElseIf Option1(3).Value = True Then
+        ElseIf Option1(3).value = True Then
     '        Sortierung 4
             sSQL = sSQL & " order by Umsatz desc"
         End If
@@ -4857,7 +4857,7 @@ Private Sub cmdEtikett_Click(Index As Integer)
         End If
         
         
-        Select Case Index
+        Select Case index
             Case Is = 0
                 'Etiketten groß
                 If Modul6.FindFile(gcDBPfad, "aWKLavas.rpt") Then
@@ -4924,10 +4924,10 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub cmdExport_Click(Index As Integer)
+Private Sub cmdExport_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
-    Select Case Index
+    Select Case index
         Case Is = 0
             bEmail = True
 '            bDis = False
@@ -5106,19 +5106,19 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub cmdListen_Click(Index As Integer)
+Private Sub cmdListen_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim sSQL As String
     
-    If Index <> 5 Then
+    If index <> 5 Then
         If NewTableSuchenDBKombi("KUTEILME", gdBase) = False Then
         
             anzeige "rot", "Bitte erst Kunden ermitteln - dann die Ausgabeart bestimmen!", lblanzeige
             Exit Sub
         End If
     End If
-        Select Case Index
+        Select Case index
             Case Is = 0     'Adressenliste
                 reportbildschirm "kaali", "aWKLavc"
             Case Is = 1     'Geburtstagsliste
@@ -5244,7 +5244,7 @@ Private Sub cmdSenden_Click()
     Else
         If bExcel Then
         
-            Dim Result      As String
+            Dim result      As String
             Dim Buff        As String
             Dim sZeitung    As String
             
@@ -5257,7 +5257,7 @@ Private Sub cmdSenden_Click()
             Buff = Buff & "&Attach=" + Chr$(34) & sZeitung + Chr$(34)
             
         
-            Result = ShellExecute(0&, "open", Buff, "", "", 6)
+            result = ShellExecute(0&, "open", Buff, "", "", 6)
     
             
             
@@ -5309,7 +5309,7 @@ Private Sub cmdStart_Click()
     
     lAusgewählt = 0
 
-    If checkweibl.Value = 0 And checkmannl.Value = 0 And chkDS.Value = 0 And checkOKr.Value = 0 And txtKdNrVon.Text = "" And txtKdNrBis.Text = "" And _
+    If checkweibl.value = 0 And checkmannl.value = 0 And chkDS.value = 0 And checkOKr.value = 0 And txtKdNrVon.Text = "" And txtKdNrBis.Text = "" And _
     txtPlzVon.Text = "" And txtKauf(0).Text = "" And txtKauf(1).Text = "" And txtBowertVon.Text = "" And _
     txtBowertBis.Text = "" And txtUmsatzVon.Text = "" And txtUmsatzBis.Text = "" And txtDat1(0).Text = "" And _
     txtDat1(1).Text = "" And txtLief.Text = "" And Label1(16).Tag = "" And txtDat2(0).Text = "" And txtDat2(1).Text = "" And cboGebMonat.Text = "" And txtErtragVon.Text = "" And txtErtragBis.Text = "" Then
@@ -5559,7 +5559,7 @@ Private Sub Tabellefuellen()
             If lCounter = 300 Then
                 lCounter = 0
             End If
-            pbrZeit.Value = lCounter
+            pbrZeit.value = lCounter
             
             MSHFLEX1.Rows = lrow + 1
             MSHFLEX1.Row = lrow
@@ -5809,30 +5809,30 @@ Private Sub Zusammenstellungerstellen(sdatname As String)
     
     sGeschlecht = ""
     
-    If checkmannl.Value = 1 And checkweibl.Value = 1 Then
-        checkmannl.Value = 0
-        checkweibl.Value = 0
+    If checkmannl.value = 1 And checkweibl.value = 1 Then
+        checkmannl.value = 0
+        checkweibl.value = 0
     End If
     
     
     
-    If checkweibl.Value = 1 Then
+    If checkweibl.value = 1 Then
         sGeschlecht = "W"
-    ElseIf checkmannl.Value = 1 Then
+    ElseIf checkmannl.value = 1 Then
         sGeschlecht = "M"
     Else
         sGeschlecht = ""
     End If
     
     bDS = False
-    If chkDS.Value = vbChecked Then
+    If chkDS.value = vbChecked Then
         bDS = True
     End If
     
     
     
     
-    If checkOKr.Value = 1 Then
+    If checkOKr.value = 1 Then
         sKreditfrage = "J"
     Else
         sKreditfrage = ""
@@ -6367,7 +6367,7 @@ Private Sub ausführen(sdatname As String, sErstelldat As String)
     End If
     rsKASQL.Close
     
-    pbrZeit.Value = 100
+    pbrZeit.value = 100
     loeschNEW "KUTEILME", gdBase
     
     sSQLKunden = " Select   "
@@ -6418,7 +6418,7 @@ Private Sub ausführen(sdatname As String, sErstelldat As String)
     sSQLKunden = sSQLKunden & ", 0.00 as Umsatz"
 
     sSQLKunden = sSQLKunden & " into KUTEILME from Kunden "
-    pbrZeit.Value = 150
+    pbrZeit.value = 150
     '************************Lieferant/Linie
         
         sSQL = "Select * From KASQLLL Where KANAME = '" & sdatname & "'"
@@ -6505,7 +6505,7 @@ Private Sub ausführen(sdatname As String, sErstelldat As String)
         End If
         rsKASQLAGN.Close
     
-    pbrZeit.Value = 200
+    pbrZeit.value = 200
     If (sKaufdatVon <> "" And sKaufdatBis <> "") Or iAGN <> 0 Or lLieferant <> 0 Then '***mit kassjour
         sSQLKunden = sSQLKunden & ", kassjour "
     End If
@@ -6738,7 +6738,7 @@ Private Sub ausführen(sdatname As String, sErstelldat As String)
     
 '    MsgBox sSQLKunden
     
-    pbrZeit.Value = 250
+    pbrZeit.value = 250
     gdBase.Execute sSQLKunden, dbFailOnError
     
     
@@ -6986,7 +6986,7 @@ Private Sub ausführen(sdatname As String, sErstelldat As String)
     
     End If
     
-    pbrZeit.Value = 300
+    pbrZeit.value = 300
     
     sSQL = " Delete From KASQL where KAname = 'kein Betreff' "
     gdBase.Execute sSQL, dbFailOnError
@@ -7013,10 +7013,10 @@ LOKAL_ERROR:
     Fehlermeldung1
 '    Resume Next
 End Sub
-Private Sub cmdFormat_Click(Index As Integer)
+Private Sub cmdFormat_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
-    cmdFormat(Index).Enabled = False
+    cmdFormat(index).Enabled = False
     
     Dim sSQL        As String
     Dim cPfad       As String
@@ -7039,7 +7039,7 @@ Private Sub cmdFormat_Click(Index As Integer)
     
     If NewTableSuchenDBKombi("KUTEILME", gdBase) Then
     
-        Select Case Index
+        Select Case index
             Case Is = 0     'EXCEL
             
                     
@@ -7273,7 +7273,7 @@ Private Sub cmdFormat_Click(Index As Integer)
         anzeige "rot", "Bitte erst Kunden ermitteln - dann die Ausgabeart bestimmen!", lblanzeige
     End If
     
-    cmdFormat(Index).Enabled = True
+    cmdFormat(index).Enabled = True
 
     Exit Sub
 LOKAL_ERROR:
@@ -7290,7 +7290,7 @@ LOKAL_ERROR:
         Fehler.gsNumber = err.Number
         Fehler.gsFormular = Me.name
         Fehler.gsFunktion = "cmdFormat_Click"
-        Fehler.gsFehlertext = "Im Programmteil Kundenanalyse ist ein Fehler aufgetreten. " & Index
+        Fehler.gsFehlertext = "Im Programmteil Kundenanalyse ist ein Fehler aufgetreten. " & index
         
         Fehlermeldung1
     End If
@@ -7337,7 +7337,7 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Command1_Click(Index As Integer)
+Private Sub Command1_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
 Dim lrow As Long
@@ -7345,7 +7345,7 @@ Dim cFarbkenn As String
 Dim iRet As Integer
 Dim ctmp As String
 
-Select Case Index
+Select Case index
 
     Case 0 'kundendaten
         
@@ -7540,10 +7540,10 @@ LOKAL_ERROR:
     
 End Sub
 
-Private Sub Command2_Click(Index As Integer)
+Private Sub Command2_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
     
-    Select Case Index
+    Select Case index
         Case 0
             frmWKL124.Show 1
         Case 1
@@ -7562,12 +7562,12 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Command4_Click(Index As Integer)
+Private Sub Command4_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
     Dim sSQL As String
     Dim lcount As Long
     
-    Select Case Index
+    Select Case index
         Case Is = 0        ' Kalender
             txtDat2(0).Text = Format(Datumschreiben11a(3000, 4000), "DD.MM.YY")
             txtDat2(1).SetFocus
@@ -7600,7 +7600,7 @@ On Error GoTo LOKAL_ERROR
             If gF2Prompt.cFeld <> "" Then
                 frmWK00a.Show 1
                 If gF2Prompt.cWahl <> "" Then
-                    Text1(Index).Text = gF2Prompt.cWahl
+                    Text1(index).Text = gF2Prompt.cWahl
                 End If
             End If
             
@@ -7821,10 +7821,10 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Label1_DblClick(Index As Integer)
+Private Sub Label1_DblClick(index As Integer)
 On Error GoTo LOKAL_ERROR
 
-    If Index = 16 Then
+    If index = 16 Then
         Label1(16).Caption = "alle Farben"
         Label1(16).Tag = ""
         Label1(16).BackColor = glH1 'Label1(14).BackColor
@@ -8164,35 +8164,35 @@ Private Sub ZusammenstellunginMaskezeigen(sdatname As String)
     
     '***Geschlecht
     
-    checkweibl.Value = 0
-    checkmannl.Value = 0
+    checkweibl.value = 0
+    checkmannl.value = 0
     
     If sGeschlecht = "W" Then
-        checkweibl.Value = 1
+        checkweibl.value = 1
     ElseIf sGeschlecht = "M" Then
-        checkmannl.Value = 1
+        checkmannl.value = 1
     Else
-        checkweibl.Value = 0
-        checkmannl.Value = 0
+        checkweibl.value = 0
+        checkmannl.value = 0
     End If
     
     'ds
     
     If bDS = True Then
-        chkDS.Value = vbChecked
+        chkDS.value = vbChecked
     Else
-        chkDS.Value = vbUnchecked
+        chkDS.value = vbUnchecked
     End If
     
     '***Kredit
     
-    checkOKr.Value = 0
+    checkOKr.value = 0
     
     
     If sKredit = "J" Then
-        checkOKr.Value = 1
+        checkOKr.value = 1
     Else
-        checkOKr.Value = 0
+        checkOKr.value = 0
     End If
     
    
@@ -8782,12 +8782,12 @@ LOKAL_ERROR:
 End Sub
 
 
-Private Sub Text1_GotFocus(Index As Integer)
+Private Sub Text1_GotFocus(index As Integer)
     On Error GoTo LOKAL_ERROR
     
-    Text1(Index).BackColor = glSelBack1
-    Text1(Index).SelStart = 0
-    Text1(Index).SelLength = Len(txtUmsatzVon.Text)
+    Text1(index).BackColor = glSelBack1
+    Text1(index).SelStart = 0
+    Text1(index).SelLength = Len(txtUmsatzVon.Text)
     
     Exit Sub
 LOKAL_ERROR:
@@ -8799,10 +8799,10 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Text1_LostFocus(Index As Integer)
+Private Sub Text1_LostFocus(index As Integer)
     On Error GoTo LOKAL_ERROR
     
-    Text1(Index).BackColor = vbWhite
+    Text1(index).BackColor = vbWhite
      Exit Sub
 LOKAL_ERROR:
     Fehler.gsDescr = err.Description
@@ -9023,10 +9023,10 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub txtDat1_LostFocus(Index As Integer)
+Private Sub txtDat1_LostFocus(index As Integer)
     On Error GoTo LOKAL_ERROR
     
-    txtDat1(Index).BackColor = vbWhite
+    txtDat1(index).BackColor = vbWhite
     
     Exit Sub
 LOKAL_ERROR:
@@ -9038,10 +9038,10 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub txtDat2_LostFocus(Index As Integer)
+Private Sub txtDat2_LostFocus(index As Integer)
     On Error GoTo LOKAL_ERROR
     
-    txtDat2(Index).BackColor = vbWhite
+    txtDat2(index).BackColor = vbWhite
     
     Exit Sub
 LOKAL_ERROR:
@@ -9120,12 +9120,12 @@ LOKAL_ERROR:
 End Sub
 
 
-Private Sub txtKauf_GotFocus(Index As Integer)
+Private Sub txtKauf_GotFocus(index As Integer)
     On Error GoTo LOKAL_ERROR
 
-    txtKauf(Index).BackColor = glSelBack1
-    txtKauf(Index).SelStart = 0
-    txtKauf(Index).SelLength = Len(txtKauf(Index).Text)
+    txtKauf(index).BackColor = glSelBack1
+    txtKauf(index).SelStart = 0
+    txtKauf(index).SelLength = Len(txtKauf(index).Text)
     
 Exit Sub
 LOKAL_ERROR:
@@ -9137,15 +9137,15 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub txtDat1_GotFocus(Index As Integer)
+Private Sub txtDat1_GotFocus(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     If bVorhanden Then
         bAender = True
     End If
-    txtDat1(Index).BackColor = glSelBack1
-    txtDat1(Index).SelStart = 0
-    txtDat1(Index).SelLength = Len(txtDat1(Index).Text)
+    txtDat1(index).BackColor = glSelBack1
+    txtDat1(index).SelStart = 0
+    txtDat1(index).SelLength = Len(txtDat1(index).Text)
     
 Exit Sub
 LOKAL_ERROR:
@@ -9157,15 +9157,15 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub txtDat2_GotFocus(Index As Integer)
+Private Sub txtDat2_GotFocus(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     If bVorhanden Then
         bAender = True
     End If
-    txtDat2(Index).BackColor = glSelBack1
-    txtDat2(Index).SelStart = 0
-    txtDat2(Index).SelLength = Len(txtDat2(Index).Text)
+    txtDat2(index).BackColor = glSelBack1
+    txtDat2(index).SelStart = 0
+    txtDat2(index).SelLength = Len(txtDat2(index).Text)
         
 Exit Sub
 LOKAL_ERROR:
@@ -9177,10 +9177,10 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub txtKauf_LostFocus(Index As Integer)
+Private Sub txtKauf_LostFocus(index As Integer)
     On Error GoTo LOKAL_ERROR
     
-    txtKauf(Index).BackColor = vbWhite
+    txtKauf(index).BackColor = vbWhite
     
     Exit Sub
 LOKAL_ERROR:

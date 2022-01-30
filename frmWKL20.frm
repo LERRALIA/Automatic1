@@ -1,9 +1,9 @@
 VERSION 5.00
 Object = "{7D622DE6-0ABC-471E-9234-97DEC5E0A708}#3.8#0"; "sevCmd3.ocx"
 Object = "{00025600-0000-0000-C000-000000000046}#5.2#0"; "CRYSTL32.OCX"
-Object = "{648A5603-2C6E-101B-82B6-000000000014}#1.1#0"; "mscomm32.ocx"
+Object = "{648A5603-2C6E-101B-82B6-000000000014}#1.1#0"; "MSCOMM32.OCX"
 Object = "{0BA686C6-F7D3-101A-993E-0000C0EF6F5E}#1.0#0"; "threed32.ocx"
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "Mscomctl.ocx"
 Object = "{0ECD9B60-23AA-11D0-B351-00A0C9055D8E}#6.0#0"; "mshflxgd.ocx"
 Object = "{248DD890-BB45-11CF-9ABC-0080C7E7B78D}#1.0#0"; "MSWINSCK.OCX"
 Begin VB.Form frmWKL20 
@@ -33204,7 +33204,9 @@ StartPunkt:
             dSparSatzsum = dSparSatzsum + dWert
         
             ctmp = Format$(dWert, "###,##0.00")
-            ctmp = Space$(8 - Len(ctmp)) & ctmp
+            'Odayy Änderung [ich habe Abs()funktion genutzt um die negative Differenz(8 - Len(ctmp)) zu vermeiden] <<<<<<< START
+             ctmp = Space$(Abs(8 - Len(ctmp))) & ctmp
+            'Odayy Änderung [ich habe Abs()funktion genutzt um die negative Differenz(8 - Len(ctmp)) zu vermeiden] <<<<<<< ENDE
             cDaten = cDaten & ctmp
             
             KonvertAnsiAscii cDaten

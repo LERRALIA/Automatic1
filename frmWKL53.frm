@@ -1,8 +1,8 @@
 VERSION 5.00
 Object = "{7D622DE6-0ABC-471E-9234-97DEC5E0A708}#3.8#0"; "sevCmd3.ocx"
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
-Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomct2.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "Mscomctl.ocx"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
+Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
 Begin VB.Form frmWKL53 
    Caption         =   "Winkiss Programmeinstellungen"
    ClientHeight    =   9825
@@ -462,10 +462,10 @@ Begin VB.Form frmWKL53
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   480
+      Left            =   3360
       TabIndex        =   434
       Tag             =   "1"
-      Top             =   4440
+      Top             =   8040
       Width           =   1815
       Begin VB.CheckBox Check86 
          Caption         =   "Live-Nachrichten"
@@ -2864,12 +2864,12 @@ Begin VB.Form frmWKL53
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   255
-      Left            =   840
+      Height          =   375
+      Left            =   480
       TabIndex        =   239
       Tag             =   "1"
-      Top             =   7200
-      Width           =   2415
+      Top             =   5040
+      Width           =   2175
       Begin VB.TextBox Text8 
          BeginProperty Font 
             Name            =   "Arial"
@@ -3043,7 +3043,7 @@ Begin VB.Form frmWKL53
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   113508354
+         Format          =   8454146
          CurrentDate     =   38457.8333333333
       End
       Begin VB.CheckBox Check47 
@@ -3509,12 +3509,12 @@ Begin VB.Form frmWKL53
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   6015
-      Left            =   3240
+      Height          =   375
+      Left            =   600
       TabIndex        =   205
       Tag             =   "1"
-      Top             =   3480
-      Width           =   5775
+      Top             =   7080
+      Width           =   2055
       Begin VB.CheckBox Check104 
          Caption         =   "nur Winkiss ausschalten, Rechner bleibt an"
          Height          =   240
@@ -3718,7 +3718,7 @@ Begin VB.Form frmWKL53
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   113508354
+         Format          =   8454146
          CurrentDate     =   38457.8333333333
       End
       Begin VB.Label Label5 
@@ -4867,7 +4867,7 @@ Begin VB.Form frmWKL53
       TabIndex        =   17
       Tag             =   "1"
       Top             =   960
-      Width           =   8655
+      Width           =   8415
       Begin VB.CheckBox Check24 
          Caption         =   "keine Wochendaten übertragen (Parfümerie)"
          Height          =   240
@@ -9372,7 +9372,7 @@ Begin VB.Form frmWKL53
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Format          =   113508354
+            Format          =   8454146
             CurrentDate     =   38457.8333333333
          End
          Begin VB.Label lbl6 
@@ -10936,10 +10936,10 @@ Begin VB.Form frmWKL53
          Strikethrough   =   0   'False
       EndProperty
       Height          =   615
-      Left            =   600
+      Left            =   6000
       TabIndex        =   3
       Tag             =   "1"
-      Top             =   3600
+      Top             =   8760
       Width           =   2415
       Begin VB.CheckBox Check40 
          Caption         =   "optimierte Stammdatenpflege (Drogerie, Spielwaren)"

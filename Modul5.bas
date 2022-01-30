@@ -402,36 +402,42 @@ Public Function ermNextWochendatei() As Integer
     ermNextWochendatei = 0
     
     
+    'alte <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START
+            
+        '    sSQL = "Select max(KW) as maxi from MASTERPRO where jahr = " & Year(Now)
+        '    Set rsrs = gdBase.OpenRecordset(sSQL)
+        '    If Not rsrs.EOF Then
+        '        If Not IsNull(rsrs!maxi) Then
+        '            ermNextWochendatei = rsrs!maxi
+        '        End If
+        '    End If
+        '    rsrs.Close: Set rsrs = Nothing
+        '
+        '    If ermNextWochendatei = 0 Then
+        '        'aktuelle KW wird benötigt
+        '
+        '        ermNextWochendatei = CInt(DatePart("ww", DateValue(Now)))
+        '        If Year(Now) = "2016" Then
+        '            ermNextWochendatei = ermNextWochendatei - 1
+        '
+        '        End If
+        '
+        '        Exit Function
+        '    End If
+        '
+        '
+        '    If ermNextWochendatei = 53 Then
+        '        ermNextWochendatei = 1
+        '    Else
+        '        ermNextWochendatei = ermNextWochendatei + 1
+        '    End If
+
+    'alte <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ENDE
     
-    sSQL = "Select max(KW) as maxi from MASTERPRO where jahr = " & Year(Now)
-    Set rsrs = gdBase.OpenRecordset(sSQL)
-    If Not rsrs.EOF Then
-        If Not IsNull(rsrs!maxi) Then
-            ermNextWochendatei = rsrs!maxi
-        End If
-    End If
-    rsrs.Close: Set rsrs = Nothing
+    'neue <<<<<<<<<<<< START
+     ermNextWochendatei = CInt(DatePart("ww", DateValue(Now), vbMonday, vbFirstFourDays))
+    'neue <<<<<<<<<<<< ENDE
     
-    If ermNextWochendatei = 0 Then
-        'aktuelle KW wird benötigt
-        
-        ermNextWochendatei = CInt(DatePart("ww", DateValue(Now)))
-        If Year(Now) = "2016" Then
-            ermNextWochendatei = ermNextWochendatei - 1
-        
-        End If
-        
-        Exit Function
-    End If
-    
-    
-    If ermNextWochendatei = 53 Then
-        ermNextWochendatei = 1
-    Else
-        ermNextWochendatei = ermNextWochendatei + 1
-    End If
-    
-        
     Exit Function
 LOKAL_ERROR:
 

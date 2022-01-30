@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{7D622DE6-0ABC-471E-9234-97DEC5E0A708}#3.8#0"; "sevCmd3.ocx"
-Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCT2.OCX"
+Object = "{86CF1D34-0C5F-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomct2.ocx"
 Begin VB.Form frmWKL131 
    Caption         =   "Einstellungen an der Kasse"
    ClientHeight    =   8595
@@ -1461,7 +1461,7 @@ Begin VB.Form frmWKL131
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   118489090
+         Format          =   120455170
          CurrentDate     =   43936.4166666667
       End
       Begin VB.Label lbl6 

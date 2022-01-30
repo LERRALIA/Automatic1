@@ -8174,11 +8174,11 @@ Begin VB.Form frmWKL00
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   375
+      Height          =   615
       Left            =   4200
       TabIndex        =   59
       ToolTipText     =   "Einstellungen"
-      Top             =   3840
+      Top             =   3120
       Visible         =   0   'False
       Width           =   255
       Begin sevCommand3.Command Command9 
@@ -8694,7 +8694,7 @@ Begin VB.Form frmWKL00
       ToolTipText     =   "Service"
       Top             =   3120
       Visible         =   0   'False
-      Width           =   375
+      Width           =   255
       Begin sevCommand3.Command Command6 
          Height          =   615
          Index           =   2
@@ -14621,7 +14621,12 @@ End Sub
 
   
 Private Sub Command15_Click()
- TestZwecks.Show 1
+' TestZwecks.Show 1
+
+'an EDEKA FTP-Server eine Test-Bestellung schicken  <<<<<<<<<<<<<<<<<<< START
+' giKissFtpMode = 49
+' frmWKL38.Show 1
+'an EDEKA FTP-Server eine Test-Bestellung schicken  <<<<<<<<<<<<<<<<<<< ENDE
 End Sub
 
 Private Sub Command7_KeyUp(index As Integer, KeyCode As Integer, Shift As Integer)
@@ -16905,7 +16910,7 @@ Private Sub Command9_Click(index As Integer)
                 OpenProgrammTeil frmWKL34, ermittlezugriff(byteZGNr)
             Case Is = 8 'MWST
                 
-                ireslt = MsgBox("alle Kassen in der Filiale müssen zuerst halten (nicht mehr kassieren)" & vbNewLine & "sind alle kassen gehalten ?", vbQuestion + vbYesNo, "Winkiss Frage:")
+                ireslt = MsgBox("Winkiss muss an allen Arbeitplätzen beendet werden, bevor" & vbNewLine & "Sie die MWST ändern können." & vbNewLine & vbNewLine & "gegenwärtige MWST: ( V: " & gdMWStV & ", E: " & gdMWStE & ", O: " & gdMWStO & " )", vbQuestion + vbYesNo, "Winkiss Frage:")
                 If ireslt = vbYes Then
                  TabelleMWSTSATZ_Erweiterungen_wiederherstellen
                  OpenProgrammTeil frmWKL56, ermittlezugriff(byteZGNr)
@@ -16978,7 +16983,7 @@ Private Sub Command9_Click(index As Integer)
             Case Is = 8
             
                 
-                ireslt = MsgBox("alle Kassen in der Filiale müssen zuerst halten (nicht mehr kassieren)" & vbNewLine & "sind alle kassen gehalten ?", vbQuestion + vbYesNo, "Winkiss Frage:")
+                ireslt = MsgBox("Winkiss muss an allen Arbeitplätzen beendet werden, bevor" & vbNewLine & "Sie die MWST ändern können." & vbNewLine & vbNewLine & "gegenwärtige MWST: ( V: " & gdMWStV & ", E: " & gdMWStE & ", O: " & gdMWStO & " )", vbQuestion + vbYesNo, "Winkiss Frage:")
                 If ireslt = vbYes Then
                 
                   TabelleMWSTSATZ_Erweiterungen_wiederherstellen
@@ -18970,6 +18975,86 @@ LOKAL_ERROR:
     Fehler.gsNumber = err.Number
     Fehler.gsFormular = Me.name
     Fehler.gsFunktion = "Command14_Click"
+    Fehler.gsFehlertext = "Beim Öffnen eines Programmteils ist ein Fehler aufgetreten."
+    
+    Fehlermeldung1
+    
+End Sub
+
+Private Sub Form_Activate()
+ Me.KeyPreview = True
+End Sub
+
+Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
+ 
+ If KeyCode = vbKeyF8 Then
+ 
+    'Bin ich BUDNI/EDEKA ?
+     Dim rsrs As Recordset
+     Set rsrs = gdBase.OpenRecordset("select * FROM LISRT WHERE FORMAT='EDIBHSG' OR FORMAT='EDIBUDNI'")
+               
+     If Not rsrs.EOF Then
+       
+           If Not gbBudniNeuesFtpVerfahren Then
+                    
+                 'BUDNI ----> EDEKA
+                 
+                 Dim ireslt1 As Integer
+                 ireslt1 = MsgBox("Winkiss muss an allen Arbeitplätzen beendet werden, bevor" & vbNewLine & "Sie die Budni-EDEKA-Umstellung durchführen können.", vbQuestion + vbYesNo, "Budni-EDEKA Umstellung durchführen:")
+                   
+                 If ireslt1 = vbYes Then
+                  FTPwechsel.Left = (Me.ScaleWidth - FTPwechsel.Width) / 2
+                  FTPwechsel.Top = (Me.ScaleHeight - FTPwechsel.Height) / 2
+                  FTPwechsel.Show 1
+                 End If
+                 
+           Else
+           
+                 'EDEKA ----> BUDNI
+                 
+                 Dim ireslt2 As Integer
+                 ireslt2 = MsgBox("Winkiss muss an allen Arbeitplätzen beendet werden, bevor" & vbNewLine & "Sie die Budni-EDEKA-Umstellung rückgängig machen können.", vbQuestion + vbYesNo, "Budni-EDEKA Umstellung rückgängig machen:")
+                   
+                 If ireslt2 = vbYes Then
+                  FTPwechselAbbruch.Left = (Me.ScaleWidth - FTPwechselAbbruch.Width) / 2
+                  FTPwechselAbbruch.Top = (Me.ScaleHeight - FTPwechselAbbruch.Height) / 2
+                  FTPwechselAbbruch.Show 1
+                 End If
+                 
+           End If
+        
+     End If
+     
+ ElseIf KeyCode = vbKeyF2 Then
+         
+        If Not FileExists(gcDBPfad & "\EineF-DateiWirdGerettet.txt") Then
+            
+            Dim ireslt3 As Integer
+            ireslt3 = MsgBox("haben Sie zuerst geprüft, ob die fehlten F-Dateien auf 'Chipotle' auch im Ordner 'zenin' nicht existieren ?", vbQuestion + vbYesNo, "F-Dateien Wiederherstellung")
+                   
+            If ireslt3 = vbYes Then
+            
+            'F-Dateien Rettung
+             FDateienRettung.Left = (Me.ScaleWidth - FDateienRettung.Width) / 2
+             FDateienRettung.Top = ((Me.ScaleHeight - FDateienRettung.Height) / 2) + 200
+             FDateienRettung.Show 1
+             
+            End If
+            
+        Else
+        
+             MsgBox ("andere Kasse rettet momentan eine F-Datei !!!" & vbNewLine & "warten Sie bitte bis diese fertig ist.")
+        
+        End If
+ End If
+ 
+ 
+ Exit Sub
+LOKAL_ERROR:
+    Fehler.gsDescr = err.Description
+    Fehler.gsNumber = err.Number
+    Fehler.gsFormular = Me.name
+    Fehler.gsFunktion = "Form_KeyUp"
     Fehler.gsFehlertext = "Beim Öffnen eines Programmteils ist ein Fehler aufgetreten."
     
     Fehlermeldung1
@@ -25017,7 +25102,7 @@ On Error GoTo LOKAL_ERROR
         End If
         
     'USB-Stick von TSE Initialisierung    ENDE <------------------------------------------------------
-    
+   
     
     If Not NewTableSuchenDB("GI_zum_EC_Fertig", gdBase) Then
     
@@ -25029,9 +25114,9 @@ On Error GoTo LOKAL_ERROR
     End If
     
     'prüf mal, ob Budni auf EDEKA schon geschafft ist (Budni auf EDEKA Umzug ist eine Anforderung, die im August 2021 geschafft wurde)
-'    BudniFtpUmzug
+     BudniFtpUmzug
     
-    Screen.MousePointer = 0
+     Screen.MousePointer = 0
 Exit Sub
 
 LOKAL_ERROR:
@@ -25139,10 +25224,12 @@ Public Sub BudniFtpUmzug()
      If Not rsLi.EOF Then
       
        If Not NewTableSuchenDB("FTPumzugFertig", gdBase) Then
-          gbBudniNeuesFtpVerfahren = False
-          FTPwechsel.Left = (Me.ScaleWidth - FTPwechsel.Width) / 2
-          FTPwechsel.Top = (Me.ScaleHeight - FTPwechsel.Height) / 2
-          FTPwechsel.Show 1
+          If Not NewTableSuchenDB("BudniEdekaDialogNichtZeigen", gdBase) Then
+            gbBudniNeuesFtpVerfahren = False
+            FTPwechsel.Left = (Me.ScaleWidth - FTPwechsel.Width) / 2
+            FTPwechsel.Top = (Me.ScaleHeight - FTPwechsel.Height) / 2
+            FTPwechsel.Show 1
+          End If
          Else
           gbBudniNeuesFtpVerfahren = True
        End If
@@ -25218,7 +25305,7 @@ LOKAL_ERROR:
     Fehler.gsNumber = err.Number
     Fehler.gsFormular = "frmWKL00"
     Fehler.gsFunktion = "GI_auf_EC_setzenFurAlleTabellenMitKK_ART"
-    Fehler.gsFehlertext = "Im Programmteil Stammdaten einlesen ist ein Fehler aufgetreten."
+    Fehler.gsFehlertext = "Im Programmteil Winkiss Starten ist ein Fehler aufgetreten."
 
     Fehlermeldung1
     

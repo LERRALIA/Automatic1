@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{7D622DE6-0ABC-471E-9234-97DEC5E0A708}#3.8#0"; "sevCmd3.ocx"
-Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "MSFLXGRD.OCX"
+Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "msflxgrd.ocx"
 Begin VB.Form frmWKL10 
    BackColor       =   &H00C0C000&
    BorderStyle     =   1  'Fest Einfach
@@ -39,12 +39,12 @@ Begin VB.Form frmWKL10
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   1095
-      Left            =   4200
+      Height          =   375
+      Left            =   5400
       TabIndex        =   4
-      Top             =   5640
+      Top             =   6360
       Visible         =   0   'False
-      Width           =   1815
+      Width           =   615
       Begin sevCommand3.Command Command4 
          Height          =   600
          Index           =   1
@@ -3635,11 +3635,11 @@ Begin VB.Form frmWKL10
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   4095
-      Left            =   840
+      Height          =   1215
+      Left            =   360
       TabIndex        =   272
       Top             =   2280
-      Width           =   10815
+      Width           =   10935
       Begin VB.CheckBox Check14 
          BackColor       =   &H00C0C000&
          Caption         =   "nur Shop-Artikel"
@@ -6402,12 +6402,12 @@ Begin VB.Form frmWKL10
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   8040
-      Left            =   8880
+      Height          =   720
+      Left            =   480
       TabIndex        =   145
-      Top             =   0
+      Top             =   4680
       Visible         =   0   'False
-      Width           =   2895
+      Width           =   1335
       Begin VB.CheckBox Check15 
          BackColor       =   &H00C0C000&
          Caption         =   "Shop-Artikel"
@@ -13710,7 +13710,7 @@ On Error GoTo LOKAL_ERROR
                     
                     Dim cKVKN   As String
                     Dim cek     As String
-                    Dim cMwst   As String
+                    Dim cMWST   As String
                     
                     
                     If gsSpanne = "LEK" Then    'basierend auf LEK oder SEK
@@ -13721,11 +13721,11 @@ On Error GoTo LOKAL_ERROR
                         cek = Text1(29).Text
                     End If
                     
-                    cMwst = Text1(15).Text
+                    cMWST = Text1(15).Text
                     cKVKN = Text1(30).Text
-                    Text1(14).Text = NettospanneInProzent(cKVKN, cek, cMwst)
+                    Text1(14).Text = NettospanneInProzent(cKVKN, cek, cMWST)
                     
-                    Handelsspanne_anzeigen cSuch, cMwst, cKVKN, cLinr
+                    Handelsspanne_anzeigen cSuch, cMWST, cKVKN, cLinr
                 
                 Else 'autoKalk = yes
                     Label4(30).Visible = True
@@ -19271,7 +19271,7 @@ LOKAL_ERROR:
 
     Fehlermeldung1
 End Sub
-Private Sub Handelsspanne_anzeigen(sArt As String, cMwst As String, sKVK As String, cLinr As String)
+Private Sub Handelsspanne_anzeigen(sArt As String, cMWST As String, sKVK As String, cLinr As String)
 On Error GoTo LOKAL_ERROR
 
     'Handelsspanne anzeigen
@@ -19311,7 +19311,7 @@ On Error GoTo LOKAL_ERROR
             
         
         
-        sNettospanne = NettospanneInProzent(sKVK, sEKpr, cMwst)
+        sNettospanne = NettospanneInProzent(sKVK, sEKpr, cMWST)
         dNettospanne = CDbl(sNettospanne)
         
         If dNettospanne >= 100 Then
@@ -19360,7 +19360,7 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub dyn_Handelsspanne_anzeigen(cMwst As String, sKVK As String, sLiefBez As String, sLEK As String, sSEK As String)
+Private Sub dyn_Handelsspanne_anzeigen(cMWST As String, sKVK As String, sLiefBez As String, sLEK As String, sSEK As String)
 On Error GoTo LOKAL_ERROR
 
     'Handelsspanne anzeigen
@@ -19379,7 +19379,7 @@ On Error GoTo LOKAL_ERROR
     
         sEKpr = sLEK
         
-        sNettospanne = NettospanneInProzent(sKVK, sEKpr, cMwst)
+        sNettospanne = NettospanneInProzent(sKVK, sEKpr, cMWST)
         dNettospanne = CDbl(sNettospanne)
         
         If dNettospanne >= 100 Then
@@ -21780,6 +21780,7 @@ Private Sub Text1_KeyUp(index As Integer, KeyCode As Integer, Shift As Integer)
     Dim sAuswahlfeld As String
     Dim ctmp As String
     
+    'wenn ENTER gedruckt wurde
     If KeyCode = vbKeyReturn Then
     
         If index = 48 Then

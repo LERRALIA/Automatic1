@@ -25157,7 +25157,10 @@ sILN2 As String, sGLNEmpfänger As String, Optional sPromotionDealNumber As Strin
 
     EDIFormatBUDNI = ctmp
     
-    Kill cPfad & "EDI.txt"
+    If Dir(cPfad & "EDI.txt") <> "" Then    '   29.09.21
+        Kill cPfad & "EDI.txt"                  '
+    End If                                  '
+   ' Kill cPfad & "EDI.txt"                 '
 
     iFileNr = FreeFile
     Open cPfad & "EDI.txt" For Binary As #iFileNr

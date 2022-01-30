@@ -4842,20 +4842,51 @@ Public Sub SichernBonDaten(cDruckZeile() As String, lAnzZeile As Long, kk_art As
         If E_TSE_Aktiv And TSE_OK And gdSumme > 0 Then
         
             'TSE INFO SICHERN
-            rsrs!TSESTART = R_StartTime
-            rsrs!TSEEND = R_FinishTime
-            rsrs!TSESERIAL = USB_serialNumber
-            rsrs!TSETRANSACTION = R_TransactionNr
-            rsrs!TSEClientID = E_ClientID
-            rsrs!TSEFEHLER = TSE_Err
-            rsrs!TSESTARTSIG = R_StartSignatur
-            rsrs!TSEFINISHSIG = R_FinishSignatur
-            rsrs!QRCODE = R_QRCodeAlsImgPath
+            
+            If Trim(R_StartTime <> "") Then
+              rsrs!TSESTART = R_StartTime
+            End If
+            
+            If Trim(R_FinishTime <> "") Then
+              rsrs!TSEEND = R_FinishTime
+            End If
+            
+            If Trim(USB_serialNumber <> "") Then
+               rsrs!TSESERIAL = USB_serialNumber
+            End If
+            
+            If Trim(R_TransactionNr <> "") Then
+               rsrs!TSETRANSACTION = R_TransactionNr
+            End If
+            
+            If Trim(E_ClientID <> "") Then
+              rsrs!TSEClientID = E_ClientID
+            End If
+            
+            If Trim(TSE_Err <> "") Then
+                rsrs!TSEFEHLER = TSE_Err
+            End If
+            
+            If Trim(R_StartSignatur <> "") Then
+                rsrs!TSESTARTSIG = R_StartSignatur
+            End If
+            
+            If Trim(R_FinishSignatur <> "") Then
+                rsrs!TSEFINISHSIG = R_FinishSignatur
+            End If
+            
+            If Trim(R_QRCodeAlsImgPath <> "") Then
+                 rsrs!QRCODE = R_QRCodeAlsImgPath
+            End If
+            
             rsrs!TSEID = TSE_ID
             rsrs!STARTSIGZAHLER = R_START_SIG_Zaehler
             rsrs!FINISHSIGZAHLER = R_FINISH_SIG_Zaehler
+            
          Else
-            rsrs!TSEFEHLER = TSE_Err
+            If Trim(TSE_Err <> "") Then
+                 rsrs!TSEFEHLER = TSE_Err
+            End If
         End If
         
         rsrs!SENDOK = False
@@ -4868,20 +4899,50 @@ Public Sub SichernBonDaten(cDruckZeile() As String, lAnzZeile As Long, kk_art As
        If E_TSE_Aktiv And TSE_OK And gdSumme > 0 Then
         
             'TSE INFO SICHERN
-            rsrs!TSESTART = R_StartTime
-            rsrs!TSEEND = R_FinishTime
-            rsrs!TSESERIAL = USB_serialNumber
-            rsrs!TSETRANSACTION = R_TransactionNr
-            rsrs!TSEClientID = E_ClientID
-            rsrs!TSEFEHLER = TSE_Err
-            rsrs!TSESTARTSIG = R_StartSignatur
-            rsrs!TSEFINISHSIG = R_FinishSignatur
-            rsrs!QRCODE = R_QRCodeAlsImgPath
+            If Trim(R_StartTime <> "") Then
+              rsrs!TSESTART = R_StartTime
+            End If
+            
+            If Trim(R_FinishTime <> "") Then
+              rsrs!TSEEND = R_FinishTime
+            End If
+            
+            If Trim(USB_serialNumber <> "") Then
+               rsrs!TSESERIAL = USB_serialNumber
+            End If
+            
+            If Trim(R_TransactionNr <> "") Then
+               rsrs!TSETRANSACTION = R_TransactionNr
+            End If
+            
+            If Trim(E_ClientID <> "") Then
+              rsrs!TSEClientID = E_ClientID
+            End If
+            
+            If Trim(TSE_Err <> "") Then
+                rsrs!TSEFEHLER = TSE_Err
+            End If
+            
+            If Trim(R_StartSignatur <> "") Then
+                rsrs!TSESTARTSIG = R_StartSignatur
+            End If
+            
+            If Trim(R_FinishSignatur <> "") Then
+                rsrs!TSEFINISHSIG = R_FinishSignatur
+            End If
+            
+            If Trim(R_QRCodeAlsImgPath <> "") Then
+                 rsrs!QRCODE = R_QRCodeAlsImgPath
+            End If
+            
             rsrs!TSEID = TSE_ID
             rsrs!STARTSIGZAHLER = R_START_SIG_Zaehler
             rsrs!FINISHSIGZAHLER = R_FINISH_SIG_Zaehler
          Else
-            rsrs!TSEFEHLER = TSE_Err
+             If Trim(TSE_Err <> "") Then
+                rsrs!TSEFEHLER = TSE_Err
+             End If
+            
         End If
         
         

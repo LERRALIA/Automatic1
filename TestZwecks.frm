@@ -67,6 +67,7 @@ On Error GoTo LOKAL_ERROR:
 '                Shell rufString, vbNormalFocus
 '
 
+
     
    
     
@@ -88,14 +89,6 @@ End Sub
 Private Sub Command2_Click()
 On Error GoTo LOKAL_ERROR
 
- Dim iMixMWSt As Integer
- iMixMWSt = 0
- 
- If Not iMixMWSt And 4 Then
-  iMixMWSt = iMixMWSt + 4
- End If
-                    
-                    
  Exit Sub
 LOKAL_ERROR:
     

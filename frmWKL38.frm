@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{7D622DE6-0ABC-471E-9234-97DEC5E0A708}#3.8#0"; "sevCmd3.ocx"
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "Mscomctl.ocx"
 Begin VB.Form frmWKL38 
    BorderStyle     =   1  'Fest Einfach
    Caption         =   "KISSNET..."
@@ -5526,8 +5526,9 @@ Private Sub UebertrageAllVonFTPKissMast() 'nur für
     Dim sfilename       As String
     Dim cWoche          As String
     
-    For j = giWochendat To 53
-    
+'                                         Odayy <<<< START
+     For j = giWochendat To giWochendat 'früher war:  For j = giWochendat To 53
+'                                         Odayy <<<< ENDE
         cWoche = j
         If Len(cWoche) = 1 Then
             cWoche = "0" & cWoche

@@ -1976,11 +1976,16 @@ Public WithEvents rfConnection As cConnection
 Attribute rfConnection.VB_VarHelpID = -1
 Public cFiles As New Collection, cAttrs As New Collection, cSize As New Collection, cRemAttrs As New Collection
 Public nTotal As Long, DriveCol As New Collection, sCurPath As String
-Private Sub Command9_Click(index As Integer)
+
+Private Sub Check2_Click(Index As Integer)
+
+End Sub
+
+Private Sub Command9_Click(Index As Integer)
 On Error GoTo LOKAL_ERROR
     
     
-    Select Case Check2(index).Caption
+    Select Case Check2(Index).Caption
         Case Is = "Neue Stammdaten sind übertragen."
             If glLevel >= DlgZugriff(1).dZugriff Then
                 frmWKL11.Show 1
@@ -3398,7 +3403,7 @@ End Sub
 Private Sub cmdrExec_Click()
     On Error GoTo LOKAL_ERROR
     
-    If (cRemAttrs.Item(lvRemote.SelectedItem.index) And vbDirectory) <> vbDirectory Then
+    If (cRemAttrs.Item(lvRemote.SelectedItem.Index) And vbDirectory) <> vbDirectory Then
         Dim strTemp As String
         strTemp = String(100, 0)
         GetTempPath 100, strTemp
@@ -3461,7 +3466,7 @@ End Sub
 Private Sub cmdrRename_Click()
     On Error GoTo LOKAL_ERROR
     
-    If lvRemote.SelectedItem.index = 1 Then Exit Sub
+    If lvRemote.SelectedItem.Index = 1 Then Exit Sub
     Dim ret As String
     ret = InputBox("Enter the new name for " + lvRemote.SelectedItem.Text)
     If ret <> "" Then

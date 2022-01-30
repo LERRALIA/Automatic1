@@ -2569,7 +2569,7 @@ Begin VB.Form frmWK21f
             EndProperty
             OLEDropMode     =   1
             CalendarTitleBackColor=   12615680
-            Format          =   111935489
+            Format          =   112263169
             UpDown          =   -1  'True
             CurrentDate     =   38425
          End
@@ -2593,7 +2593,7 @@ Begin VB.Form frmWK21f
                Strikethrough   =   0   'False
             EndProperty
             CalendarTitleBackColor=   12615680
-            Format          =   111935489
+            Format          =   112263169
             UpDown          =   -1  'True
             CurrentDate     =   38425
          End
@@ -5234,8 +5234,8 @@ On Error GoTo LOKAL_ERROR
             cLBSatz = ""
             sFeld = ""
         
-            If Not IsNull(rsrs!KASNUM) Then
-                sFeld = rsrs!KASNUM
+            If Not IsNull(rsrs!kasnum) Then
+                sFeld = rsrs!kasnum
             End If
             
             cLBSatz = cLBSatz & Space$(6 - Len(sFeld))
@@ -5378,8 +5378,8 @@ On Error GoTo LOKAL_ERROR
             
             cLBSatz = sFeld
             
-            If Not IsNull(rsrs!KASNUM) Then
-                sFeld = rsrs!KASNUM
+            If Not IsNull(rsrs!kasnum) Then
+                sFeld = rsrs!kasnum
             End If
             
             cLBSatz = cLBSatz & Space$(3 - Len(sFeld))
@@ -6107,7 +6107,7 @@ Private Sub DruckeKassenAgnAuswertungaufListendrucker()
     Dim TempMwstE As Integer
     Dim TempMwstO As Integer
     
-    cSQL = "SELECT VOLL,ERM,OHNE FROM MWSTSATZ WHERE FurJahr=" & Year(Date)
+    cSQL = "SELECT VOLL,ERM,OHNE FROM MWSTSATZ WHERE CDate('" & Date & "')> vonD AND bisD is NULL"
     Set rsrs = gdBase.OpenRecordset(cSQL)
     
         If Not rsrs.EOF Then

@@ -1255,7 +1255,7 @@ Private Sub LeseMWStSaetzeWKL56()
     Dim cSQL    As String
     Dim rsrs    As Recordset
     
-    cSQL = "Select * from MWSTSATZ WHERE FurJahr=" & Year(Date)
+    cSQL = "Select * from MWSTSATZ WHERE CDate('" & Date & "')>= vonD AND bisD is NULL"
     Set rsrs = gdBase.OpenRecordset(cSQL)
     If Not rsrs.EOF Then
         If Not IsNull(rsrs!VOLL) Then
@@ -1408,18 +1408,35 @@ Private Sub SchreibeMWStSaetzeWKL56()
     cOhne = fnMoveComma2Point$(cOhne)
     dOhne = Val(cOhne)
     
-    cSQL = "Select * from MWSTSATZ WHERE FurJahr=" & Year(Date)
+    cSQL = "Select * from MWSTSATZ WHERE CDate('" & Date & "')>= vonD AND bisD is NULL"
     Set rsrs = gdBase.OpenRecordset(cSQL)
     If Not rsrs.EOF Then
         rsrs.Edit
-        rsrs!VOLL = dVoll
-        rsrs!ERM = dErm
-        rsrs!OHNE = dOhne
-        rsrs.Update
+        If rsrs!vonD = Date Then
+            
+             rsrs!VOLL = dVoll
+             rsrs!ERM = dErm
+             rsrs!OHNE = dOhne
+             rsrs.Update
+             
+        Else
+             rsrs!bisD = Date - 1
+             rsrs.Update
+             
+             rsrs.AddNew
+             rsrs!id = getNeuIdFurNeueMWST
+             rsrs!VOLL = dVoll
+             rsrs!ERM = dErm
+             rsrs!OHNE = dOhne
+             rsrs!vonD = Date
+             rsrs.Update
+            
+        End If
+        
     Else
         rsrs.AddNew
         rsrs!id = getNeuIdFurNeueMWST
-        rsrs!FurJahr = Year(Date)
+        rsrs!vonD = Date
         rsrs!VOLL = dVoll
         rsrs!ERM = dErm
         rsrs!OHNE = dOhne
@@ -1452,7 +1469,7 @@ Private Sub RefreshGlobalVariableMWST()
     Dim cSQL    As String
     Dim rsrs    As Recordset
     
-    cSQL = "Select * from MWSTSATZ WHERE FurJahr=" & Year(Date)
+    cSQL = "Select * from MWSTSATZ WHERE CDate('" & Date & "')>= vonD AND bisD is NULL"
     Set rsrs = gdBase.OpenRecordset(cSQL)
     If Not rsrs.EOF Then
         If Not IsNull(rsrs!VOLL) Then

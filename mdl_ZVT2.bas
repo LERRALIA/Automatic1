@@ -152,8 +152,10 @@ Sub Zahlen()
                    Case 2 'EC
                         gcKreditKarte = "EC"
                         
-                    Case 5 'girocard
-                        gcKreditKarte = "GI"
+                    Case 5 'GI(girocard)
+                        ' obwohl die Nummer 5 GI ist, wird als EC zurückgegeben, weil EC gleich GI ist
+                        ' außerdem interpritiert Kisslive keine GI beim F-Dateien einlesen.
+                        gcKreditKarte = "EC"
                         
                     Case 6 'MasterCard
                         gcKreditKarte = "MC"
@@ -184,8 +186,10 @@ Sub Zahlen()
                    Case 2 'EC
                         gcKreditKarte2 = "EC"
                         
-                    Case 5 'girocard
-                        gcKreditKarte2 = "GI"
+                    Case 5 'GI(girocard)
+                        ' obwohl die Nummer 5 GI ist, wird als EC zurückgegeben, weil EC gleich GI ist
+                        ' außerdem interpritiert Kisslive keine GI beim F-Dateien einlesen.
+                        gcKreditKarte2 = "EC"
                         
                     Case 6 'MasterCard
                         gcKreditKarte2 = "MC"
@@ -351,8 +355,10 @@ Sub Storno()
                    Case 2 'EC
                         gcKreditKarte = "EC"
                         
-                    Case 5 'girocard
-                        gcKreditKarte = "GI"
+                    Case 5 'GI(girocard)
+                        ' obwohl die Nummer 5 GI ist, wird als EC zurückgegeben, weil EC gleich GI ist
+                        ' außerdem interpritiert Kisslive keine GI beim F-Dateien einlesen.
+                        gcKreditKarte = "EC"
                         
                     Case 6 'MasterCard
                         gcKreditKarte = "MC"
@@ -383,8 +389,10 @@ Sub Storno()
                    Case 2 'EC
                         gcKreditKarte2 = "EC"
                         
-                    Case 5 'girocard
-                        gcKreditKarte2 = "GI"
+                    Case 5 'GI(girocard)
+                        ' obwohl die Nummer 5 GI ist, wird als EC zurückgegeben, weil EC gleich GI ist
+                        ' außerdem interpritiert Kisslive keine GI beim F-Dateien einlesen.
+                        gcKreditKarte2 = "EC"
                         
                     Case 6 'MasterCard
                         gcKreditKarte2 = "MC"

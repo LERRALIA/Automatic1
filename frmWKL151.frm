@@ -1387,7 +1387,7 @@ On Error GoTo LOKAL_ERROR
     txtStatus.Text = 45
     
     sSQL = "UpdATE MWSTSATZ set VOLL = 19"
-    sSQL = sSQL & " , ERM = 7 WHERE FurJahr=" & Year(Date)
+    sSQL = sSQL & " , ERM = 7 WHERE CDate('" & Date & "')> vonD AND bisD is NULL"
     dbWK.Execute sSQL, dbFailOnError
     
     'ARTIKEL ENDE
@@ -2766,7 +2766,7 @@ On Error GoTo LOKAL_ERROR
     txtStatus.Text = 45
     
     sSQL = "UpdATE MWSTSATZ set VOLL = 19"
-    sSQL = sSQL & " , ERM = 7 WHERE FurJahr=" & Year(Date)
+    sSQL = sSQL & " , ERM = 7 WHERE CDate('" & Date & "')> vonD AND bisD is NULL"
     dbWK.Execute sSQL, dbFailOnError
     
     'ARTIKEL ENDE
@@ -3957,7 +3957,7 @@ On Error GoTo LOKAL_ERROR
     txtStatus.Text = 45
     
     sSQL = "UpdATE MWSTSATZ set VOLL = 19"
-    sSQL = sSQL & " , ERM = 7 WHERE FurJahr=" & Year(Date)
+    sSQL = sSQL & " , ERM = 7 WHERE CDate('" & Date & "')> vonD AND bisD is NULL"
     dbWK.Execute sSQL, dbFailOnError
     
     lblx.Caption = "EAN wird eingetragen..."

@@ -441,7 +441,7 @@ Begin VB.Form frmWKL74
             Index           =   0
             Left            =   960
             TabIndex        =   45
-            Tag             =   "bezeich asc"
+            Tag             =   "bezeich desc"
             Top             =   240
             Width           =   1575
          End
@@ -460,7 +460,7 @@ Begin VB.Form frmWKL74
             Index           =   8
             Left            =   3480
             TabIndex        =   8
-            Tag             =   "Filiale , adate asc"
+            Tag             =   "Filiale , adate desc"
             Top             =   240
             Width           =   1335
          End
@@ -479,7 +479,7 @@ Begin VB.Form frmWKL74
             Index           =   7
             Left            =   4920
             TabIndex        =   7
-            Tag             =   "menge asc"
+            Tag             =   "menge desc"
             Top             =   240
             Width           =   975
          End
@@ -498,7 +498,7 @@ Begin VB.Form frmWKL74
             Index           =   5
             Left            =   2520
             TabIndex        =   6
-            Tag             =   "Filiale asc"
+            Tag             =   "Filiale desc"
             Top             =   240
             Width           =   975
          End
@@ -517,7 +517,7 @@ Begin VB.Form frmWKL74
             Index           =   4
             Left            =   6000
             TabIndex        =   5
-            Tag             =   "Bednr asc"
+            Tag             =   "Bednr desc"
             Top             =   240
             Width           =   1095
          End
@@ -536,7 +536,7 @@ Begin VB.Form frmWKL74
             Index           =   3
             Left            =   0
             TabIndex        =   4
-            Tag             =   "adate asc"
+            Tag             =   "adate desc"
             Top             =   240
             Value           =   -1  'True
             Width           =   975
@@ -1556,7 +1556,11 @@ Private Sub Form_Load()
     List1.Clear
     List1.AddItem "Datum     Menge   Artnr  Artikelbezeichnung                  Fil Preis    Bed"
     
-    sOrder = "adate"
+    
+   'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START
+    sOrder = "adate desc"
+   'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ENDE
+    Option4(3).Tag = "adate asc"
     ZeigArtHistInList "VerkaufKU", List3, gckundnr, sOrder
     
     ZeigeSummen gckundnr

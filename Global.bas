@@ -1,9 +1,9 @@
 Attribute VB_Name = "Global"
 Option Explicit
 
-Global Const glpVers                As Long = 3148
+Global Const glpVers                As Long = 3157
 Global gbSQLSERVER                  As Boolean
-
+Global Const SERVER_NEW   As String = "server.kisswws.de" '23.02.2022  VL
 Global IchBinBeiKundeSuche As Boolean
 Global gbLeereZeil As Integer
 
@@ -329,7 +329,7 @@ End Type
 Type UPDATE_
     cDateiName As String
     cDatum As String
-    cUhrZeit As String
+    cUhrzeit As String
 End Type
 
 Type F2PROMPT_

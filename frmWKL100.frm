@@ -149,9 +149,9 @@ Begin VB.Form frmWKL100
          Strikethrough   =   0   'False
       EndProperty
       Height          =   5460
-      Left            =   120
+      Left            =   360
       TabIndex        =   15
-      Top             =   1680
+      Top             =   1560
       Width           =   9135
    End
    Begin VB.PictureBox picprogress 
@@ -486,17 +486,19 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Command1_Click(Index As Integer)
+Private Sub Command1_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
     
-    Select Case Index
+    Select Case index
         Case Is = 0
+            prot_GZ ("SUCHE")
             SucheDaten
         Case Is = 1     'zurück
+        prot_GZ ("ZURÜCK")
             gLGutschnum = -1
             Unload frmWKL100
         Case Is = 2 'Übernehmen
-        
+            prot_GZ ("ÜBERNEHMEN")
             Dim bFound As Boolean
             Dim lcount As Long
             
@@ -514,7 +516,8 @@ On Error GoTo LOKAL_ERROR
             Next lcount
             
             If bFound Then
-                gLGutschnum = CLng(Left(List2.list(lcount), 8))
+              '  gLGutschnum = CLng(Left(List2.list(lcount), 8))  ' <<<< 25.02.2022 VL
+                gLGutschnum = CLng(Left(List2.list(lcount), 10))
             Else
                 
                 Exit Sub
@@ -658,7 +661,7 @@ On Error GoTo LOKAL_ERROR
     
     Screen.MousePointer = 0
     
-    Option1(LeselastOptionEinstellung("E100X")).Value = True
+    Option1(LeselastOptionEinstellung("E100X")).value = True
     
     SucheDaten
     
@@ -695,8 +698,8 @@ On Error GoTo LOKAL_ERROR
                 cFeld = rsrs!FILIALNR
                 cSatz = cSatz & Space(3 - Len(cFeld)) & cFeld
                 
-                If Not IsNull(rsrs!Filialname) Then
-                    cFeld = rsrs!Filialname
+                If Not IsNull(rsrs!FILIALNAME) Then
+                    cFeld = rsrs!FILIALNAME
                     cSatz = cSatz & Space(2) & cFeld
                     cbox.AddItem cSatz
                     
@@ -742,7 +745,7 @@ Private Sub LeseOffeneGutscheineWK100(cwhere As String)
     List2.Clear
     
     For j = 0 To 5
-        If Option1(j).Value = True Then
+        If Option1(j).value = True Then
             corder = Option1(j).Tag
             Exit For
         End If
@@ -781,7 +784,8 @@ Private Sub LeseOffeneGutscheineWK100(cwhere As String)
                     cFeld = ""
                 End If
                 cFeld = Trim$(cFeld)
-                cFeld = Space$(8 - Len(cFeld)) & cFeld
+                'cFeld = Space$(8 - Len(cFeld)) & cFeld    '<<<<< 25.02.2022 VL
+                cFeld = Space$(10 - Len(cFeld)) & cFeld
                 cLBSatz = cFeld & " "
                 
                 If Not IsNull(rsrs!DAT_AUSG) Then
@@ -883,7 +887,7 @@ Private Sub LeseOffeneGutscheineWK100_KL_SQL(cwhere As String)
     List2.Clear
     
     For j = 0 To 5
-        If Option1(j).Value = True Then
+        If Option1(j).value = True Then
             corder = Option1(j).Tag
             Exit For
         End If
@@ -965,7 +969,8 @@ Private Sub LeseOffeneGutscheineWK100_KL_SQL(cwhere As String)
                 cFeld = ""
             End If
             cFeld = Trim$(cFeld)
-            cFeld = Space$(8 - Len(cFeld)) & cFeld
+            'cFeld = Space$(8 - Len(cFeld)) & cFeld   '<<<< 25.02.2022  VL
+            cFeld = Space$(10 - Len(cFeld)) & cFeld
             cLBSatz = cFeld & " "
             
             If Not IsNull(rsrs!AUSG_DATUM) Then
@@ -1050,10 +1055,10 @@ LOKAL_ERROR:
     
 End Sub
 
-Private Sub Option1_Click(Index As Integer)
+Private Sub Option1_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
-    speicherlastOptionEinstellung Index, "E100X"
+    speicherlastOptionEinstellung index, "E100X"
 '    SucheDaten
     
 Exit Sub

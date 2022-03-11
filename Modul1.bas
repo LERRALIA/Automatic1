@@ -2,6 +2,257 @@ Attribute VB_Name = "Modul1"
 Option Explicit
 Public lngZeit As Long
 Public lngEinzelPic As Long
+'<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+Private Type processInfo
+    ProcessName As String
+    ProcessID As Long
+    ProcessThreads As Long
+    ProcessImagePathName As String
+    ProcessCommandLine As String
+End Type
+
+Private tPI() As processInfo
+Private lngCurPocessCount As Long
+Private lngOldPocessCount As Long
+Private Const ANYSIZE_ARRAY As Long = 1
+Private Const MAX_PATH As Long = 260
+Private Const PROCESS_QUERY_INFORMATION As Long = &H400
+Private Const PROCESS_VM_READ As Long = &H10
+Private Const ProcessBasicInformation As Long = 0
+Private Const SE_DEBUG_NAME As String = "SeDebugPrivilege"
+Private Const SE_PRIVILEGE_ENABLED As Long = &H2
+Private Const STATUS_SUCCESS As Long = 0
+Public Const TH32CS_SNAPPROCESS As Long = &H2
+Private Const TOKEN_ADJUST_PRIVILEGES As Long = &H20
+Private Const TOKEN_QUERY As Long = &H8
+Public Type ExeInfo
+    ImagePathName As String
+    CommandLine As String
+End Type
+Private Type LUID
+    lowpart As Long
+    highpart As Long
+End Type
+Private Type LUID_AND_ATTRIBUTES
+    pLuid As LUID
+    Attributes As Long
+End Type
+Private Type TOKEN_PRIVILEGES
+    PrivilegeCount As Long
+    Privileges(ANYSIZE_ARRAY) As LUID_AND_ATTRIBUTES
+End Type
+Private Type PEB
+    Reserved1(1) As Byte
+    BeingDebugged As Byte
+    Reserved2 As Byte
+    Reserved3(1) As Long
+    Ldr As Long
+    ProcessParameters As Long
+    Reserved4(103) As Byte
+    Reserved5(51) As Long
+    PostProcessInitRoutine As Long
+    Reserved6(127) As Byte
+    Reserved7 As Long
+    sessionId As Long
+End Type
+Public Type PROCESSENTRY32
+    dwSize As Long
+    cntUsage As Long
+    th32ProcessID As Long
+    th32DefaultHeapID As Long
+    th32ModuleID As Long
+    cntThreads As Long
+    th32ParentProcessID As Long
+    pcPriClassBase As Long
+    dwFlags As Long
+    szexeFile As String * MAX_PATH
+End Type
+Private Type PROCESS_BASIC_INFORMATION
+    Reserved1 As Long
+    PebBaseAddress As Long
+    Reserved2(1) As Long
+    UniqueProcessId As Long
+    Reserved3 As Long
+End Type
+Private Type UNICODE_STRING
+    length As Integer
+    MaximumLength As Integer
+    Buffer As Long
+End Type
+Private Type RTL_USER_PROCESS_PARAMETERS
+    Reserved1(15) As Byte
+    Reserved2(9) As Long
+    ImagePathName As UNICODE_STRING
+    CommandLine As UNICODE_STRING
+End Type
+Private Declare Function OpenProcessToken Lib "advapi32.dll" ( _
+                         ByVal ProcessHandle As Long, _
+                         ByVal DesiredAccess As Long, _
+                         ByRef TokenHandle As Long) As Long
+Private Declare Function LookupPrivilegeValue Lib "advapi32.dll" _
+                         Alias "LookupPrivilegeValueA" ( _
+                         ByVal lpSystemName As String, _
+                         ByVal lpName As String, _
+                         ByRef lpLuid As LUID) As Long
+Private Declare Function AdjustTokenPrivileges Lib "advapi32.dll" ( _
+                         ByVal TokenHandle As Long, _
+                         ByVal DisableAllPrivileges As Long, _
+                         ByRef NewState As TOKEN_PRIVILEGES, _
+                         ByVal BufferLength As Long, _
+                         ByRef PreviousState As Any, _
+                         ByRef ReturnLength As Any) As Long
+Public Declare Function CreateToolhelp32Snapshot Lib "kernel32.dll" ( _
+                        ByVal lFlags As Long, _
+                        ByVal lProcessID As Long) As Long
+Private Declare Function GetCurrentProcess Lib "kernel32" () As Long
+Private Declare Function OpenProcess Lib "kernel32.dll" ( _
+                         ByVal dwDesiredAccess As Long, _
+                         ByVal bInheritHandle As Long, _
+                         ByVal dwProcessID As Long) As Long
+Private Declare Function ReadProcessMemory Lib "kernel32.dll" ( _
+                         ByVal hProcess As Long, _
+                         ByVal lpBaseAddress As Long, _
+                         ByRef lpBuffer As Any, _
+                         ByVal nSize As Long, _
+                         ByRef lpNumberOfBytesWritten As Long) As Long
+Public Declare Function Process32First Lib "kernel32.dll" ( _
+                        ByVal hSnapshot As Long, _
+                        ByRef uProcess As PROCESSENTRY32) As Long
+Public Declare Function Process32Next Lib "kernel32.dll" ( _
+                        ByVal hSnapshot As Long, _
+                        ByRef uProcess As PROCESSENTRY32) As Long
+Private Declare Function NtQueryInformationProcess Lib "NTDLL.dll" ( _
+                         ByVal ProcessHandle As Long, _
+                         ByVal processInformationClass As Long, _
+                         ByRef processInformation As Any, _
+                         ByVal processInformationLength As Long, _
+                         ByRef ReturnLength As Long) As Long
+Public Function ProcessPfad(ByRef sExeDateiName As String) As String
+    Dim lngRet, nPos, sPos, lngCount, hSnapshot As Long
+    Dim strProcessName, strImagePathName As String
+    Dim tEI As ExeInfo
+    Dim tPE32 As PROCESSENTRY32
+    Dim Flag_proz As String: Flag_proz = 0
+    Dim Flag_povtor As String: Flag_povtor = 0
+    On Error GoTo LOKAL_ERROR
+aaa:
+    hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0&)
+
+        tPE32.dwSize = Len(tPE32)
+
+        lngRet = Process32First(hSnapshot, tPE32)
+   
+        Do While lngRet
+        strProcessName = Left$(tPE32.szexeFile, InStr(1, tPE32.szexeFile, vbNullChar) - 1)
+        If strProcessName = "Converter.exe" Then
+        lngRet = 0
+        Flag_proz = 1
+        GoTo aus1
+        End If
+        lngRet = Process32Next(hSnapshot, tPE32)
+        lngCount = lngCount + 1
+        Loop
+aus1:
+    If Flag_proz = 0 Then
+        If Flag_povtor = 0 Then                                                     ' erste mal bitten converter.exe zu startten
+            MsgBox ("Starten Sie das Programm 'Converter.exe' dann drücken 'OK'")  '
+            Flag_povtor = 1
+            GoTo aaa
+          Else
+            Exit Function                                                             ' zweite mal schon nicht bitten ==>raus
+        End If
+    End If
+            tEI = GetProcessParameter(tPE32.th32ProcessID)
+            strImagePathName = tEI.ImagePathName
+        If strImagePathName = "" Then
+'MsgBox ("Starten Sie das Programm 'Converter.exe' dann drücken 'OK'")  ' d.h. converter.exe - Demon-Prozess ist  Pfad := ''  ,raus
+            Exit Function
+        End If
+            If Len(strImagePathName) > 0 Then
+                If Left$(strImagePathName, 4) = "\??\" Then
+                    strImagePathName = Mid$(strImagePathName, 5)
+                End If
+                If Left$(strImagePathName, 11) = "\SystemRoot" Then
+                    strImagePathName = Environ$("SystemRoot") & Mid$(strImagePathName, 12)
+                End If
+            End If
+            ProcessPfad = Mid(strImagePathName, 1, Len(strImagePathName) - Len(sExeDateiName) - 1)
+Call CloseHandle(hSnapshot)
+Exit Function
+LOKAL_ERROR:
+    Fehler.gsDescr = err.Description
+    Fehler.gsNumber = err.Number
+    Fehler.gsFormular = "Modul1"
+    Fehler.gsFunktion = "ProcessPfad"
+    Fehler.gsFehlertext = "Es ist ein Fehler aufgetreten."
+    Fehlermeldung1
+End Function
+Public Function GetProcessParameter(ByVal PID As Long) As ExeInfo
+    Dim hProcess, lngRetLen As Long
+    Dim bytCommandLine() As Byte
+    Dim bytImagePathName() As Byte
+    Dim tEI As ExeInfo
+    Dim tPEB As PEB
+    Dim tPBI As PROCESS_BASIC_INFORMATION
+    Dim tRPP As RTL_USER_PROCESS_PARAMETERS
+    On Error GoTo LOKAL_ERROR
+    hProcess = OpenProcess(PROCESS_QUERY_INFORMATION Or PROCESS_VM_READ, False, PID)
+    If hProcess <> 0 Then
+        If (NtQueryInformationProcess(hProcess, ProcessBasicInformation, tPBI, Len(tPBI), lngRetLen) = STATUS_SUCCESS) And (lngRetLen = Len(tPBI)) Then
+            If ReadProcessMemory(hProcess, tPBI.PebBaseAddress, tPEB, Len(tPEB), lngRetLen) And (lngRetLen = Len(tPEB)) Then
+                If ReadProcessMemory(hProcess, tPEB.ProcessParameters, tRPP, Len(tRPP), lngRetLen) And (lngRetLen = Len(tRPP)) Then
+                    ReDim bytImagePathName(tRPP.ImagePathName.length - 1)
+                    If ReadProcessMemory(hProcess, tRPP.ImagePathName.Buffer, bytImagePathName(0), tRPP.ImagePathName.length, lngRetLen) Then
+                        tEI.ImagePathName = CStr(bytImagePathName)
+                    Else
+                     MsgBox ("Starten Sie das Programm 'Converter.exe' dann drücken 'OK'")
+                    'GoTo LOKAL_ERROR
+                    Exit Function
+                    End If
+                    ReDim bytCommandLine(tRPP.CommandLine.length - 1)
+                    If ReadProcessMemory(hProcess, tRPP.CommandLine.Buffer, bytCommandLine(0), tRPP.CommandLine.length, lngRetLen) Then
+                        tEI.CommandLine = CStr(bytCommandLine)
+                    End If
+                Else
+                     MsgBox ("Starten Sie das Programm 'Converter.exe' dann drücken 'OK'")
+                    'GoTo LOKAL_ERROR
+                    Exit Function
+                End If
+                     Else
+MsgBox ("Starten Sie das Programm 'Converter.exe' dann drücken 'OK'")
+            'GoTo LOKAL_ERROR
+             Exit Function
+            End If
+        Else
+MsgBox ("Starten Sie das Programm 'Converter.exe' dann drücken 'OK'")
+            'GoTo LOKAL_ERROR
+            Exit Function
+        End If
+        Call CloseHandle(hProcess)
+    End If
+    GetProcessParameter = tEI
+Exit Function
+LOKAL_ERROR:
+    Fehler.gsDescr = err.Description
+    Fehler.gsNumber = err.Number
+    Fehler.gsFormular = "Modul1"
+    Fehler.gsFunktion = "GetProcessParameter"
+    Fehler.gsFehlertext = "Es ist ein Fehler aufgetreten."
+    Fehlermeldung1
+End Function
+'<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+'<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<25.02.22  VL
+Sub prot_GZ(ByRef sInfo As String)
+sInfo = Format$(Now, "dd.mm.yyyy") & " " & Time$() & " " & sInfo
+    Dim FNr As Integer
+    Dim InfoDateiname As String
+    FNr = FreeFile
+    InfoDateiname = App.Path & IIf(Right$(App.Path, 1) <> "\", "\", "") & "PROT_GZ" & ".log"
+    Open InfoDateiname For Append As #FNr
+    Print #FNr, sInfo
+    Close #FNr
+End Sub
+'<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<25.02.22  VL
 Public Function Spruch_des_Tages() As String
     On Error GoTo LOKAL_ERROR
     

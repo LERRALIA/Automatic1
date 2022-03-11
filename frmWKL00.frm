@@ -1,7 +1,7 @@
 VERSION 5.00
 Object = "{7D622DE6-0ABC-471E-9234-97DEC5E0A708}#3.8#0"; "sevCmd3.ocx"
 Object = "{00025600-0000-0000-C000-000000000046}#5.2#0"; "CRYSTL32.OCX"
-Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
 Begin VB.Form frmWKL00 
    BackColor       =   &H00E0E0E0&
    ClientHeight    =   8595
@@ -14385,14 +14385,21 @@ Private Sub Command1_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim lcount As Long
-    
+ 
     If index <> 5 Then
+
         Label2.Visible = False
         Label3.Visible = False
         Label1(1).Visible = False
         StarteSubMenue index
     Else
+        '***************************************************************************************************************
+    Dim lRet        As Long
+   lRet = Shell("taskkill /F /IM Converter.exe")
+    '***************************************************************************************************************
+    
         Unload frmWKL00
+
         End 'Ende
     End If
     
@@ -14624,36 +14631,21 @@ End Sub
   
 Private Sub Command15_Click()
 On Error GoTo LOKAL_ERROR
-' TestZwecks.Show 1
-
-'an EDEKA FTP-Server eine Test-Bestellung schicken  <<<<<<<<<<<<<<<<<<< START
-' giKissFtpMode = 49
-' frmWKL38.Show 1
-'an EDEKA FTP-Server eine Test-Bestellung schicken  <<<<<<<<<<<<<<<<<<< ENDE
-
-'setzedrucker gcListenDrucker & "-oday"
-'reportbildschirmToPrinter "aWKL21i"
-
-' MsgBox (DatePart("ww", DateValue(Now), vbMonday, vbFirstFourDays)) '---> hat damals 44 geliefert
-' MsgBox (DatePart("ww", DateValue(Now))) '--->  hat damals 45 geliefert
+ 
   
-' MsgBox ("von :" & gZeiten(7).Von & "bis :" & gZeiten(7).Bis)
-  
-  
-  
-'  Dim obb As Object
-'  Set obb = GetObject("winmgmts:") _
-'        .ExecQuery("select * from win32_process where name='meineSchnitt.exe'")
-'
-'  If obb.Count > 0 Then
-'   MsgBox ("Running ...")
-'  End If
-   
+ 
+ 
     
 Exit Sub
-    
+     
 LOKAL_ERROR:
- MsgBox (err.Number & vbNewLine & vbNewLine & err.Description)
+    Fehler.gsDescr = err.Description
+    Fehler.gsNumber = err.Number
+    Fehler.gsFormular = Me.name
+    Fehler.gsFunktion = "Command15_Click"
+    Fehler.gsFehlertext = "Beim Starten von Winkiss ist ein Fehler aufgetreten."
+    
+    Fehlermeldung1
 End Sub
 
 Private Sub Command7_KeyUp(index As Integer, KeyCode As Integer, Shift As Integer)

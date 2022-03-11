@@ -2357,6 +2357,10 @@ Select Case index
         
         loeschNEW srechnertab & "ATI", gdBase
         CreateTableT2 srechnertab & "ATI", gdBase
+              '***************************************************************************************************************
+    Dim lRet        As Long
+   lRet = Shell("taskkill /F /IM Converter.exe")
+    '***************************************************************************************************************
         Unload frmWKL71
 End Select
 

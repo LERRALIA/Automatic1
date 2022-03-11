@@ -11270,7 +11270,8 @@ On Error GoTo LOKAL_ERROR
    
     schreibeProtokollDaba ("externe Sicherung wird abgeholt")
     
-    gsZenFTPAdresse = "80.86.85.121" '"85.25.132.45"
+    'gsZenFTPAdresse = "80.86.85.121" '"85.25.132.45"
+    gsZenFTPAdresse = SERVER_NEW    '23.02.2022  VL
     gsZenFTPUSER = gsLagerFTPBox 'Das ist der Eintrag aus der Lager.cfg
     gsZenFTPPASS = "stada"
 
@@ -13172,7 +13173,8 @@ On Error GoTo LOKAL_ERROR
     sAttachment = ""
     
     cAbsenderEmail = ermFirmenMail
-    If cAbsenderEmail <> "" Then cAbsenderEmail = "fehler@kisswws.de"
+    'If cAbsenderEmail <> "" Then cAbsenderEmail = "fehler@kisswws.de"
+    If cAbsenderEmail <> "" Then cAbsenderEmail = "fehler-winkiss@kisswws.de"
     
     cAnEmailadresse = "hotline@kisswws.de"
     cBetreff = "fehlender Report(Winkiss " & Left(WKVersion, 2) & "." & Right(WKVersion, 2) & "): " & cReport & " Firma: " & ermFirmenBez

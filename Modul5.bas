@@ -28445,8 +28445,8 @@ On Error GoTo LOKAL_ERROR
     End If
 
     Dim stConnect As String
-    stConnect = "ODBC;DRIVER=SQL Server;SERVER=80.86.85.121;DATABASE=fuersie;UID=fuersie;PWD=kh8CG6jt"
-    
+   ' stConnect = "ODBC;DRIVER=SQL Server;SERVER=80.86.85.121;DATABASE=fuersie;UID=fuersie;PWD=kh8CG6jt"
+        stConnect = "ODBC;DRIVER=SQL Server;SERVER=" & SERVER_NEW & ";DATABASE=fuersie;UID=fuersie;PWD=kh8CG6jt" '23.02.2022  VL
     Dim dbHIST As DAO.Database
     Set dbHIST = OpenDatabase("fuersie", dbDriverNoPrompt, False, stConnect)
     
@@ -28553,8 +28553,8 @@ On Error GoTo LOKAL_ERROR
     End If
 
     Dim stConnect As String
-    stConnect = "ODBC;DRIVER=SQL Server;SERVER=80.86.85.121;DATABASE=fuersie;UID=fuersie;PWD=kh8CG6jt"
-    
+   ' stConnect = "ODBC;DRIVER=SQL Server;SERVER=80.86.85.121;DATABASE=fuersie;UID=fuersie;PWD=kh8CG6jt"
+    stConnect = "ODBC;DRIVER=SQL Server;SERVER=" & SERVER_NEW & ";DATABASE=fuersie;UID=fuersie;PWD=kh8CG6jt" '23.02.2022  VL
     Dim dbHIST As DAO.Database
     Set dbHIST = OpenDatabase("fuersie", dbDriverNoPrompt, False, stConnect)
     
@@ -28683,8 +28683,8 @@ On Error GoTo LOKAL_ERROR
     End If
 
     Dim stConnect As String
-    stConnect = "ODBC;DRIVER=SQL Server;SERVER=80.86.85.121;DATABASE=stada;UID=eanlive;PWD=sigverif2005"
-    
+   ' stConnect = "ODBC;DRIVER=SQL Server;SERVER=80.86.85.121;DATABASE=stada;UID=eanlive;PWD=sigverif2005"
+    stConnect = "ODBC;DRIVER=SQL Server;SERVER=" & SERVER_NEW & ";DATABASE=stada;UID=eanlive;PWD=sigverif2005" '23.02.2022  VL
     
     Dim dbEAN As DAO.Database
 
@@ -29355,7 +29355,7 @@ On Error GoTo LOKAL_ERROR
 
     Dim stConnect As String
     stConnect = "ODBC;DRIVER=SQL Server;SERVER=80.86.85.121;DATABASE=spielwaren;UID=eanlive;PWD=sigverif2005"
-    
+     stConnect = "ODBC;DRIVER=SQL Server;SERVER=" & SERVER_NEW & ";DATABASE=spielwaren;UID=eanlive;PWD=sigverif2005"
     
     Dim dbEAN As DAO.Database
     Set dbEAN = OpenDatabase("SPIELWAREN", dbDriverNoPrompt, False, stConnect)
@@ -30580,7 +30580,8 @@ Public Function fTestLoginError() As Long
     '============================================================================
     'DSN connection use a string like the following
     ' - no quotes around any of the parameters
-    strConnect = "ODBC;DRIVER=SQL Server;SERVER=80.86.85.121;DATABASE=stada;UID=eanlive;PWD=sigverif2005"
+    'strConnect = "ODBC;DRIVER=SQL Server;SERVER=80.86.85.121;DATABASE=stada;UID=eanlive;PWD=sigverif2005"
+    strConnect = "ODBC;DRIVER=SQL Server;SERVER=" & SERVER_NEW & ";DATABASE=stada;UID=eanlive;PWD=sigverif2005" '23.02.2022  VL
     'strConnect = "ODBC;DSN=CMSH;UID=Wandw;PWD=maskirovka;DATABASE=CMSH"
     '============================================================================
     
@@ -30631,7 +30632,8 @@ Public Function fTestLogin_Mussler_Error() As Long
     '============================================================================
     'DSN connection use a string like the following
     ' - no quotes around any of the parameters
-    strConnect = "ODBC;DRIVER=SQL Server;SERVER=80.86.85.121;DATABASE=mussler;UID=mussler;PWD=mussler"
+   ' strConnect = "ODBC;DRIVER=SQL Server;SERVER=80.86.85.121;DATABASE=mussler;UID=mussler;PWD=mussler"
+    strConnect = "ODBC;DRIVER=SQL Server;SERVER=" & SERVER_NEW & ";DATABASE=mussler;UID=mussler;PWD=mussler"  '23.02.2022  VL
     'strConnect = "ODBC;DSN=CMSH;UID=Wandw;PWD=maskirovka;DATABASE=CMSH"
     '============================================================================
     
@@ -30801,7 +30803,8 @@ Public Function fTestLogin_fuersie_Error() As Long
     '============================================================================
     'DSN connection use a string like the following
     ' - no quotes around any of the parameters
-    strConnect = "ODBC;DRIVER=SQL Server;SERVER=80.86.85.121;DATABASE=fuersie;UID=fuersie;PWD=kh8CG6jt"
+   ' strConnect = "ODBC;DRIVER=SQL Server;SERVER=80.86.85.121;DATABASE=fuersie;UID=fuersie;PWD=kh8CG6jt"
+    strConnect = "ODBC;DRIVER=SQL Server;SERVER=" & SERVER_NEW & ";DATABASE=fuersie;UID=fuersie;PWD=kh8CG6jt" '23.02.2022  VL
     'strConnect = "ODBC;DSN=CMSH;UID=Wandw;PWD=maskirovka;DATABASE=CMSH"
     '============================================================================
     
@@ -30851,7 +30854,8 @@ Public Function fTestLogin_Spiel_Error() As Long
     '============================================================================
     'DSN connection use a string like the following
     ' - no quotes around any of the parameters
-    strConnect = "ODBC;DRIVER=SQL Server;SERVER=80.86.85.121;DATABASE=spielwaren;UID=eanlive;PWD=sigverif2005"
+   ' strConnect = "ODBC;DRIVER=SQL Server;SERVER=80.86.85.121;DATABASE=spielwaren;UID=eanlive;PWD=sigverif2005"
+    strConnect = "ODBC;DRIVER=SQL Server;SERVER=" & SERVER_NEW & ";DATABASE=spielwaren;UID=eanlive;PWD=sigverif2005"
     'strConnect = "ODBC;DSN=CMSH;UID=Wandw;PWD=maskirovka;DATABASE=CMSH"
     '============================================================================
     
@@ -31080,9 +31084,11 @@ Public Sub schickdieFehlermeldungPerMail(Mitteilung As Errormessage)
     sAttachment = ""
     
     cAbsenderEmail = ermFirmenMail
-    If cAbsenderEmail <> "" Then cAbsenderEmail = "fehler@kisswws.de"
+    'If cAbsenderEmail <> "" Then cAbsenderEmail = "fehler@kisswws.de"
+    If cAbsenderEmail <> "" Then cAbsenderEmail = "fehler-winkiss@kisswws.de"
     
-    cAnEmailadresse = "fehler@kisswws.de"
+    'cAnEmailadresse = "fehler@kisswws.de"
+    cAnEmailadresse = "fehler-winkiss@kisswws.de"
     cBetreff = "Fehlermeldung: "
     
     cMessagetext = "Firma: " & ermFirmenBez
@@ -47984,7 +47990,8 @@ Public Sub KassendatundStatcheck()
         If frmWKL00.File2.ListCount > 0 Then
             If gbFtpYes Then
             
-                gsZenFTPAdresse = "80.86.85.121"
+                'gsZenFTPAdresse = "80.86.85.121"
+                gsZenFTPAdresse = SERVER_NEW '23.02.2022  VL
                 gsZenFTPUSER = gsLagerFTPBox 'Das ist der Eintrag aus der Lager.cfg
                 gsZenFTPPASS = "stada"
                 

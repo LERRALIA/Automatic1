@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{7D622DE6-0ABC-471E-9234-97DEC5E0A708}#3.8#0"; "sevCmd3.ocx"
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "Mscomctl.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Begin VB.Form frmWKL38 
    BorderStyle     =   1  'Fest Einfach
    Caption         =   "KISSNET..."
@@ -2039,6 +2039,7 @@ Private Sub Form_Load()
     If lHeute >= lVon Then
         If lHeute < lBis Then
             cSQL = "Update stammftp set FTPAD = '80.86.85.121'"
+            cSQL = "Update stammftp set FTPAD = '" & SERVER_NEW & "'" '23.02.2022  VL
             gdBase.Execute cSQL, dbFailOnError
         End If
     End If
@@ -8114,7 +8115,8 @@ Private Sub PuralZuUns()
     Label16.Caption = "Übertragung wird vorbereitet..."
     Label16.Refresh
     
-    sHosti = "80.86.85.121"
+   ' sHosti = "80.86.85.121"
+     sHosti = SERVER_NEW '23.02.2022  VL
     sUseri = "pural"
     sPassi = "R5Ghgw3"
     
@@ -8173,7 +8175,8 @@ Private Sub CarnotZuUns()
     Label16.Caption = "Übertragung wird vorbereitet..."
     Label16.Refresh
     
-    sHosti = "80.86.85.121"
+    'sHosti = "80.86.85.121"
+    sHosti = SERVER_NEW '23.02.2022  VL
     sUseri = "carnot"
     sPassi = "Ui62Wes"
     
@@ -8232,7 +8235,8 @@ Private Sub DronovCouponEinlZuUns()
     Label16.Caption = "Übertragung wird vorbereitet..."
     Label16.Refresh
     
-    sHosti = "80.86.85.121"
+   ' sHosti = "80.86.85.121"
+      sHosti = SERVER_NEW '23.02.2022  VL
     sUseri = "drocou2"
     sPassi = "W_6GtBxP"
     
@@ -8383,7 +8387,8 @@ Private Sub LueningZuUns()
     Label16.Caption = "Übertragung wird vorbereitet..."
     Label16.Refresh
     
-    sHosti = "80.86.85.121"
+   ' sHosti = "80.86.85.121"
+     sHosti = SERVER_NEW  '23.02.2022  VL
     sUseri = "lueningb"
     sPassi = "stada"
     
@@ -8458,6 +8463,7 @@ Private Sub RFSZuUns()
     Label16.Refresh
     
     sHosti = "80.86.85.121"
+    sHosti = SERVER_NEW '23.02.2022  VL
     sUseri = "ipausw"
     sPassi = "r6g1ll9"
    

@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{7D622DE6-0ABC-471E-9234-97DEC5E0A708}#3.8#0"; "sevCmd3.ocx"
-Object = "{648A5603-2C6E-101B-82B6-000000000014}#1.1#0"; "MSCOMM32.OCX"
+Object = "{648A5603-2C6E-101B-82B6-000000000014}#1.1#0"; "mscomm32.ocx"
 Object = "{0BA686C6-F7D3-101A-993E-0000C0EF6F5E}#1.0#0"; "threed32.ocx"
 Begin VB.Form frmWKL68 
    Caption         =   "Bezahlen"
@@ -5026,7 +5026,7 @@ LOKAL_ERROR:
 End Sub
 Private Sub Command33_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
-      
+      prot_GZ ("SCHLISSEN--------------------")
     Unload frmWKL68
          
 Exit Sub
@@ -5046,6 +5046,7 @@ anzeige "normal", "", Label9
 
 Select Case index
     Case 0
+        prot_GZ ("ABSCHLISSEN")
         Command5(1).Visible = False
         Command5(0).Visible = False
         If allesPrüfen Then
@@ -5064,7 +5065,7 @@ Select Case index
         End If
         gbBackaus68 = False
     Case 1 'zurück
-    
+            prot_GZ ("ZURÜCK")
         gcKreditKarte = ""
         gcKreditKarte2 = ""
     
@@ -15200,7 +15201,11 @@ Private Sub SSCommand6_Click(index As Integer)
         Select Case index
             
             Case 0 To 9    '** Ziffern **
-            
+                If index < 9 Then
+                prot_GZ ("TASTE " & (index + 1))
+                Else
+                    prot_GZ ("TASTE 0")
+                End If
                 'Extra
                 If Label1(1).Caption = 2 Then
                 
@@ -15232,6 +15237,7 @@ Private Sub SSCommand6_Click(index As Integer)
                 End If
                 
             Case Is = 10    '** Komma **
+                    prot_GZ ("TASTE Komma")
                 If Text1(Label1(1).Caption).Enabled = True Then
                     If InStr(Text1(Label1(1).Caption).Text, ",") = 0 Then
                         Text1(Label1(1).Caption).Text = Text1(Label1(1).Caption).Text & SSCommand6(index).Caption
@@ -15240,6 +15246,7 @@ Private Sub SSCommand6_Click(index As Integer)
                 End If
                 
             Case Is = 11    '** Clear **
+                prot_GZ ("CLEAR")
                 anzeige "normal", "", Label9
                 'Extra
                 If Label1(1).Caption = 2 Then
@@ -15267,6 +15274,7 @@ Private Sub SSCommand6_Click(index As Integer)
                 End If
                 
             Case Is = 12    '** Clear in Bar **
+            prot_GZ ("CLEAR IN BAR")
                 anzeige "normal", "", Label9
                 Text1(0).Text = ""
                 Text1(0).SetFocus
@@ -15274,7 +15282,7 @@ Private Sub SSCommand6_Click(index As Integer)
                 Offenrechnen (0)
                 
             Case Is = 13    '** Clear in Gutsch **
-            
+             prot_GZ ("CLEAR IN GUTSCHEIN")
                 anzeige "normal", "", Label9
                 Text1(1).Text = ""
                 Text1(4).SetFocus
@@ -15299,6 +15307,7 @@ Private Sub SSCommand6_Click(index As Integer)
                 
 
             Case Is = 14    '** Clear in 1.Karte **
+                prot_GZ ("CLEAR IN 1 KARTE")
                 back2 1
                 
                 Text1(2).Text = ""
@@ -15307,6 +15316,7 @@ Private Sub SSCommand6_Click(index As Integer)
                 Offenrechnen (2)
                 
             Case Is = 15    '** Clear in Dukate **
+                prot_GZ ("CLEAR IN DUKATE")
                 anzeige "normal", "", Label9
                 Text1(3).Text = ""
                 Text1(3).SetFocus
@@ -15325,10 +15335,12 @@ Private Sub SSCommand6_Click(index As Integer)
                 Offenrechnen (3)
                 
             Case Is = 16    '** Clear in suchegutschnr **
+                prot_GZ ("CLEAR IN SUCHE GUTSCHRIFTNUMMER") '"Gutscheinnummer"
                 Text1(4).Text = ""
                 Text1(4).SetFocus
                 
             Case Is = 17    '** Clear in EC Last **
+                prot_GZ ("CLEAR IN EC Last.")
                 anzeige "normal", "", Label9
                 If Text1(5).Enabled = True Then
                     Text1(5).Text = ""
@@ -15338,7 +15350,7 @@ Private Sub SSCommand6_Click(index As Integer)
                 End If
                 
             Case 18
-            
+                prot_GZ ("TASTE 'A' bei Gutscheinnummer")
                 Dim cFeld As String
 
                 dGutschAll = 0
@@ -15535,12 +15547,14 @@ Private Sub SSCommand6_Click(index As Integer)
                 
                 
             Case Is = 19    '** Clear in Scheck **
+            prot_GZ ("CLEAR IN SCHECK")
                 anzeige "normal", "", Label9
                 Text1(6).Text = ""
                 Text1(6).SetFocus
                 
                 Offenrechnen (6)
             Case Is = 20    '** Clear in 2.Karte **
+            prot_GZ ("CLEAR IN 2.KARTE")
                 back2 2
                 
                 Text1(7).Text = ""
@@ -15558,6 +15572,7 @@ Private Sub SSCommand6_Click(index As Integer)
                 End If
                 
             Case 22
+            prot_GZ ("TASTE 'S' bei Gutscheinnummer")
                 gLGutschnum = -1
                 frmWKL100.Show 1
                 If gLGutschnum > 0 Then
@@ -15566,6 +15581,7 @@ Private Sub SSCommand6_Click(index As Integer)
                 End If
                 
             Case 23
+            prot_GZ ("TASTE 'G' bei Gutscheinnummer")
                 Frame3.BackColor = glH2
                 Frame3.Visible = True
                 Text1(8).Text = ""
@@ -15574,6 +15590,7 @@ Private Sub SSCommand6_Click(index As Integer)
                 Label1(36).Refresh
                 
             Case 24
+            prot_GZ ("TASTE 'G' bei Gutscheinnummer")
                 Dim lKJADate As Long
                 Dim cKJAZeit As String
                 
@@ -16327,21 +16344,29 @@ Private Sub SSCommand8_Click(index As Integer)
     
         Select Case index
             Case 0
+                prot_GZ ("KreditKarte VI")
                 gcKreditKarte = "VI"
             Case 1
                 gcKreditKarte = "EU"
+                prot_GZ ("KreditKarte EU")
             Case 2
                 gcKreditKarte = "AE"
+                prot_GZ ("KreditKarte AE")
             Case 3
                 gcKreditKarte = "DC"
+                prot_GZ ("KreditKarte DC")
             Case 4
                 gcKreditKarte = "BC"
+                prot_GZ ("KreditKarte BC")
             Case 5
                 gcKreditKarte = "EC"
+                prot_GZ ("KreditKarte EC")
             Case 6
                 gcKreditKarte = "SO"
+                prot_GZ ("KreditKarte SO")
             Case 7
                 gcKreditKarte = "Automatisch"
+                prot_GZ ("KreditKarte Automatisch")
         End Select
         
         

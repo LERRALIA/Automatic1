@@ -20092,13 +20092,19 @@ Private Sub MSFlexGrid1_SelChange()
             cartnrzuSpeichern = MSFlexGrid1.TextMatrix(Val(lbl6(0).Caption), SpaltennummerArtnr)
             
             If IsNumeric(cPreis) Then
-                Artikelveraenderung cartnrzuSpeichern, cPreis, "Artikel bea Tabelle", "LEKPR"
+             'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START
+                Dim liefNr As String '(neue Zeile)
+                liefNr = MSFlexGrid1.TextMatrix(Val(lbl6(0).Caption), SpaltennummerLINR) '(neue Zeile)
+                Artikelveraenderung cartnrzuSpeichern, cPreis, "Artikel bea Tabelle", "LEKPR", liefNr '(neue Zeile)
+               'Artikelveraenderung cartnrzuSpeichern, cPreis, "Artikel bea Tabelle", "LEKPR"
+            'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ENDE
             End If
- 
+  
             MSFlexGrid1.Col = lColmerker
             MSFlexGrid1.Row = lRowmerker
             
             gbAenderLEKPR = False
+            
         End If
         
         If gbAenderLVKPR Then

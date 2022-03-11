@@ -13172,7 +13172,8 @@ On Error GoTo LOKAL_ERROR
     sAttachment = ""
     
     cAbsenderEmail = ermFirmenMail
-    If cAbsenderEmail <> "" Then cAbsenderEmail = "fehler@kisswws.de"
+    'If cAbsenderEmail <> "" Then cAbsenderEmail = "fehler@kisswws.de"
+    If cAbsenderEmail <> "" Then cAbsenderEmail = "fehler-winkiss@kisswws.de"
     
     cAnEmailadresse = "hotline@kisswws.de"
     cBetreff = "fehlender Report(Winkiss " & Left(WKVersion, 2) & "." & Right(WKVersion, 2) & "): " & cReport & " Firma: " & ermFirmenBez

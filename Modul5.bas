@@ -31080,9 +31080,11 @@ Public Sub schickdieFehlermeldungPerMail(Mitteilung As Errormessage)
     sAttachment = ""
     
     cAbsenderEmail = ermFirmenMail
-    If cAbsenderEmail <> "" Then cAbsenderEmail = "fehler@kisswws.de"
+    'If cAbsenderEmail <> "" Then cAbsenderEmail = "fehler@kisswws.de"
+    If cAbsenderEmail <> "" Then cAbsenderEmail = "fehler-winkiss@kisswws.de"
     
-    cAnEmailadresse = "fehler@kisswws.de"
+    'cAnEmailadresse = "fehler@kisswws.de"
+    cAnEmailadresse = "fehler-winkiss@kisswws.de"
     cBetreff = "Fehlermeldung: "
     
     cMessagetext = "Firma: " & ermFirmenBez

@@ -1670,23 +1670,25 @@ On Error GoTo LOKAL_ERROR
                 List1.Clear
                 List1.AddItem "Datum     Menge   Artnr  Artikelbezeichnung                  Fil Preis    Bed"
                 
-'                sOrder = "adate desc"
+                'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START
+                sOrder = "adate desc"
+                Option4(3).Tag = "adate asc"
                 
+'                If Option4(0).value = True Then
+'                    sOrder = Option4(0).Tag
+'                ElseIf Option4(3).value = True Then
+'                    sOrder = Option4(3).Tag
+'                ElseIf Option4(4).value = True Then
+'                    sOrder = Option4(4).Tag
+'                ElseIf Option4(5).value = True Then
+'                    sOrder = Option4(5).Tag
+'                ElseIf Option4(7).value = True Then
+'                    sOrder = Option4(7).Tag
+'                ElseIf Option4(8).value = True Then
+'                    sOrder = Option4(8).Tag
+'                End If
                 
-                If Option4(0).value = True Then
-                    sOrder = Option4(0).Tag
-                ElseIf Option4(3).value = True Then
-                    sOrder = Option4(3).Tag
-                ElseIf Option4(4).value = True Then
-                    sOrder = Option4(4).Tag
-                ElseIf Option4(5).value = True Then
-                    sOrder = Option4(5).Tag
-                ElseIf Option4(7).value = True Then
-                    sOrder = Option4(7).Tag
-                ElseIf Option4(8).value = True Then
-                    sOrder = Option4(8).Tag
-                End If
-                
+                'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ENDE
                 ZeigArtHistInList "VerkaufKU", List3, gckundnr, sOrder
                 
                 ZeigeSummen gckundnr
@@ -1721,23 +1723,26 @@ On Error GoTo LOKAL_ERROR
                 List1.Clear
                 List1.AddItem "Datum     Menge   Artnr  Artikelbezeichnung                  Fil Preis    Bed"
                 
-'                sOrder = "adate desc"
+                'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START
+                sOrder = "adate desc"
+                Option4(3).Tag = "adate asc"
                 
+
+'                If Option4(0).value = True Then
+'                    sOrder = Option4(0).Tag
+'                ElseIf Option4(3).value = True Then
+'                    sOrder = Option4(3).Tag
+'                ElseIf Option4(4).value = True Then
+'                    sOrder = Option4(4).Tag
+'                ElseIf Option4(5).value = True Then
+'                    sOrder = Option4(5).Tag
+'                ElseIf Option4(7).value = True Then
+'                    sOrder = Option4(7).Tag
+'                ElseIf Option4(8).value = True Then
+'                    sOrder = Option4(8).Tag
+'                End If
                 
-                If Option4(0).value = True Then
-                    sOrder = Option4(0).Tag
-                ElseIf Option4(3).value = True Then
-                    sOrder = Option4(3).Tag
-                ElseIf Option4(4).value = True Then
-                    sOrder = Option4(4).Tag
-                ElseIf Option4(5).value = True Then
-                    sOrder = Option4(5).Tag
-                ElseIf Option4(7).value = True Then
-                    sOrder = Option4(7).Tag
-                ElseIf Option4(8).value = True Then
-                    sOrder = Option4(8).Tag
-                End If
-                
+                'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ENDE
                 ZeigArtHistInList "VerkaufKU", List3, gckundnr, sOrder
                 
                 ZeigeSummen gckundnr

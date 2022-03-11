@@ -3300,14 +3300,14 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Command3_Click(Index As Integer)
+Private Sub Command3_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
     Dim sTitle      As String
     Dim sFilter     As String
     Dim sOldpfad    As String
     
-    Select Case Index
+    Select Case index
     
         Case Is = 0 'Ändern
             sTitle = "Pfad zur Artikeldatei"
@@ -3328,8 +3328,24 @@ On Error GoTo LOKAL_ERROR
         Case Is = 1 'Standard
 
             
-            Text1(1).Text = "C:\Program Files (x86)\CipherLab\Data Converter 3"
-            gsConverterPfad = "C:\Program Files (x86)\CipherLab\Data Converter 3"
+   '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<18.01.22
+gsConverterPfad = "C:\Program Files (x86)\CipherLab\Data Converter 3"
+If CreateObject("Scripting.FileSystemObject").FolderExists(gsConverterPfad) Then
+ Text1(1).Text = gsConverterPfad
+Else
+        Dim ConverterPfad2 As String: ConverterPfad2 = ProcessPfad("Converter.exe")
+       If ConverterPfad2 <> "" Then
+        gsConverterPfad = ConverterPfad2
+        Text1(1).Text = gsConverterPfad2
+    Else
+        MsgBox ("Der Pfad für Converter ist nicht korrekt.Starten Sie zuerst  das Programm 'Data Converter'")
+        GoTo LOKAL_ERROR
+    End If
+  
+  End If
+            'Text1(1).Text = "C:\Program Files (x86)\CipherLab\Data Converter 3"
+            'gsConverterPfad = "C:\Program Files (x86)\CipherLab\Data Converter 3"
+'<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<18.01.22
             
         Case 6
             Text1_KeyUp 0, vbKeyF2, 0
@@ -3347,13 +3363,13 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Command5_Click(Index As Integer)
+Private Sub Command5_Click(index As Integer)
  On Error GoTo LOKAL_ERROR
     Dim i As Integer
     Dim iFileNr As Integer
     Screen.MousePointer = 11
     
-    Select Case Index
+    Select Case index
         Case 0
             gsTankPfad = Text1(28).Text
             gsConverterPfad = Text1(1).Text
@@ -3438,7 +3454,17 @@ Private Sub Form_Load()
     
     sMDECPfad = Text1(1).Text '"C:\Program Files (x86)\CipherLab\Data Converter 3"
     sMDECname = "Converter.exe"
-        
+ '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<18.01.22
+        Dim ConverterPfad1 As String: ConverterPfad1 = ProcessPfad("Converter.exe")
+
+        If ConverterPfad1 = "" Then
+                ' MsgBox ("Starten Sie zuerst  das Programm 'Data Converter'")
+                Exit Sub       '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        Else
+        sMDECPfad = ConverterPfad1
+        End If
+'<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<18.01.22
+  
     bMDECONVfound = False
     
     'close anwendung
@@ -5697,10 +5723,10 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Text1_Change(Index As Integer)
+Private Sub Text1_Change(index As Integer)
 On Error GoTo LOKAL_ERROR
     
-    If Index = 0 Then
+    If index = 0 Then
         LiefKuerzelAufloesung lbl6(1), Text1(0)
     End If
     
@@ -5717,7 +5743,7 @@ LOKAL_ERROR:
     
 End Sub
 
-Private Sub Text1_KeyUp(Index As Integer, KeyCode As Integer, Shift As Integer)
+Private Sub Text1_KeyUp(index As Integer, KeyCode As Integer, Shift As Integer)
 On Error GoTo LOKAL_ERROR
     
     Dim lcount As Long
@@ -5733,14 +5759,14 @@ On Error GoTo LOKAL_ERROR
         gF2Prompt.cWahl = ""
         gF2Prompt.bMultiple = False
         
-        Select Case Index
+        Select Case index
             
             Case Is = 0
                 gF2Prompt.cFeld = "LINR"
                 
                 frmWK00a.Show 1
                 If gF2Prompt.cWahl <> "" Then
-                    Text1(Index).Text = gF2Prompt.cWahl
+                    Text1(index).Text = gF2Prompt.cWahl
 '                    Label1(10).Caption = gF2Prompt.cWert
                 End If
             

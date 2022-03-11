@@ -1141,6 +1141,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+
 Private Sub Form_Unload(Cancel As Integer)
     On Error GoTo LOKAL_ERROR
     
@@ -1171,7 +1172,7 @@ End Sub
 Private Sub Check1_Click()
     On Error GoTo LOKAL_ERROR
     
-    If Check1.Value = vbChecked Then
+    If Check1.value = vbChecked Then
         Check2.Visible = True
     Else
         Check2.Visible = False
@@ -1187,35 +1188,58 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Command1_Click(Index As Integer)
+Private Sub Command1_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim lDat As Long
     Dim sSQL As String
     
-    Select Case Index
+    Select Case index
         Case 0
         
             If gbOhnebestProt = True Then
             
-                anzeige "rot", "Die Bestandsprotkollierung ist nicht aktiviert", lblAnzeige
+                anzeige "rot", "Die Bestandsprotkollierung ist nicht aktiviert", lblanzeige
             Else
+            
                 If SucheDaten Then
                 
-                    anzeige "normal", "Druckvorschau wird erstellt...", lblAnzeige
+                    anzeige "normal", "Druckvorschau wird erstellt...", lblanzeige
                     
                     
                     loeschNEW "BESTPDRU" & srechnertab, gdApp
-    
                     loeschNEW "BESTPDRU", gdApp
+                    
                     TransferTab gdBase, App.Path & "\kissapp.mdb", "BESTPDRU" & srechnertab
                     
                     sSQL = "select * into BESTPDRU from BESTPDRU" & srechnertab
                     gdApp.Execute sSQL, dbFailOnError
                     
+                    'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START
+                     'diese Funktion (GetRetoure) habe ich neu implementiert (die war nicht)
+                     GetRetoure
+                     
+                     Dim rsrs As Recordset
+                     Set rsrs = gdApp.OpenRecordset("BESTPDRU", dbOpenTable)
+                      
+                     If rsrs.EOF Then
+                        lblanzeige.Caption = "Keine Daten ermittelt."
+                        lblanzeige.Refresh
+                        rsrs.Close: Set rsrs = Nothing
+                        Screen.MousePointer = 0
+                        Exit Sub
+                     Else
+                        anzeige "normal", "Druckvorschau wird erstellt...", lblanzeige
+                        rsrs.Close: Set rsrs = Nothing
+                     End If
+                    
+                    'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ENDE
+                    
                     reportbildschirmApp "", "aWKL37"
-                    anzeige "normal", "", lblAnzeige
+                    anzeige "normal", "", lblanzeige
+                
                 End If
+                
             End If
         Case 1
             Unload frmWKL37
@@ -1263,7 +1287,7 @@ Private Sub Command1_Click(Index As Integer)
         
             If Suchedaten_quick Then
                 
-                anzeige "normal", "Druckvorschau wird erstellt...", lblAnzeige
+                anzeige "normal", "Druckvorschau wird erstellt...", lblanzeige
                 
                 loeschNEW "BESTPDRU" & srechnertab, gdApp
                 loeschNEW "BESTPDRU", gdApp
@@ -1280,7 +1304,7 @@ Private Sub Command1_Click(Index As Integer)
                 gdApp.Execute sSQL, dbFailOnError
                 
                 reportbildschirmApp "", "aWKL37a"
-                anzeige "normal", "", lblAnzeige
+                anzeige "normal", "", lblanzeige
                 
             End If
         Case 9
@@ -1381,8 +1405,8 @@ Private Function SucheDaten() As Boolean
     
     SucheDaten = False
     
-    lblAnzeige.Caption = "Daten werden ermittelt..."
-    lblAnzeige.Refresh
+    lblanzeige.Caption = "Daten werden ermittelt..."
+    lblanzeige.Refresh
     
 '    Datenbankwechsel
     
@@ -1402,8 +1426,8 @@ Private Function SucheDaten() As Boolean
             sWhere = " and Lastdate >= " & Trim$(Str$(lVon))
             sKassjWhere = " where adate >= " & Trim$(Str$(lVon))
         Else
-            lblAnzeige.Caption = "Bitte geben Sie ein richtiges Datumsformat ein!"
-            lblAnzeige.Refresh
+            lblanzeige.Caption = "Bitte geben Sie ein richtiges Datumsformat ein!"
+            lblanzeige.Refresh
             Text1(3).SetFocus
             Exit Function
         End If
@@ -1416,8 +1440,8 @@ Private Function SucheDaten() As Boolean
             sWhere = sWhere & " and Lastdate <= " & Trim$(Str$(lBis))
             sKassjWhere = sKassjWhere & " and adate <= " & Trim$(Str$(lBis))
         Else
-            lblAnzeige.Caption = "Bitte geben Sie ein richtiges Datumsformat ein!"
-            lblAnzeige.Refresh
+            lblanzeige.Caption = "Bitte geben Sie ein richtiges Datumsformat ein!"
+            lblanzeige.Refresh
             Text1(2).SetFocus
             Exit Function
         End If
@@ -1499,7 +1523,7 @@ Private Function SucheDaten() As Boolean
     sSQL = sSQL & sWhere
     gdBase.Execute sSQL, dbFailOnError
     
-    If Check1.Value = vbChecked Then
+    If Check1.value = vbChecked Then
     
         sSQL = "Insert into BESTPDRU" & srechnertab & " select artnr, Bediener, 'Kassiervorgang' as aenart "
         sSQL = sSQL & ", Filiale "
@@ -1541,13 +1565,13 @@ Private Function SucheDaten() As Boolean
 
         gdBase.Execute sSQL, dbFailOnError
         
-        If Check2.Value = vbChecked Then
+        If Check2.value = vbChecked Then
             sSQL = "Delete from BESTPDRU" & srechnertab & " where aenart = 'Kassiervorgang' "
             gdBase.Execute sSQL, dbFailOnError
         End If
     End If
     
-    If Check3.Value = vbChecked Then
+    If Check3.value = vbChecked Then
         sSQL = "Delete from BESTPDRU" & srechnertab & " where aenart = 'Rücknahme Kasse' "
         gdBase.Execute sSQL, dbFailOnError
     End If
@@ -1582,10 +1606,12 @@ Private Function SucheDaten() As Boolean
     
     Set rsrs = gdBase.OpenRecordset("BESTPDRU" & srechnertab, dbOpenTable)
     If rsrs.EOF Then
-        lblAnzeige.Caption = "Keine Daten ermittelt."
-        lblAnzeige.Refresh
-        rsrs.Close: Set rsrs = Nothing
-        Exit Function
+        lblanzeige.Caption = "Keine Daten ermittelt."
+        lblanzeige.Refresh
+        'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START
+        'rsrs.Close: Set rsrs = Nothing
+        'Exit Function
+        'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ENDE
     End If
     rsrs.Close: Set rsrs = Nothing
     
@@ -1640,8 +1666,8 @@ Private Function Suchedaten_quick() As Boolean
     
     Suchedaten_quick = False
     
-    lblAnzeige.Caption = "Daten werden ermittelt..."
-    lblAnzeige.Refresh
+    lblanzeige.Caption = "Daten werden ermittelt..."
+    lblanzeige.Refresh
     
     Screen.MousePointer = 11
     Me.Refresh
@@ -1659,8 +1685,8 @@ Private Function Suchedaten_quick() As Boolean
             sWhere = " and Lastdate >= " & Trim$(Str$(lVon))
             sKassjWhere = " where adate >= " & Trim$(Str$(lVon))
         Else
-            lblAnzeige.Caption = "Bitte geben Sie ein richtiges Datumsformat ein!"
-            lblAnzeige.Refresh
+            lblanzeige.Caption = "Bitte geben Sie ein richtiges Datumsformat ein!"
+            lblanzeige.Refresh
             Text1(3).SetFocus
             Exit Function
         End If
@@ -1673,8 +1699,8 @@ Private Function Suchedaten_quick() As Boolean
             sWhere = sWhere & " and Lastdate <= " & Trim$(Str$(lBis))
             sKassjWhere = sKassjWhere & " and adate <= " & Trim$(Str$(lBis))
         Else
-            lblAnzeige.Caption = "Bitte geben Sie ein richtiges Datumsformat ein!"
-            lblAnzeige.Refresh
+            lblanzeige.Caption = "Bitte geben Sie ein richtiges Datumsformat ein!"
+            lblanzeige.Refresh
             Text1(2).SetFocus
             Exit Function
         End If
@@ -1750,43 +1776,43 @@ Private Function Suchedaten_quick() As Boolean
 
     sSQL = "Insert into BESTPDRU" & srechnertab & " select * from BestProt where aenart <> 'Kassiervorgang' "
     
-    If Option1(4).Value = True Then 'Diebstahl
+    If Option1(4).value = True Then 'Diebstahl
         caenderGRUND = "Diebstahl"
-    ElseIf Option1(3).Value = True Then ' reg. Warenentnahme
+    ElseIf Option1(3).value = True Then ' reg. Warenentnahme
         caenderGRUND = "reg. Warenentnahme"
-    ElseIf Option1(1).Value = True Then ' Bedienerfehler
+    ElseIf Option1(1).value = True Then ' Bedienerfehler
         caenderGRUND = "Bedienerfehler"
-    ElseIf Option1(0).Value = True Then ' Verfallsdat erreicht
+    ElseIf Option1(0).value = True Then ' Verfallsdat erreicht
         caenderGRUND = "Verfallsdat erreicht"
-    ElseIf Option1(8).Value = True Then ' Bruch
+    ElseIf Option1(8).value = True Then ' Bruch
         caenderGRUND = "Bruch"
-    ElseIf Option1(11).Value = True Then 'unklare Bestandsdiff
+    ElseIf Option1(11).value = True Then 'unklare Bestandsdiff
         caenderGRUND = "unklare Bestandsdiff"
-    ElseIf Option1(12).Value = True Then 'Ladenbedarf
+    ElseIf Option1(12).value = True Then 'Ladenbedarf
         caenderGRUND = "Ladenbedarf"
-    ElseIf Option1(13).Value = True Then 'Eigenbedarf
+    ElseIf Option1(13).value = True Then 'Eigenbedarf
         caenderGRUND = "Eigenbedarf"
-    ElseIf Option1(14).Value = True Then 'Spende
+    ElseIf Option1(14).value = True Then 'Spende
         caenderGRUND = "Spende"
-    ElseIf Option1(15).Value = True Then 'Fehllieferung
+    ElseIf Option1(15).value = True Then 'Fehllieferung
         caenderGRUND = "Fehllieferung"
         
-    ElseIf Option1(17).Value = True Then 'Auflösen
+    ElseIf Option1(17).value = True Then 'Auflösen
         caenderGRUND = "Auflösen"
-    ElseIf Option1(18).Value = True Then 'Retoure
+    ElseIf Option1(18).value = True Then 'Retoure
         caenderGRUND = "Retoure"
-    ElseIf Option1(19).Value = True Then 'Wundertüte
+    ElseIf Option1(19).value = True Then 'Wundertüte
         caenderGRUND = "Wundertüte"
-    ElseIf Option1(20).Value = True Then 'Personalkauf
+    ElseIf Option1(20).value = True Then 'Personalkauf
         caenderGRUND = "Personalkauf"
-    ElseIf Option1(21).Value = True Then 'Shopverkauf
+    ElseIf Option1(21).value = True Then 'Shopverkauf
         caenderGRUND = "Shopverkauf"
-    ElseIf Option1(16).Value = True Then 'alle
+    ElseIf Option1(16).value = True Then 'alle
         caenderGRUND = "alle"
     
     End If
     
-    If Option1(16).Value = True Then 'alle
+    If Option1(16).value = True Then 'alle
         sSQL = sSQL & " and AENGRUND <> ''"
     Else
     
@@ -1798,7 +1824,7 @@ Private Function Suchedaten_quick() As Boolean
     
     gdBase.Execute sSQL, dbFailOnError
     
-    If Check1.Value = vbChecked Then
+    If Check1.value = vbChecked Then
     
         sSQL = "Insert into BESTPDRU" & srechnertab & " select artnr, Bediener, 'Kassiervorgang' as aenart "
         sSQL = sSQL & ", Filiale "
@@ -1838,13 +1864,13 @@ Private Function Suchedaten_quick() As Boolean
         sSQL = sSQL & sTauwhere
         gdBase.Execute sSQL, dbFailOnError
         
-        If Check2.Value = vbChecked Then
+        If Check2.value = vbChecked Then
             sSQL = "Delete from BESTPDRU" & srechnertab & " where aenart = 'Kassiervorgang' "
             gdBase.Execute sSQL, dbFailOnError
         End If
     End If
     
-    If Check3.Value = vbChecked Then
+    If Check3.value = vbChecked Then
         sSQL = "Delete from BESTPDRU" & srechnertab & " where aenart = 'Rücknahme Kasse' "
         gdBase.Execute sSQL, dbFailOnError
     End If
@@ -1878,8 +1904,8 @@ Private Function Suchedaten_quick() As Boolean
     
     Set rsrs = gdBase.OpenRecordset("BESTPDRU" & srechnertab, dbOpenTable)
     If rsrs.EOF Then
-        lblAnzeige.Caption = "Keine Daten ermittelt."
-        lblAnzeige.Refresh
+        lblanzeige.Caption = "Keine Daten ermittelt."
+        lblanzeige.Refresh
         rsrs.Close: Set rsrs = Nothing
         Exit Function
     End If
@@ -1939,10 +1965,10 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Option1_Click(Index As Integer)
+Private Sub Option1_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
-    Select Case Index
+    Select Case index
     
         Case Is = 2    'vormonat
         
@@ -1997,10 +2023,10 @@ LOKAL_ERROR:
 
     Fehlermeldung1
 End Sub
-Private Sub Text1_GotFocus(Index As Integer)
+Private Sub Text1_GotFocus(index As Integer)
     On Error GoTo LOKAL_ERROR
     
-    Text1(Index).BackColor = glSelBack1
+    Text1(index).BackColor = glSelBack1
 
     Exit Sub
 LOKAL_ERROR:
@@ -2013,10 +2039,10 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Text1_KeyUp(Index As Integer, KeyCode As Integer, Shift As Integer)
+Private Sub Text1_KeyUp(index As Integer, KeyCode As Integer, Shift As Integer)
 On Error GoTo LOKAL_ERROR
 
-Select Case Index
+Select Case index
 
     Case 0
     
@@ -2054,10 +2080,10 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Text1_LostFocus(Index As Integer)
+Private Sub Text1_LostFocus(index As Integer)
     On Error GoTo LOKAL_ERROR
     
-    Text1(Index).BackColor = vbWhite
+    Text1(index).BackColor = vbWhite
 
     Exit Sub
 LOKAL_ERROR:
@@ -2101,3 +2127,104 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
+
+'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< START
+Private Sub GetRetoure()
+On Error GoTo LOKAL_ERROR
+     
+Dim Scmd As String
+Dim sArt As String
+Dim sBedname As String
+Dim ibednu As Integer
+ 
+
+Scmd = "INSERT INTO [MS Access;Database=" & App.Path & "\kissapp.mdb].BESTPDRU(LASTDATE,LASTTIME,ARTNR,BEZEICH,Bediener,AENART,AENGRUND,UMENGE,NEWBEST,OLDBEST,SYNSTATUS,FILIALE,SENDOK,BEDNAME,FARBTEXT,FARBwert,FARBwertS,FARBNR,EKPR,LINR,LPZ,MARKE,LINBEZ)SELECT"
+Scmd = Scmd & " ADATE as LASTDATE,AZEIT as LASTTIME,ARTNR,BEZEICH,BEDIENER,'Retoure' as AENART,'Retoure' as AENGRUND,BEST1 as UMENGE,'-' & MENGE as NEWBEST,(MENGE+BEST1) as OLDBEST,''as SYNSTATUS,FILIALE,SENDOK,'' as BEDNAME,''as FARBTEXT,null as FARBwert,null as FARBwertS , 0 as FARBNR,EKPR,LINR,LPZ,'' as MARKE,'' as LINBEZ FROM RETOURE"
+
+
+If Text1(3).Text <> "" Then
+ If IsDate(Text1(3).Text) Then
+     
+     Scmd = Scmd & " WHERE Datevalue(ADATE) >= CDate('" & Text1(3).Text & "')"
+            
+ Else
+      lblanzeige.Caption = "Bitte geben Sie ein richtiges Datumsformat ein!"
+      lblanzeige.Refresh
+      Text1(3).SetFocus
+      Exit Sub
+ End If
+End If
+    
+If Text1(2).Text <> "" Then
+ If IsDate(Text1(2).Text) Then
+     
+     Scmd = Scmd & " AND Datevalue(ADATE) <= CDate('" & Text1(2).Text & "')"
+            
+ Else
+      lblanzeige.Caption = "Bitte geben Sie ein richtiges Datumsformat ein!"
+      lblanzeige.Refresh
+      Text1(2).SetFocus
+      Exit Sub
+ End If
+End If
+    
+Text1(1).Text = Trim(Text1(1).Text)
+If Text1(1).Text <> "" Then
+
+        If Len(Text1(1).Text) > 6 Then
+            sArt = ermittleartnr(Text1(1).Text)
+        Else
+            sArt = Text1(1).Text
+        End If
+
+        If sArt <> "" Then
+            If IsNumeric(sArt) Then
+               Scmd = Scmd & " AND ARTNR=" & sArt
+            End If
+        End If
+
+End If
+
+    sBedname = Trim(cboBed.Text)
+    If sBedname <> "alle" Then
+       
+            Dim rsBed As Recordset
+            Set rsBed = gdBase.OpenRecordset("SELECT BEDNU FROM BEDNAME WHERE BEDNAME='" & sBedname & "'")
+            
+            If Not rsBed.EOF Then
+                rsBed.MoveFirst
+                If Not IsNull(rsBed!BEDNU) Then
+                    ibednu = rsBed!BEDNU
+                Else
+                    ibednu = 0
+                End If
+            Else
+                ibednu = 0
+            End If
+            rsBed.Close: Set rsBed = Nothing
+    
+    Else
+            ibednu = 0
+      
+    End If
+
+If ibednu <> 0 Then
+    Scmd = Scmd & " AND BEDIENER=" & ibednu
+End If
+    
+gdBase.Execute Scmd, dbFailOnError
+ 
+gdBase.Execute "UPDATE BEDNAME BN INNER JOIN [MS Access;Database=" & App.Path & "\kissapp.mdb].BESTPDRU B ON BN.BEDNU=B.BEDIENER SET B.BEDNAME=BN.BEDNAME", dbFailOnError
+  
+Exit Sub
+LOKAL_ERROR:
+    Fehler.gsDescr = err.Description
+    Fehler.gsNumber = err.Number
+    Fehler.gsFormular = Me.name
+    Fehler.gsFunktion = "GetRetoure"
+    Fehler.gsFehlertext = "Im Programmteil Protokoll der Bestandsveränderungen ist ein Fehler aufgetreten."
+    
+    Fehlermeldung1
+End Sub
+'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ENDE
+

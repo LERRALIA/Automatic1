@@ -14624,36 +14624,21 @@ End Sub
   
 Private Sub Command15_Click()
 On Error GoTo LOKAL_ERROR
-' TestZwecks.Show 1
-
-'an EDEKA FTP-Server eine Test-Bestellung schicken  <<<<<<<<<<<<<<<<<<< START
-' giKissFtpMode = 49
-' frmWKL38.Show 1
-'an EDEKA FTP-Server eine Test-Bestellung schicken  <<<<<<<<<<<<<<<<<<< ENDE
-
-'setzedrucker gcListenDrucker & "-oday"
-'reportbildschirmToPrinter "aWKL21i"
-
-' MsgBox (DatePart("ww", DateValue(Now), vbMonday, vbFirstFourDays)) '---> hat damals 44 geliefert
-' MsgBox (DatePart("ww", DateValue(Now))) '--->  hat damals 45 geliefert
+ 
   
-' MsgBox ("von :" & gZeiten(7).Von & "bis :" & gZeiten(7).Bis)
-  
-  
-  
-'  Dim obb As Object
-'  Set obb = GetObject("winmgmts:") _
-'        .ExecQuery("select * from win32_process where name='meineSchnitt.exe'")
-'
-'  If obb.Count > 0 Then
-'   MsgBox ("Running ...")
-'  End If
-   
+ 
+ 
     
 Exit Sub
-    
+     
 LOKAL_ERROR:
- MsgBox (err.Number & vbNewLine & vbNewLine & err.Description)
+    Fehler.gsDescr = err.Description
+    Fehler.gsNumber = err.Number
+    Fehler.gsFormular = Me.name
+    Fehler.gsFunktion = "Command15_Click"
+    Fehler.gsFehlertext = "Beim Starten von Winkiss ist ein Fehler aufgetreten."
+    
+    Fehlermeldung1
 End Sub
 
 Private Sub Command7_KeyUp(index As Integer, KeyCode As Integer, Shift As Integer)

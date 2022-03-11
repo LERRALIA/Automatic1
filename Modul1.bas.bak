@@ -133,7 +133,6 @@ Public Function ProcessPfad(ByRef sExeDateiName As String) As String
     Dim tEI As ExeInfo
     Dim tPE32 As PROCESSENTRY32
     Dim Flag_proz As String: Flag_proz = 0
-    Dim Flag_povtor As String: Flag_povtor = 0
     On Error GoTo LOKAL_ERROR
 aaa:
     hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0&)
@@ -154,18 +153,15 @@ aaa:
         Loop
 aus1:
     If Flag_proz = 0 Then
-        If Flag_povtor = 0 Then                                                     ' erste mal bitten converter.exe zu startten
-            MsgBox ("Starten Sie das Programm 'Converter.exe' dann drücken 'OK'")  '
-            Flag_povtor = 1
-            GoTo aaa
-          Else
-            Exit Function                                                             ' zweite mal schon nicht bitten ==>raus
-        End If
+        MsgBox ("starten zuerst Converter.exe")
+        Exit Function
+        'GoTo aaa
     End If
             tEI = GetProcessParameter(tPE32.th32ProcessID)
             strImagePathName = tEI.ImagePathName
         If strImagePathName = "" Then
-'MsgBox ("Starten Sie das Programm 'Converter.exe' dann drücken 'OK'")  ' d.h. converter.exe - Demon-Prozess ist  Pfad := ''  ,raus
+            MsgBox ("Starten Sie das Programm 'Converter.exe'")
+            'GoTo aaa
             Exit Function
         End If
             If Len(strImagePathName) > 0 Then
@@ -205,7 +201,7 @@ Public Function GetProcessParameter(ByVal PID As Long) As ExeInfo
                     If ReadProcessMemory(hProcess, tRPP.ImagePathName.Buffer, bytImagePathName(0), tRPP.ImagePathName.length, lngRetLen) Then
                         tEI.ImagePathName = CStr(bytImagePathName)
                     Else
-                     MsgBox ("Starten Sie das Programm 'Converter.exe' dann drücken 'OK'")
+                     MsgBox ("Starten Sie das Programm 'Converter.exe'")
                     'GoTo LOKAL_ERROR
                     Exit Function
                     End If
@@ -214,17 +210,17 @@ Public Function GetProcessParameter(ByVal PID As Long) As ExeInfo
                         tEI.CommandLine = CStr(bytCommandLine)
                     End If
                 Else
-                     MsgBox ("Starten Sie das Programm 'Converter.exe' dann drücken 'OK'")
+                     MsgBox ("Starten Sie das Programm 'Converter.exe'")
                     'GoTo LOKAL_ERROR
                     Exit Function
                 End If
                      Else
-MsgBox ("Starten Sie das Programm 'Converter.exe' dann drücken 'OK'")
+            MsgBox ("Starten Sie das Programm 'Converter.exe'")
             'GoTo LOKAL_ERROR
              Exit Function
             End If
         Else
-MsgBox ("Starten Sie das Programm 'Converter.exe' dann drücken 'OK'")
+            MsgBox ("Starten Sie das Programm 'Converter.exe'")
             'GoTo LOKAL_ERROR
             Exit Function
         End If
@@ -241,18 +237,6 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Function
 '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-'<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<25.02.22  VL
-Sub prot_GZ(ByRef sInfo As String)
-sInfo = Format$(Now, "dd.mm.yyyy") & " " & Time$() & " " & sInfo
-    Dim FNr As Integer
-    Dim InfoDateiname As String
-    FNr = FreeFile
-    InfoDateiname = App.Path & IIf(Right$(App.Path, 1) <> "\", "\", "") & "PROT_GZ" & ".log"
-    Open InfoDateiname For Append As #FNr
-    Print #FNr, sInfo
-    Close #FNr
-End Sub
-'<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<25.02.22  VL
 Public Function Spruch_des_Tages() As String
     On Error GoTo LOKAL_ERROR
     

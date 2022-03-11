@@ -585,7 +585,7 @@ Begin VB.Form frmWKL82
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   50987009
+         Format          =   52363265
          CurrentDate     =   38457.8333333333
       End
       Begin MSComCtl2.DTPicker DTPickerBis 
@@ -608,7 +608,7 @@ Begin VB.Form frmWKL82
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Format          =   50987009
+         Format          =   52363265
          CurrentDate     =   38457.8333333333
       End
       Begin MSComctlLib.TreeView Tree11 

@@ -596,10 +596,10 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Private Sub Command0_Click(Index As Integer)
+Private Sub Command0_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
-    Select Case Index
+    Select Case index
     
         Case Is = 0
             Text1(0).Text = Format(Datumschreiben11a(3500, 340), "DD.MM.YY")
@@ -620,10 +620,10 @@ LOKAL_ERROR:
     Fehlermeldung1
 End Sub
 
-Private Sub Command3_Click(Index As Integer)
+Private Sub Command3_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
      
-    Select Case Index
+    Select Case index
         Case 11
             gsHelpstring = "allgemeine Kassenvorgänge"
             frmWKL110.Show 1
@@ -639,37 +639,37 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Command5_Click(Index As Integer)
+Private Sub Command5_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
-    Select Case Index
+    Select Case index
         Case 0
             Unload frmWKL136
         Case 1 'suchen
-            If Option2(0).Value = True Then
+            If Option2(0).value = True Then
                 SucheDaten
-            ElseIf Option2(1).Value = True Then
+            ElseIf Option2(1).value = True Then
                 SucheDaten2BedBeiStorno
-            ElseIf Option2(2).Value = True Then
+            ElseIf Option2(2).value = True Then
                 SucheDatenBedKasse
-            ElseIf Option2(3).Value = True Then
+            ElseIf Option2(3).value = True Then
                 SucheDatenKedittilgung
-            ElseIf Option2(4).Value = True Then
+            ElseIf Option2(4).value = True Then
                 
                 SucheDatenAboPlus
                 ExportiereAboPlus
                 
-            ElseIf Option2(5).Value = True Then
+            ElseIf Option2(5).value = True Then
                 SucheDatenKunden_Auslieferung
-            ElseIf Option2(6).Value = True Then
+            ElseIf Option2(6).value = True Then
                 SucheDatenPLZ_Erfassung
-            ElseIf Option2(7).Value = True Then
+            ElseIf Option2(7).value = True Then
                 SucheDatenPreisÄnderung_Kasse
-            ElseIf Option2(8).Value = True Then
+            ElseIf Option2(8).value = True Then
                 SucheDatenKeditkartenzahlung
-            ElseIf Option2(9).Value = True Then
+            ElseIf Option2(9).value = True Then
                 SucheDatenCouponEinloesungen
-            ElseIf Option2(10).Value = True Then
+            ElseIf Option2(10).value = True Then
                 SucheDatenAlteGutscheine
             Else
                 anzeige "rot", "Wählen Sie die Protokollart aus!", Label1(4)
@@ -889,7 +889,18 @@ On Error GoTo LOKAL_ERROR
     Dim rsLi            As DAO.Recordset
     
     cBudniKundNr = ""
-    sSQL = "select KUNDNR from LISRT where FORMAT = 'EDIBUDNI' "
+    'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  START
+    If gbBudniNeuesFtpVerfahren Then
+     
+     sSQL = "select KUNDNR from LISRT where FORMAT = 'EDIBHSG' "
+    
+    Else
+    
+     sSQL = "select KUNDNR from LISRT where FORMAT = 'EDIBUDNI' "
+    
+    End If
+    'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  Ende
+    
     Set rsLi = gdBase.OpenRecordset(sSQL)
     If Not rsLi.EOF Then
         cBudniKundNr = Trim(rsLi!Kundnr)
@@ -1536,10 +1547,10 @@ LOKAL_ERROR:
     
     Fehlermeldung1
 End Sub
-Private Sub Option1_Click(Index As Integer)
+Private Sub Option1_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
-    Select Case Index
+    Select Case index
         Case Is = 4     'vormonat
             If Month(DateValue(Now)) = 1 Then
                 Text1(0).Text = Format("01.12." & Year(DateValue(Now)) - 1, "DD.MM.YY")

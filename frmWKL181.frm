@@ -707,12 +707,12 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Private Sub Command5_Click(Index As Integer)
+Private Sub Command5_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
     Dim lcount As Long
 
-    Select Case Index
+    Select Case index
         Case 0
             Unload frmWKL181
         Case 1
@@ -1099,7 +1099,9 @@ On Error GoTo LOKAL_ERROR
     End If
 
     Dim stConnect As String
-    stConnect = "ODBC;DRIVER=SQL Server;SERVER=80.86.85.121;DATABASE=stada;UID=eanlive;PWD=sigverif2005"
+'    stConnect = "ODBC;DRIVER=SQL Server;SERVER=80.86.85.121;DATABASE=stada;UID=eanlive;PWD=sigverif2005"
+    stConnect = "ODBC;DRIVER=SQL Server;SERVER=" & SERVER_NEW & ";DATABASE=stada;UID=eanlive;PWD=sigverif2005"
+    
 '    stConnect = "ODBC;DRIVER=SQL Server;SERVER=80.86.85.121;DATABASE=stada;UID=sa;PWD=sigverif1"
     
     
@@ -1271,8 +1273,8 @@ On Error GoTo LOKAL_ERROR
     End If
 
     Dim stConnect As String
-    stConnect = "ODBC;DRIVER=SQL Server;SERVER=80.86.85.121;DATABASE=spielwaren;UID=eanlive;PWD=sigverif2005"
-    
+'    stConnect = "ODBC;DRIVER=SQL Server;SERVER=80.86.85.121;DATABASE=spielwaren;UID=eanlive;PWD=sigverif2005"
+     stConnect = "ODBC;DRIVER=SQL Server;SERVER=" & SERVER_NEW & ";DATABASE=spielwaren;UID=eanlive;PWD=sigverif2005"
     
     Dim dbKLive As DAO.Database
 
@@ -1503,8 +1505,8 @@ On Error GoTo LOKAL_ERROR
     End If
 
     Dim stConnect As String
-    stConnect = "ODBC;DRIVER=SQL Server;SERVER=80.86.85.121;DATABASE=stada;UID=eanlive;PWD=sigverif2005"
-    
+'    stConnect = "ODBC;DRIVER=SQL Server;SERVER=80.86.85.121;DATABASE=stada;UID=eanlive;PWD=sigverif2005"
+     stConnect = "ODBC;DRIVER=SQL Server;SERVER=" & SERVER_NEW & ";DATABASE=stada;UID=eanlive;PWD=sigverif2005"
     
     Dim dbKLive As DAO.Database
 

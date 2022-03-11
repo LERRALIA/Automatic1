@@ -3337,7 +3337,6 @@ Else
        If ConverterPfad2 <> "" Then
         gsConverterPfad = ConverterPfad2
         Text1(1).Text = gsConverterPfad2
-        frmWKL71.TextConvPfad.Text = ConverterPfad2
     Else
         MsgBox ("Der Pfad für Converter ist nicht korrekt.Starten Sie zuerst  das Programm 'Data Converter'")
         GoTo LOKAL_ERROR
@@ -3376,10 +3375,6 @@ Private Sub Command5_Click(index As Integer)
             gsConverterPfad = Text1(1).Text
             speicherTankpfad
             voreinstellungspeichernE183
-    '***************************************************************************************************************
-    Dim lRet        As Long
-   lRet = Shell("taskkill /F /IM Converter.exe")
-    '***************************************************************************************************************
             Unload frmWKL183
         Case 1      'Ziel-Datei füllen
             If gsMDEGERAET = "REWEMDE" Then
@@ -3449,34 +3444,25 @@ Private Sub Form_Load()
     Text1(28).Text = gsTankPfad
     Text1(1).Text = gsConverterPfad
     
-   ' If gsConverterPfad = "" Then                                                                       17.02.2022
-   '     MsgBox "Bitte geben Sie den Pfad zum Converter an!", vbCritical, "Winkiss Information:"
-    '    Exit Sub
-   ' End If
+    If gsConverterPfad = "" Then
+        MsgBox "Bitte geben Sie den Pfad zum Converter an!", vbCritical, "Winkiss Information:"
+        
+        Exit Sub
+    End If
     
     sLFNR = "1"
     
     sMDECPfad = Text1(1).Text '"C:\Program Files (x86)\CipherLab\Data Converter 3"
     sMDECname = "Converter.exe"
  '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<18.01.22
- 
- If CreateObject("Scripting.FileSystemObject").FolderExists(sMDECPfad) Then
-    Text1(1).Text = sMDECPfad
- Else                                                                              '  WENN PFAD existiert  ==> weiter
-   Dim ConverterPfad1 As String: ConverterPfad1 = ProcessPfad("Converter.exe")     '  wenn Pfad falsch basteln Pfad
-         If ConverterPfad1 = "" Then
-                 MsgBox ("Schlissen Sie  'Winkiss',starten  das Programm 'Data Converter' und starten 'Winkiss' nochmal") ' wenn Pfad nicht gebastelt wurde
-                Exit Sub
+        Dim ConverterPfad1 As String: ConverterPfad1 = ProcessPfad("Converter.exe")
+
+        If ConverterPfad1 = "" Then
+                ' MsgBox ("Starten Sie zuerst  das Programm 'Data Converter'")
+                Exit Sub       '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         Else
         sMDECPfad = ConverterPfad1
-        Text1(1).Text = ConverterPfad1
-frmWKL71.TextConvPfad.Text = ConverterPfad1
         End If
- 
- End If
- 
- 
-
 '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<18.01.22
   
     bMDECONVfound = False

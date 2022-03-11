@@ -4596,14 +4596,14 @@ Private Function fnSchreibeDTADatenWKL20() As Integer
     Dim cSQL            As String
     Dim cEmpfaenger     As String
     Dim cText           As String
-    Dim cUhrzeit        As String
+    Dim cUhrZeit        As String
     Dim dBetrag         As Double
     Dim rsrs            As Recordset
     
     fnSchreibeDTADatenWKL20 = 0
     
     lDatum = Fix(Now)
-    cUhrzeit = Format$(Now, "HH:MM:SS")
+    cUhrZeit = Format$(Now, "HH:MM:SS")
     
     cText = Label11(3).Caption
     cText = fnMoveComma2Point$(cText)
@@ -4635,7 +4635,7 @@ Private Function fnSchreibeDTADatenWKL20() As Integer
     rsrs!EKONTO = gECKarte.Konto1
     rsrs!BELEGNR = lAnzSatz
     rsrs!Datum = lDatum
-    rsrs!Uhrzeit = cUhrzeit
+    rsrs!Uhrzeit = cUhrZeit
     rsrs!SENDOK = False
     rsrs!FILIALE = CInt(gcFilNr)
     rsrs!zweck1 = gcKasNum & "9999"
@@ -5027,51 +5027,6 @@ End Sub
 Private Sub Command33_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
       prot_GZ ("SCHLISSEN--------------------")
-      '------------------------------------------------------
-      Dim sLine, sLine1, sInfo, VorMonatDatum, Monat As String
-      sInfo = Format$(Now, "dd.mm.yyyy")
-      'basteln vorherige Monat
-      Dim Mon, LL As Integer
-      Mon = 1 * Mid(sInfo, 4, 2)
-      If Mon = 1 Then
-      Monat = "12"
-      Else
-        Mon = Mon - 1
-        If Mon < 10 Then
-            Monat = "0" & Mon
-        Else
-            Monat = "" & Mon
-        End If
-      End If
-      VorMonatDatum = Mid(sInfo, 7, 4) & Monat & Mid(sInfo, 1, 2)
-      Dim FNr As Integer
-      
-    Dim InfoDateiname As String
-    FNr = FreeFile
-    InfoDateiname = App.Path & IIf(Right$(App.Path, 1) <> "\", "\", "") & "PROT_GZ" & ".log"
-    Dim ProtokolleArray(0 To 1000) As String
-    LL = 0
-    Open InfoDateiname For Input As #FNr
-      
-While Not EOF(1)
-  Line Input #FNr, sLine
-  sLine1 = Mid(sLine, 7, 4) & Mid(sLine, 4, 2) & Mid(sLine, 1, 2)
-  
-  If 1 * VorMonatDatum < 1 * sLine1 Then
-    ProtokolleArray(LL) = sLine
-    LL = LL + 1
-  End If
-Wend
-Close #FNr
- FNr = FreeFile
- InfoDateiname = App.Path & IIf(Right$(App.Path, 1) <> "\", "\", "") & "PROT_GZ" & ".log"
-  Open InfoDateiname For Output As #FNr
-  Dim indP As Integer
-  For indP = 0 To LL - 1
-   Print #FNr, ProtokolleArray(indP)
-  Next
-  Close #FNr
-      '------------------------------------------------------
     Unload frmWKL68
          
 Exit Sub
@@ -5091,34 +5046,7 @@ anzeige "normal", "", Label9
 
 Select Case index
     Case 0
-    Dim weldwert1, weldwert2, weldwert3, weldwert4
-    If Text1(0).Text = "" Then
-        weldwert1 = "Leer"
-    Else
-        weldwert1 = Text1(0).Text
-    End If
-    
-    If Text1(2).Text = "" Then
-        weldwert2 = "Leer"
-    Else
-        weldwert2 = Text1(2).Text
-    End If
-    
-    If Text1(7).Text = "" Then
-        weldwert3 = "Leer"
-    Else
-        weldwert3 = Text1(7).Text
-    End If
-    
-    If Text1(1).Text = "" Then
-        weldwert4 = "Leer"
-    Else
-        weldwert4 = Text1(1).Text
-    End If
-    
-    
-     prot_GZ ("ABSCHLISSEN" & " BARGELG: " & weldwert1 & " KARTE 1: " & weldwert2 & " KARTE 2: " & weldwert3 & " GUTSCHEIN: " & weldwert4)
-       ' prot_GZ ("ABSCHLISSEN" & " BARGELG: " & Text1(0) & " KARTE 1: " & Text1(2) & " KARTE 2: " & Text1(7) & " GUTSCHRIFT: " & Text1(1))
+        prot_GZ ("ABSCHLISSEN")
         Command5(1).Visible = False
         Command5(0).Visible = False
         If allesPrüfen Then
@@ -15407,7 +15335,7 @@ Private Sub SSCommand6_Click(index As Integer)
                 Offenrechnen (3)
                 
             Case Is = 16    '** Clear in suchegutschnr **
-                prot_GZ ("CLEAR IN SUCHE GUTSCHEINNUMMER") '"Gutscheinnummer"
+                prot_GZ ("CLEAR IN SUCHE GUTSCHRIFTNUMMER") '"Gutscheinnummer"
                 Text1(4).Text = ""
                 Text1(4).SetFocus
                 

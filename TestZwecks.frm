@@ -1,4 +1,5 @@
 VERSION 5.00
+Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "msflxgrd.ocx"
 Begin VB.Form TestZwecks 
    Caption         =   "TestZwecks"
    ClientHeight    =   3015
@@ -9,6 +10,18 @@ Begin VB.Form TestZwecks
    ScaleHeight     =   3015
    ScaleWidth      =   4560
    StartUpPosition =   3  'Windows-Standard
+   Begin MSFlexGridLib.MSFlexGrid MSFlexGrid1 
+      Height          =   1575
+      Left            =   360
+      TabIndex        =   3
+      Top             =   1440
+      Width           =   3375
+      _ExtentX        =   5953
+      _ExtentY        =   2778
+      _Version        =   393216
+      Rows            =   4
+      Cols            =   3
+   End
    Begin VB.CommandButton Command2 
       Caption         =   "Command2"
       Height          =   375
@@ -99,4 +112,15 @@ LOKAL_ERROR:
     Fehler.gsFehlertext = "Im Programmteil Unternehmensdaten ist ein Fehler aufgetreten."
     
     Fehlermeldung1
+End Sub
+
+Private Sub Form_Load()
+
+ MSFlexGrid1.Row = 2
+ MSFlexGrid1.Col = 2
+ MSFlexGrid1.Text = "Odayy"
+ 
+ MSFlexGrid1.FixedCols = 0
+ 
+
 End Sub

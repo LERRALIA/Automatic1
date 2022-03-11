@@ -11270,8 +11270,7 @@ On Error GoTo LOKAL_ERROR
    
     schreibeProtokollDaba ("externe Sicherung wird abgeholt")
     
-    'gsZenFTPAdresse = "80.86.85.121" '"85.25.132.45"
-    gsZenFTPAdresse = SERVER_NEW    '23.02.2022  VL
+    gsZenFTPAdresse = "80.86.85.121" '"85.25.132.45"
     gsZenFTPUSER = gsLagerFTPBox 'Das ist der Eintrag aus der Lager.cfg
     gsZenFTPPASS = "stada"
 
@@ -11928,7 +11927,7 @@ Public Sub LeseArtBestandinFil(List1 As Object, List2 As Object)
         rsrs.MoveFirst
         Do While Not rsrs.EOF
             cFilnr = IIf(IsNull(rsrs!FILIALNR), "-1", rsrs!FILIALNR)
-            cFilname = IIf(IsNull(rsrs!FILIALNAME), "", rsrs!FILIALNAME)
+            cFilname = IIf(IsNull(rsrs!Filialname), "", rsrs!Filialname)
             ckPr = IIf(IsNull(rsrs!KVKPR1), "0,00", Format(rsrs!KVKPR1, "#####0.00"))
             cBestand = IIf(IsNull(rsrs!BESTAND), "0", rsrs!BESTAND)
             cMB = IIf(IsNull(rsrs!MB), "0", rsrs!MB)

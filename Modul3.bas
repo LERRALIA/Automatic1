@@ -268,7 +268,8 @@ On Error GoTo LOKAL_ERROR
     
     
     gcBestellEmail.Message = sTemp
-    gcBestellEmail.Recipient = "s.fazlija@kisswws.de"
+    'gcBestellEmail.Recipient = "s.fazlija@kisswws.de"
+    gcBestellEmail.Recipient = "vertrieb@kisswws.de"
             
     frmWKL129.Show 1
             

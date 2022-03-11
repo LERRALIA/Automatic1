@@ -14385,21 +14385,14 @@ Private Sub Command1_Click(index As Integer)
     On Error GoTo LOKAL_ERROR
     
     Dim lcount As Long
- 
+    
     If index <> 5 Then
-
         Label2.Visible = False
         Label3.Visible = False
         Label1(1).Visible = False
         StarteSubMenue index
     Else
-        '***************************************************************************************************************
-    Dim lRet        As Long
-   lRet = Shell("taskkill /F /IM Converter.exe")
-    '***************************************************************************************************************
-    
         Unload frmWKL00
-
         End 'Ende
     End If
     
@@ -24416,18 +24409,7 @@ On Error GoTo LOKAL_ERROR
     Dim l               As Long
 
     cBudniKundNr = ""
-    'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  START
-    If gbBudniNeuesFtpVerfahren Then
-     
-     sSQL = "select KUNDNR from LISRT where FORMAT = 'EDIBHSG' "
-    
-    Else
-    
-     sSQL = "select KUNDNR from LISRT where FORMAT = 'EDIBUDNI' "
-    
-    End If
-    'Odayy <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  ENDE
-    
+    sSQL = "select KUNDNR from LISRT where FORMAT = 'EDIBUDNI' "
     Set rsLi = gdBase.OpenRecordset(sSQL)
     If Not rsLi.EOF Then
         cBudniKundNr = Trim(rsLi!Kundnr)
@@ -25300,7 +25282,7 @@ Public Sub BudniFtpUmzug()
             FTPwechsel.Top = (Me.ScaleHeight - FTPwechsel.Height) / 2
             FTPwechsel.Show 1
           End If
-       Else
+         Else
           gbBudniNeuesFtpVerfahren = True
        End If
      

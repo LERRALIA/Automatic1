@@ -361,13 +361,13 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Private Sub Command5_Click(Index As Integer)
+Private Sub Command5_Click(index As Integer)
 On Error GoTo LOKAL_ERROR
 
     Dim sPfad As String
     Dim sdbPfad As String
 
-    Select Case Index
+    Select Case index
         Case 0
             Unload frmWKL197
         Case 6
